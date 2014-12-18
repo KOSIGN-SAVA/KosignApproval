@@ -101,7 +101,6 @@
 }
 
 
-
 - (id)initWithParams:(NSDictionary *)aParams {
 	self = [super init];
 	
@@ -148,7 +147,6 @@
 }
 
 
-
 - (NSArray *)getTabItems {
 	UITabBarItem *tabItem		= nil;
 	NSMutableArray *resultArray = [[NSMutableArray alloc] init];
@@ -165,6 +163,7 @@
 	
 	return resultArray;
 }
+
 
 - (void)sendTrData:(NSString *)docID {
     //	if ([[SecurityManager sharedSecurityManager] isCanCancel] == YES) {
@@ -192,6 +191,7 @@
     //	[dicTrData release];
     //	[dicGateInput release];
 }
+
 
 // 하단의 메뉴 뷰 클릭시
 - (void)barEventButtonClicked:(UIButton *)button {
@@ -281,7 +281,6 @@
 #pragma mark-
 #pragma mark Application lifecycle methods
 #pragma mark-
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
@@ -297,6 +296,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [AppUtils settingLeftButton:self action:@selector(leftButtonClicked:) normalImageCode:@"top_back_btn.png" highlightImageCode:@"top_back_btn.png"];
+    
+    // 결재정보 페이지로 이동.
+    //[AppUtils settingRightButton:self action:@selector(goInfoPageAction:) normalImageCode:@"top_settlement_icon.png" highlightImageCode:@"top_settlement_icon_p.png"];
 
 	_isAppBackAction = NO;
     //    self.view.backgroundColor = [UIColor greenColor];
@@ -369,7 +371,71 @@
     //
     //	}
     
-	
+    
+    
+    
+    // 결재처리 페이지로 이동 버튼 뷰.
+    UIView *goRunPageButtonView         = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 307.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 307.0f, 43.0f)];
+    goRunPageButtonView.backgroundColor = [UIColor clearColor];
+    goRunPageButtonView.tag             = 10001;
+    [self.view addSubview:goRunPageButtonView];
+    
+    
+    UIButton *goRunPageButton                   = [UIButton buttonWithType:UIButtonTypeCustom];
+    goRunPageButton.frame                       = CGRectMake(0.0f, 0.0f, 307.0f, 43.0f);
+    goRunPageButton.backgroundColor             = [UIColor clearColor];
+    [goRunPageButton setBackgroundImage:[UIImage imageNamed:@"common_btn_3.png"] forState:UIControlStateNormal];
+    [goRunPageButton setTitle:@"결재처리" forState:UIControlStateNormal];
+    [goRunPageButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
+    goRunPageButton.titleLabel.font             = [UIFont systemFontOfSize:13.0f];
+    goRunPageButton.contentHorizontalAlignment  = UIControlContentHorizontalAlignmentCenter;
+    goRunPageButton.contentVerticalAlignment    = UIControlContentVerticalAlignmentFill;
+    //[goRunPageButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    [goRunPageButton addTarget:self action:@selector(btnGoRunPageClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [goRunPageButtonView addSubview:goRunPageButton];
+    
+    
+    goRunPageButtonView.hidden = YES;
+    
+    
+    
+    
+    // 결재취소/결재처리 버튼 뷰.
+    UIView *runButtonView           = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 296.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 296.0f, 43.0f)];
+    runButtonView.backgroundColor   = [UIColor clearColor];
+    goRunPageButtonView.tag         = 10002;
+    [self.view addSubview:runButtonView];
+    
+    
+    UIButton *cancelButton                  = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelButton.frame                      = CGRectMake(0.0f, 0.0f, 145.0f, 43.0f);
+    cancelButton.backgroundColor            = [UIColor clearColor];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"common_btn_1.png"] forState:UIControlStateNormal];
+    [cancelButton setTitle:@"취소" forState:UIControlStateNormal];
+    [cancelButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
+    cancelButton.titleLabel.font            = [UIFont systemFontOfSize:13.0f];
+    cancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    cancelButton.contentVerticalAlignment   = UIControlContentVerticalAlignmentFill;
+    //[cancelButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    [cancelButton addTarget:self action:@selector(btnCancelClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [runButtonView addSubview:cancelButton];
+    
+    
+    UIButton *runButton                     = [UIButton buttonWithType:UIButtonTypeCustom];
+    runButton.frame                         = CGRectMake(151.0f, 0.0f, 145.0f, 43.0f);
+    runButton.backgroundColor               = [UIColor clearColor];
+    [runButton setBackgroundImage:[UIImage imageNamed:@"common_btn_2.png"] forState:UIControlStateNormal];
+    [runButton setTitle:@"처리" forState:UIControlStateNormal];
+    [runButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
+    runButton.titleLabel.font               = [UIFont systemFontOfSize:13.0f];
+    runButton.contentHorizontalAlignment    = UIControlContentHorizontalAlignmentCenter;
+    runButton.contentVerticalAlignment      = UIControlContentVerticalAlignmentFill;
+    //[runButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    [runButton addTarget:self action:@selector(btnRunClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [runButtonView addSubview:runButton];
+    
+    
+    runButtonView.hidden = YES;
     
 }
 
@@ -422,11 +488,9 @@
 }
 
 
-
 #pragma mark -
 #pragma UITabBarDelegate
 #pragma mark -
-
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
 	switch (item.tag){
 		case 1:
@@ -467,7 +531,6 @@
 	
 	tabBar.selectedItem = nil;
 }
-
 
 
 #pragma mark -
@@ -689,8 +752,9 @@
 //            self.title = [NSString stringWithFormat:@"Page %d/%d", _currentImagePage, _maxImagePage];
 //            
 //        }
-        
-        self.title = @"첨부파일";
+//        
+//        self.title = @"첨부파일";
+        self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
         
 	}
     
@@ -703,6 +767,26 @@
     
 	_isLoading = YES;
 }
+
+
+#pragma mark -
+#pragma mark - custom Button Event
+#pragma mark -
+- (void)btnGoRunPageClicked:(id)sender {
+    
+    //URL Open
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/APPROVAL_201.act", _SM_GATEWAY_URL, _SM_GATEWAY_PATH]]];
+    [_web loadRequest:req];
+}
+
+- (void)btnCancelClicked:(id)sender {
+    
+}
+
+- (void)btnRunClicked:(id)sender {
+    
+}
+
 
 #pragma mark -
 #pragma mark - navigationBar Button Event
@@ -723,9 +807,15 @@
 }
 
 - (void)writeNoticeAction:(id)sender {
-//
     [_web stringByEvaluatingJavaScriptFromString:@"fn_movePage();"];
 
+}
+
+- (void)goInfoPageAction:(id)sender {
+    
+    //URL Open
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/APPROVAL_202.act", _SM_GATEWAY_URL, _SM_GATEWAY_PATH]]];
+    [_web loadRequest:req];
 }
 
 - (void)leftButtonClicked:(UIButton *)sender {

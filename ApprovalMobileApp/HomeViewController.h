@@ -12,8 +12,6 @@
 @interface HomeViewController : WCViewController {
     
     __weak IBOutlet UIWebView *mainWebView;
-    
-    BOOL _isNotFirst;
 }
 
 @end

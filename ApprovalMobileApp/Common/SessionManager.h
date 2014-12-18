@@ -34,7 +34,6 @@ typedef enum {
     NSMutableArray*             _categoryDataArr; //분류함 리스트(좌측 슬라이드 메뉴)
     
     NSString*                   _saveID;
-    NSString*                   _gateWayUrl;
     NSString*                   _latestVersion;
 	NSString*                   _userID;                    // 사용자 ID
     NSString*                   _appUrl;                    //app down Url
@@ -43,6 +42,10 @@ typedef enum {
     NSString*                   _selectedCategoryID; // 선택된 콜라보 분류함 일련번호 값(좌측 슬라이드 메뉴)
     NSString*                   _isWriteList;
     NSString*                   _sessionOutString;
+    
+    NSString*                   _gateWayUrl;                // 게이트 주소
+    NSString*                   _channelID;                 // 채널 ID
+    NSString*                   _portalID;                  // 포탈 ID
 
 	BOOL                        _bIsLogin;                  // 로그인 여부
     BOOL                        _isNetworkStuts;
@@ -82,9 +85,12 @@ typedef enum {
 @property (nonatomic, retain) NSString*       isWriteList;
 @property (nonatomic, retain) NSString*       sessionOutString;
 
-@property (nonatomic, copy)   NSString* gateWayUrl;
 @property (nonatomic, copy)   NSString* userID;
 @property (nonatomic, copy)   NSString* selectedCategoryID;
+
+@property (nonatomic, copy)   NSString* gateWayUrl;
+@property (nonatomic, copy)   NSString* channelID;
+@property (nonatomic, copy)   NSString* portalID;
 
 @property (nonatomic)   NSInteger selectChildInt;
 @property (nonatomic)   NSInteger selectReceive;

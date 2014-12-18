@@ -66,9 +66,9 @@
             UIButton *dNewCount = (UIButton *)[self.view viewWithTag:2002];
             UIButton *aNewCount = (UIButton *)[self.view viewWithTag:2003];
             
-
+            
             if ([[[responseArray objectAtIndex:0] objectForKey:@"PERS_ALAM_CNT"] integerValue] > 0) {
-
+                
                 pNewCount.hidden = NO;
                 [pNewCount setTitle:[[responseArray objectAtIndex:0] objectForKey:@"PERS_ALAM_CNT"] forState:UIControlStateNormal];
                 
@@ -116,22 +116,22 @@
     switch ([sender tag]) {
             
         case 1001: // 개인결재함
-            strUrl = @"http://www.naver.com";
+            strUrl = @"APPROVAL_101.act";
             
             break;
         case 1002: // 부서결재함
-            strUrl = @"http://www.daum.net";
+            strUrl = @"APPROVAL_102.act";
             
             break;
         case 1003: // 접수결재함
-            strUrl = @"http://www.nate.com";
+            strUrl = @"APPROVAL_103.act";
             
             break;
             
     }
     
     
-    WebStyleViewController *webView = [[WebStyleViewController alloc] initWithURL:strUrl];
+    WebStyleViewController *webView = [[WebStyleViewController alloc] initWithURL:[NSString stringWithFormat:@"%@%@/%@", _SM_GATEWAY_URL, _SM_GATEWAY_PATH, strUrl]];
     [self.navigationController pushViewController:webView animated:YES];
     
 }
@@ -158,7 +158,7 @@
     
     
     // URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://bizplay.com"]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/APPROVAL_MAIN_101.act", _SM_GATEWAY_URL, _SM_GATEWAY_PATH]]];
     
     [mainWebView loadRequest:req];
     
@@ -170,14 +170,11 @@
     [super viewWillAppear:animated];
     
     
-    if (_isNotFirst == NO) {
+    if ([[SessionManager sharedSessionManager].userID isEqualToString:@""]) {
         
         UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
         GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
         [self presentViewController:navigation animated:NO completion:nil];
-        
-        
-        _isNotFirst = YES;
         
     } else {
         
