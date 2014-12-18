@@ -12,6 +12,12 @@
 @interface HomeViewController : WCViewController {
     
     __weak IBOutlet UIWebView *mainWebView;
+    
+    // Constraints
+    __weak IBOutlet NSLayoutConstraint *webViewLeftConstraint;
+    __weak IBOutlet NSLayoutConstraint *webViewRightConstraint;
+    __weak IBOutlet NSLayoutConstraint *tabViewLeftConstraint;
+    __weak IBOutlet NSLayoutConstraint *tabViewRightConstraint;
 }
 
 @end
