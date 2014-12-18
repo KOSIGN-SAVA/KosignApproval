@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0175C435-4C17-491D-B539-AB82A70864B4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ApprovalMobileApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</key>
+		<string>http://git.smart.webcash.co.kr/IOS_Progress/ApprovalMobile</string>
+		<key>F821001789B1B5BAE2F96699DEF29D07022B265A</key>
+		<string>http://git.smart.webcash.co.kr/IOS_Progress/ApprovalMobileApp</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ApprovalMobileApp.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</key>
+		<string>../..</string>
+		<key>F821001789B1B5BAE2F96699DEF29D07022B265A</key>
+		<string>../../../DevelopBranch</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://git.smart.webcash.co.kr/IOS_Progress/ApprovalMobile</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ApprovalMobile</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F821001789B1B5BAE2F96699DEF29D07022B265A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DevelopBranch</string>
+		</dict>
+	</array>
+</dict>
+</plist>
