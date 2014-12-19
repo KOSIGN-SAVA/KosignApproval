@@ -131,7 +131,7 @@
     }
     
     
-    WebStyleViewController *webView = [[WebStyleViewController alloc] initWithURL:[NSString stringWithFormat:@"%@%@/%@", _SM_GATEWAY_URL, _SM_GATEWAY_PATH, strUrl]];
+    WebStyleViewController *webView = [[WebStyleViewController alloc] initWithURL:[NSString stringWithFormat:@"%@/%@", [SessionManager sharedSessionManager].gateWayUrl, strUrl]];
     [self.navigationController pushViewController:webView animated:YES];
     
 }
@@ -189,30 +189,29 @@
     
     
     // URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/APPROVAL_MAIN_101.act", _SM_GATEWAY_URL, _SM_GATEWAY_PATH]]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_MAIN_101.act", [SessionManager sharedSessionManager].gateWayUrl]]];
     
     [mainWebView loadRequest:req];
     
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
     
     
-//    if ([[SessionManager sharedSessionManager].userID isEqualToString:@""]) {
-//        
-//        UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//        GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
-//        [self presentViewController:navigation animated:NO completion:nil];
-//        
-//    } else {
-//        
-//        // 결재함 알림 건수 조회 전문 전송
-//        [self sendTranData:@"APPR_ALAM_R101"];
-//        
-//    }
+    if ([[SessionManager sharedSessionManager].userID isEqualToString:@""]) {
+        
+        UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+        [self presentViewController:navigation animated:NO completion:nil];
+        
+    } else {
+        
+        // 결재함 알림 건수 조회 전문 전송
+        [self sendTranData:@"APPR_ALAM_R101"];
+        
+    }
     
 }
 

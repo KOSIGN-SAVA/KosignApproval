@@ -775,7 +775,7 @@
 - (void)btnGoRunPageClicked:(id)sender {
     
     //URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/APPROVAL_201.act", _SM_GATEWAY_URL, _SM_GATEWAY_PATH]]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_201.act", [SessionManager sharedSessionManager].gateWayUrl]]];
     [_web loadRequest:req];
 }
 
@@ -814,7 +814,7 @@
 - (void)goInfoPageAction:(id)sender {
     
     //URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/APPROVAL_202.act", _SM_GATEWAY_URL, _SM_GATEWAY_PATH]]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_202.act", [SessionManager sharedSessionManager].gateWayUrl]]];
     [_web loadRequest:req];
 }
 
