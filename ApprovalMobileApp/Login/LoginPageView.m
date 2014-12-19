@@ -89,6 +89,7 @@
     _TxtId.text=[[NSUserDefaults standardUserDefaults] stringForKey:@"saveId"];
     NSMutableDictionary *sendDictionary=[[NSMutableDictionary alloc]init];
     [sendDictionary setValue:@"I_BA_G_1" forKey:@"_master_id"];
+//    I_BC_G_1
     
     [super sendTransaction:@"APPR_MM0001" requestDictionary:sendDictionary];
 }
