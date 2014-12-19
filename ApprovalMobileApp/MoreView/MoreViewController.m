@@ -9,11 +9,14 @@
 #import "MoreViewController.h"
 #import "ProfileHeaderView.h"
 #import "FooterView.h"
-
+#import "CustomTableViewCell.h"
+#import "SettingNotificationViewController.h"
 
 #import "Constants.h"
 #import "AllUtils.h"
 #import "SessionManager.h"
+
+static NSString * APPR_SET_R101 = @"APPR_SET_R101";
 
 @interface MoreViewController ()
 
@@ -21,6 +24,7 @@
 @property (nonatomic,strong) ProfileHeaderView *profileView;
 @property (nonatomic,strong) FooterView *footerView;
 @property (nonatomic,strong) NSArray *imageName;
+@property (nonatomic,strong) NSString *apiKey;
 @end
 
 @implementation MoreViewController
@@ -53,20 +57,17 @@
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    cell.textLabel.textColor  = RGB(80.0, 80.0, 80.0);
-    cell.textLabel.font       = [UIFont systemFontOfSize:15.0];
-    cell.textLabel.text       = self.cellTitle[indexPath.row];
+    cell.txtLabel.text        = self.cellTitle[indexPath.row];
     
     UIImage *image              = [UIImage imageNamed:self.imageName[indexPath.row]];
-    cell.imageView.transform    = CGAffineTransformMakeScale(image.size.width / 90.0, image.size.height / 90.0);
-    cell.imageView.image        = image;
+    cell.imgView.image          = image;
     
     image                  = [UIImage imageNamed:@"more_list_next.png"];
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:
                               CGRectMake(0.0, 0.0, image.size.width / 2, image.size.height / 2)];
-    imageView.image        = [UIImage imageNamed:@"more_list_next.png"];
+    imageView.image        = image;
     cell.accessoryView     = imageView;
     
     return cell;
@@ -82,8 +83,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     switch (indexPath.row) {
-        case 0:
-            [self performSegueWithIdentifier:@"settingSegueForward" sender:nil];
+        case 0:{
+            self.apiKey = APPR_SET_R101;
+            NSDictionary *subChildDic = @{ @"USER_ID" : [SessionManager sharedSessionManager].userID };
+            [self sendJSONWithAPI:self.apiKey forDictionary:subChildDic];
+        }
             break;
         default:
             [self performSegueWithIdentifier:@"customerCenterSegueForward" sender:nil];
@@ -113,7 +117,17 @@
     CGFloat profileHeight = [self tableView:self.tableView heightForHeaderInSection:section];
     CGFloat cellHeight    = [self.tableView rowHeight];
     
-    return self.tableView.frame.size.height - (cellHeight * self.cellTitle.count) - profileHeight;
+#if _DEBUG_
+    NSLog(@"hieght of tableveiw %@", NSStringFromCGRect(self.view.frame));
+    NSLog(@"height %f",self.tableView.frame.size.height - (cellHeight * self.cellTitle.count) - profileHeight);
+#endif
+    
+    if (self.view.frame.size.height > 416){
+        return self.tableView.frame.size.height - (cellHeight * self.cellTitle.count) - profileHeight;
+    }
+    else{   // for iPhone 4s
+        return 250.0;
+    }
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -154,7 +168,7 @@
         NSLog(@"user info %@", userInfo);
 #endif
 
-        if (!userInfo) {
+        if (userInfo) {
             _profileView.userNamelabel.text     = userInfo[@"USER_NM"];     // user name
             _profileView.companyNameLabel.text  = userInfo[@"BSNN_NM"];     // company name
             
@@ -195,6 +209,10 @@
         [_footerView addSubview:line];
         
         NSArray *avaiableApps   = [SessionManager sharedSessionManager].appInfoDataArr;
+        
+#if _DEBUG_
+        NSLog(@"avaiableApps --- > %@",avaiableApps);
+#endif
         
         if (avaiableApps.count == 0) return _footerView;
 
@@ -314,6 +332,14 @@
     
 }
 
+- (void)sendJSONWithAPI:(NSString *) apiKey forDictionary:(NSDictionary *) reqDic{
+    [AppUtils showWaitingSplash];
+    self.view.userInteractionEnabled = NO;
+    super.navigationController.view.userInteractionEnabled = NO;
+    
+    [super sendTransaction:apiKey requestDictionary:reqDic];
+}
+
 - (void)executedAppAtIndex:(NSInteger)index forURLString:(NSString *)url{
     NSArray *appArr = [SessionManager sharedSessionManager].appInfoDataArr;
     
@@ -430,16 +456,34 @@
 
 - (void)returnTrans:(NSString *)transCode responseArray:(NSArray *)responseArray success:(BOOL)success{
     
+    [AppUtils closeWaitingSplash];
+    self.view.userInteractionEnabled = YES;
+    super.navigationController.view.userInteractionEnabled = YES;
+    
+#if _DEBUG_
+    NSLog(@"result --> %@", responseArray);
+#endif
+
+    if (success) {
+        if ([self.apiKey isEqualToString:APPR_SET_R101])
+            [self performSegueWithIdentifier:@"settingSegueForward" sender:responseArray[0]];
+    }
+
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"settingSegueForward"]) {
+        SettingNotificationViewController *settingVC = segue.destinationViewController;
+        settingVC.responsePushDictionary             = (NSDictionary *) sender;
+    }
+    
 }
-*/
+
 
 @end

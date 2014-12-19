@@ -11,5 +11,5 @@
 @interface SettingNotificationViewController : WCViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (nonatomic,strong) NSDictionary *responsePushDictionary;
 @end

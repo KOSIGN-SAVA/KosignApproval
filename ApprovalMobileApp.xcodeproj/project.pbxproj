@@ -180,6 +180,7 @@
 		959502441A2BF09E00802056 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959502431A2BF09E00802056 /* MoreViewController.m */; };
 		959502471A2C03D700802056 /* SettingNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959502461A2C03D700802056 /* SettingNotificationViewController.m */; };
 		9595024D1A2C24EF00802056 /* CustomerCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9595024C1A2C24EF00802056 /* CustomerCenterViewController.m */; };
+		95A2EFD41A428E5D006CF902 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95A2EFD31A428E5D006CF902 /* CustomTableViewCell.m */; };
 		A09985AD1A2D754F00BF8955 /* login_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985A71A2D754F00BF8955 /* login_btn.png */; };
 		A09985AE1A2D754F00BF8955 /* login_checkbox_default.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985A81A2D754F00BF8955 /* login_checkbox_default.png */; };
 		A09985AF1A2D754F00BF8955 /* login_checkbox_select.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985A91A2D754F00BF8955 /* login_checkbox_select.png */; };
@@ -482,6 +483,8 @@
 		959502461A2C03D700802056 /* SettingNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingNotificationViewController.m; path = MoreView/SettingNotificationViewController.m; sourceTree = "<group>"; };
 		9595024B1A2C24EF00802056 /* CustomerCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomerCenterViewController.h; path = MoreView/CustomerCenterViewController.h; sourceTree = "<group>"; };
 		9595024C1A2C24EF00802056 /* CustomerCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomerCenterViewController.m; path = MoreView/CustomerCenterViewController.m; sourceTree = "<group>"; };
+		95A2EFD21A428E5C006CF902 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		95A2EFD31A428E5D006CF902 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		A09985A71A2D754F00BF8955 /* login_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_btn.png; sourceTree = "<group>"; };
 		A09985A81A2D754F00BF8955 /* login_checkbox_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_checkbox_default.png; sourceTree = "<group>"; };
 		A09985A91A2D754F00BF8955 /* login_checkbox_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_checkbox_select.png; sourceTree = "<group>"; };
@@ -1116,6 +1119,8 @@
 				9595023A1A2BF04200802056 /* ProfileHeaderView.h */,
 				9595023B1A2BF04200802056 /* ProfileHeaderView.m */,
 				9595023C1A2BF04200802056 /* ProfileHeaderView.xib */,
+				95A2EFD21A428E5C006CF902 /* CustomTableViewCell.h */,
+				95A2EFD31A428E5D006CF902 /* CustomTableViewCell.m */,
 			);
 			name = View;
 			path = MoreView/View;
@@ -1410,6 +1415,7 @@
 				2AC6FF751A2704DD00154253 /* THCalendarInfo.m in Sources */,
 				2AC6FFA91A2704DD00154253 /* UIViewController+MJPopupViewController.m in Sources */,
 				2AC6FF851A2704DD00154253 /* UzysImageCropperViewController.m in Sources */,
+				95A2EFD41A428E5D006CF902 /* CustomTableViewCell.m in Sources */,
 				2AC600271A2704DE00154253 /* MenuManager.m in Sources */,
 				2AC6001F1A2704DE00154253 /* UserSettings.m in Sources */,
 				2AC6FFB71A2704DD00154253 /* QBImagePickerController.m in Sources */,

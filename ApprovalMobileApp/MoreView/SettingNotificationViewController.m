@@ -9,10 +9,18 @@
 #import "SettingNotificationViewController.h"
 
 #import "Constants.h"
+#import "AllUtils.h"
+#import "SessionManager.h"
+
+static NSString *SOUND_NOTIFI = @"SOUND_NOTIFI";
+static NSString *VIBRATION_NOTIFI = @"VIBRATION_NOTIFI";
+
+static NSString *API_KEY      = @"APPR_SET_C101";
 
 @interface SettingNotificationViewController ()
 
 @property (nonatomic,strong) NSArray *cellTitle;
+@property (nonatomic,strong) NSString *apiKey;
 
 @end
 
@@ -24,7 +32,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavigationBar];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+#if _DEBUG_
+    NSLog(@"--> push %@", self.responsePushDictionary);
+#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,8 +61,11 @@
     [accessoryButton setBackgroundImage:[UIImage imageNamed:@"toggle_off.png"] forState:UIControlStateNormal];
     [accessoryButton setBackgroundImage:[UIImage imageNamed:@"toggle_on.png"] forState:UIControlStateSelected];
     [accessoryButton addTarget:self action:@selector(handleButtonActions:) forControlEvents:UIControlEventTouchUpInside];
-    accessoryButton.tag       = [[NSString stringWithFormat:@"19%ld%ld",indexPath.section,indexPath.row]integerValue];
+    accessoryButton.tag       = [[NSString stringWithFormat:@"19%ld%ld",(long)indexPath.section,(long)indexPath.row]integerValue];
     
+    BOOL value = [self.responsePushDictionary[@"PUSH_ALAM_USE_YN"] isEqualToString:@"Y"] ? YES : NO;
+    [self configureButton:accessoryButton withBooleanValue:value];
+   
     cell.accessoryView        = accessoryButton;
     return cell;
 }
@@ -59,6 +76,14 @@
 
 #pragma mark - Lazy instantiation
 
+- (NSDictionary *)responsePushDictionary{
+    if (!_responsePushDictionary) {
+        _responsePushDictionary = [[NSDictionary alloc]init];
+    }
+    
+    return _responsePushDictionary;
+}
+
 - (NSArray *)cellTitle{
     if (!_cellTitle) {
         _cellTitle = [NSArray arrayWithObjects:@"알림 수신",@"소리 알림",@"진동 알림", nil];
@@ -68,6 +93,29 @@
 }
 
 #pragma mark - private methods
+
+- (void)sendJSONDataWithAPIKey:(NSString *) api forDictionary:(NSDictionary *)reqDic {
+    
+    [AppUtils showWaitingSplash];
+    self.view.userInteractionEnabled = NO;
+    super.navigationController.view.userInteractionEnabled = NO;
+    
+    [super sendTransaction:api requestDictionary:reqDic];
+}
+
+- (void)configureButton:(UIButton *)button withBooleanValue:(BOOL) value{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    switch (button.tag) {
+        case 1900:
+            button.selected = value;
+            break;
+        default:{
+            button.selected = value;
+            button.enabled  = [[userDefaults objectForKey:SOUND_NOTIFI] isEqualToString:@"Y"] ? YES : NO;
+        }
+            break;
+    }
+}
 
 - (void)setNavigationBar{
     //left nav
@@ -89,10 +137,58 @@
 
 - (void)handleButtonActions:(UIButton *) sender{
     sender.selected    = sender.selected ? NO : YES;
+
+    UIButton *soundButton       = (UIButton *)[self.view viewWithTag:1901];
+    UIButton *vibrationButton   = (UIButton *)[self.view viewWithTag:1902];
+    
+    soundButton.selected    = sender.selected;
+    vibrationButton.selected= sender.selected;
+    
+    if (sender.tag == 1900) {
+        soundButton.selected    = sender.selected;
+        vibrationButton.selected= sender.selected;
+    }
 }
 
 - (void)handleNavigationBarAction:(UIButton *) sender{
-    [self.navigationController popViewControllerAnimated:NO];
+    UIButton *pushButton  = (UIButton *) [self.view viewWithTag:1900];
+    UIButton *soundButton = (UIButton *) [self.view viewWithTag:1901];
+    UIButton *vibrationBtn= (UIButton *) [self.view viewWithTag:1902];
+    
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:soundButton.selected ? @"Y" : @"N" forKey:SOUND_NOTIFI];
+    [userDefaults setObject:vibrationBtn.selected ? @"Y": @"N" forKey:VIBRATION_NOTIFI];
+    [userDefaults synchronize];
+    
+    self.apiKey = API_KEY;
+    NSDictionary *subChildDic = @{@"USER_ID"            : [SessionManager sharedSessionManager].userID,
+                                  @"PUSH_ALAM_USE_YN"   : pushButton.selected ? @"Y" : @"N",
+                                  @"PUSHSERVER_KIND"    : @"APNS",
+                                  @"APP_ID"             : [[NSBundle mainBundle]bundleIdentifier],
+                                  @"PUSH_ID"            : [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken],
+                                  @"MODEL_NAME"         : @"iPhone",
+                                  @"OS"                 : [NSString stringWithFormat:@"%ld",(long)[SysUtils getOSVersion]],
+                                  @"DEVICE_ID"          : [SysUtils getCurrentUDID]
+                                };
+    [self sendJSONDataWithAPIKey:self.apiKey forDictionary:subChildDic];
+}
+
+- (void)returnTrans:(NSString *)transCode responseArray:(NSArray *)responseArray success:(BOOL)success{
+    
+    [AppUtils closeWaitingSplash];
+    self.view.userInteractionEnabled = YES;
+    super.navigationController.view.userInteractionEnabled = YES;
+    
+#if _DEBUG_
+    NSLog(@"result --> %@",responseArray);
+#endif
+    
+    if (success) {
+        if ([self.apiKey isEqualToString:API_KEY])
+            [self.navigationController popViewControllerAnimated:NO];
+    }
+    
 }
 
 /*
