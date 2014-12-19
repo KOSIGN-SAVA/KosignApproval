@@ -67,33 +67,41 @@ static NSInteger kIndicatorSize = 32;
 
 - (void)sendTransaction:(NSString *)transCode requestDictionary:(NSDictionary *)requestDictionary{
 	[SecurityManager sharedSecurityManager].delegate = self;
-	
-	NSMutableDictionary *reqDocument = [[NSMutableDictionary alloc] init];
-	[reqDocument setObject:transCode forKey:kTransCode];
-    [reqDocument setObject:kAuthenticationKey forKey:@"CNTS_CRTC_KEY"];
-	[reqDocument setObject:requestDictionary forKey:kTransRequestData];
-	
-#if _DEBUG_
-	NSLog(@"Request Trans[%@]", [reqDocument JSONRepresentation]);
-#endif
+    
+//    NSMutableDictionary *reqDocument = [[NSMutableDictionary alloc] init];
+//    [reqDocument setObject:transCode forKey:kTransCode];
+//    [reqDocument setObject:kAuthenticationKey forKey:@"CNTS_CRTC_KEY"];
+//    [reqDocument setObject:requestDictionary forKey:kTransRequestData];
+//    
+//#if _DEBUG_
+//    NSLog(@"Request Trans[%@]", [reqDocument JSONRepresentation]);
+//#endif
 	
     if ([transCode isEqualToString:@"APPR_MM0001"]) {
         
         //if (![[SecurityManager sharedSecurityManager] willConnect:nil query:[requestDictionary JSONRepresentation] method:TRANS_METHOD_POST]) {
         if (![[SecurityManager sharedSecurityManager] willConnect:nil query:nil method:TRANS_METHOD_POST]) { //포탈 서버
             [SysUtils showMessage:@"통신 처리중입니다. 잠시후 다시 시도 하여 주십시요."];
-            [reqDocument release];
             return;
         }
     } else {
+        
+        NSMutableDictionary *reqDocument = [[NSMutableDictionary alloc] init];
+        [reqDocument setObject:transCode forKey:kTransCode];
+        [reqDocument setObject:kAuthenticationKey forKey:@"CNTS_CRTC_KEY"];
+        [reqDocument setObject:requestDictionary forKey:kTransRequestData];
+        
+#if _DEBUG_
+        NSLog(@"Request Trans[%@]", [reqDocument JSONRepresentation]);
+#endif
         
         if (![[SecurityManager sharedSecurityManager] willConnect:[SessionManager sharedSessionManager].gateWayUrl query:[reqDocument JSONRepresentation] method:TRANS_METHOD_POST]) { //비즈플레이 서버
             [SysUtils showMessage:@"통신 처리중입니다. 잠시후 다시 시도 하여 주십시요."];
             [reqDocument release];
             return;
         }
+        [reqDocument release];
     }
-	[reqDocument release];
 	
 	if (_waitSplashEnabled){
 		if ([[[self.navigationController description] uppercaseString] hasPrefix:@"<GATE"]) {
