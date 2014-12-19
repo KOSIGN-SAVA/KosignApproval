@@ -322,13 +322,15 @@ int _timeOut;
 			//암호화 되지 않은 에러를 처리 할때 _error_cd
 			_responseString = [[[[[NSString alloc] initWithData:_responseData encoding:-2147481280] stringByReplacingOccurrencesOfString:@"\r" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"㈜" withString:@"(주)"];
 		}
-		else if ([_encodingName isEqualToString:@"utf-8"] == YES){
+		//else if ([_encodingName isEqualToString:@"utf-8"] == YES){
+        else {
 			//_responseString = [[[[[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"\r" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"㈜" withString:@"(주)"];
             _responseString = [[[[[[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"\r" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"㈜" withString:@"(주)"] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-		}
+        }
+        
         
         NSString *decodedString = [_responseString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+        
 #if _DEBUG_
 		NSLog(@"ResultData [%@]", _responseString);
         
@@ -483,10 +485,20 @@ static NSTimer						*_sessionTimer		= nil;
 #endif
     
 	//2010년 4월 7일
-    handler.url			= [NSString stringWithFormat:@"%@%@", _SM_GATEWAY_URL, _SM_GATEWAY_PATH];
+    //handler.url			= [NSString stringWithFormat:@"%@%@", _SM_GATEWAY_URL, _SM_GATEWAY_PATH];
+    
+    if (url == nil) {
+        
+        handler.url			= [NSString stringWithFormat:@"%@%@?", _SM_GATEWAY_URL, _SM_GATEWAY_PATH];
+        query = [NSString stringWithFormat:@"master_id=%@", @"A_BA_G_1"];
+    } else {
+        
+        handler.url			= [SessionManager sharedSessionManager].gateWayUrl;
+        query = [[[[[NSString stringWithFormat:@"JSONData=%@", query] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"&" withString:@"%26"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"] stringByReplacingOccurrencesOfString:@"%" withString:@"%25"];
+    }
     
     //query = [[[[NSString stringWithFormat:@"JSONData=%@", query] stringByAddingPercentEscapesUsingEncoding:-2147481280] stringByReplacingOccurrencesOfString:@"&" withString:@"%26"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
-    query = [[[[[NSString stringWithFormat:@"JSONData=%@", query] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"&" withString:@"%26"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"] stringByReplacingOccurrencesOfString:@"%" withString:@"%25"];
+//    query = [[[[[NSString stringWithFormat:@"JSONData=%@", query] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"&" withString:@"%26"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"] stringByReplacingOccurrencesOfString:@"%" withString:@"%25"];
     
 	handler.method		= method;
 	

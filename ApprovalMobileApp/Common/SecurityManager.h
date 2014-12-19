@@ -29,14 +29,18 @@ typedef NSUInteger SecurityMethod;
 #if _DEBUG_
 #define _SM_GATEWAY_PATHURL            @"/CntsGateway/" //GATEWAY PATH
 
-#define _SM_GATEWAY_PATH            @"/MApprGateway" //GATEWAY PATH
-#define _SM_GATEWAY_URL             @"http://contentsdev.webcashcorp.com:82" //GATEWAY URL
+//#define _SM_GATEWAY_PATH            @"/MApprGateway" //GATEWAY PATH
+//#define _SM_GATEWAY_URL             @"http://contentsdev.webcashcorp.com:82" //GATEWAY URL
+#define _SM_GATEWAY_PATH            @"/MgGate" //GATEWAY PATH
+#define _SM_GATEWAY_URL             @"http://sportal.dev.weplatform.co.kr:18880" //GATEWAY URL
 
 #else
 #define _SM_GATEWAY_PATHURL            @"/gateway.jsp/" //GATEWAY PATH
 
-#define _SM_GATEWAY_PATH            @"/MApprGateway" //GATEWAY PATH
-#define _SM_GATEWAY_URL             @"https://approval.appplay.co.kr" //GATEWAY URL
+//#define _SM_GATEWAY_PATH            @"/MApprGateway" //GATEWAY PATH
+//#define _SM_GATEWAY_URL             @"https://approval.appplay.co.kr" //GATEWAY URL
+#define _SM_GATEWAY_PATH            @"/MgGate" //GATEWAY PATH
+#define _SM_GATEWAY_URL             @"http://sportal.dev.weplatform.co.kr:18880" //GATEWAY URL
 
 #endif
 
