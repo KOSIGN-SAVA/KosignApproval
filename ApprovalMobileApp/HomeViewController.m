@@ -150,6 +150,37 @@
     [super viewDidLoad];
     
     
+    // Constraints
+    if ([SysUtils getOSVersion] >= 80000) {
+        
+        webViewLeftConstraint.constant    = -16.0f;
+        webViewRightConstraint.constant   = -16.0f;
+        
+        tabViewLeftConstraint.constant   = -16.0f;
+        tabViewRightConstraint.constant  = -16.0f;
+        
+        // 아이폰 6 플러스
+        if ([[UIScreen mainScreen] bounds].size.width == 414.0f && [[UIScreen mainScreen] bounds].size.height == 736.0f) {
+            
+            webViewLeftConstraint.constant    = -20.0f;
+            webViewRightConstraint.constant   = -20.0f;
+            
+            tabViewLeftConstraint.constant   = -20.0f;
+            tabViewRightConstraint.constant  = -20.0f;
+            
+        }
+        
+    } else {
+        
+        webViewLeftConstraint.constant    = 0.0f;
+        webViewRightConstraint.constant   = 0.0f;
+        
+        tabViewLeftConstraint.constant   = 0.0f;
+        tabViewRightConstraint.constant  = 0.0f;
+        
+    }
+    
+    
     self.title = @"결재함";
     
     [AppUtils settingRightButton:self action:@selector(btnMoreMenuClicked:) normalImageCode:@"top_more_btn.png" highlightImageCode:@"top_more_btn_p.png"];
@@ -170,18 +201,18 @@
     [super viewWillAppear:animated];
     
     
-    if ([[SessionManager sharedSessionManager].userID isEqualToString:@""]) {
-        
-        UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
-        [self presentViewController:navigation animated:NO completion:nil];
-        
-    } else {
-        
-        // 결재함 알림 건수 조회 전문 전송
-        [self sendTranData:@"APPR_ALAM_R101"];
-        
-    }
+//    if ([[SessionManager sharedSessionManager].userID isEqualToString:@""]) {
+//        
+//        UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//        GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+//        [self presentViewController:navigation animated:NO completion:nil];
+//        
+//    } else {
+//        
+//        // 결재함 알림 건수 조회 전문 전송
+//        [self sendTranData:@"APPR_ALAM_R101"];
+//        
+//    }
     
 }
 
