@@ -10,7 +10,7 @@
 	<string>ApprovalMobileApp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</key>
+		<key>B14265C523B7C62EE2AF10AA536DE5284C260E3E</key>
 		<string>http://git.smart.webcash.co.kr/IOS_Progress/ApprovalMobile</string>
 		<key>F821001789B1B5BAE2F96699DEF29D07022B265A</key>
 		<string>http://git.smart.webcash.co.kr/IOS_Progress/ApprovalMobileApp</string>
@@ -19,7 +19,7 @@
 	<string>ApprovalMobileApp.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</key>
+		<key>B14265C523B7C62EE2AF10AA536DE5284C260E3E</key>
 		<string>../..</string>
 		<key>F821001789B1B5BAE2F96699DEF29D07022B265A</key>
 		<string>../../../DevelopBranch</string>
@@ -29,14 +29,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</string>
+	<string>B14265C523B7C62EE2AF10AA536DE5284C260E3E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>2E05E24F76F936C0FC392B8393DEFABECA6FEB90</string>
+			<string>B14265C523B7C62EE2AF10AA536DE5284C260E3E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ApprovalMobile</string>
 		</dict>

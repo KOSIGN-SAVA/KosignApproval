@@ -100,8 +100,8 @@
     self.view.userInteractionEnabled                        = YES;
     super.navigationController.view.userInteractionEnabled  = YES;
     if (success) {
-//        NSLog(@"URL Name : %@",transCode);
-//        NSLog(@"Reponse  : %@",responseArray);
+        NSLog(@"URL Name : %@",transCode);
+        NSLog(@"Reponse  : %@",responseArray);
         if([transCode isEqualToString:@"APPR_LOGIN_R001"]){
             NSUserDefaults *defaults                            = [NSUserDefaults standardUserDefaults];
             [SessionManager sharedSessionManager].userID        = _TxtId.text;
@@ -306,21 +306,5 @@
     WebC.menuURL                    = URL_Id_Forget;
     [self.navigationController pushViewController:WebC animated:YES];
 }
-//==========Password Button        - 비밀번호 찾기==============//
-//- (IBAction)PasswordSearch:(id)sender {
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    [defaults setObject:@"" forKey:@"savePassword"];
-//    [defaults synchronize];
-//    
-//    if([URL_PW_Forget isEqualToString:@""]){
-//        UIAlertView *Alert=[[UIAlertView alloc]initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
-//        [Alert show];
-//        return;
-//    }
-//    
-//    WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
-//    WebC.menuURL                    = URL_PW_Forget;
-//    [self.navigationController pushViewController:WebC animated:YES];
-//}
 
 @end
