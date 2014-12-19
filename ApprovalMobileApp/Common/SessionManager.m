@@ -29,9 +29,12 @@
 @synthesize dVSN_RECarray       = _dVSN_RECarray;
 @synthesize menuArray           = _menuArray;
 @synthesize saveID              = _saveID;
-@synthesize gateWayUrl          = _gateWayUrl;
 @synthesize userID				= _userID;
 @synthesize bIsLogin		    = _bIsLogin;
+
+@synthesize gateWayUrl          = _gateWayUrl;
+@synthesize channelID           = _channelID;
+@synthesize portalID            = _portalID;
 
 @synthesize latestVersion       = _latestVersion;
 @synthesize appUrl              = _appUrl;
@@ -138,6 +141,8 @@ static SessionManager *sessionMgr = nil;
         _menuTitleString    = nil;
         _saveID             = nil;
         _gateWayUrl			= nil;
+        _channelID          = [[NSString alloc] init];
+        _portalID           = [[NSString alloc] init];
         _userID             = [[NSString alloc]init];
         _selectedCategoryID = [[NSString alloc] init];
         _sessionOutString   = [[NSString alloc] init];

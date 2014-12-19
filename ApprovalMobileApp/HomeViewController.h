@@ -13,7 +13,11 @@
     
     __weak IBOutlet UIWebView *mainWebView;
     
-    BOOL _isNotFirst;
+    // Constraints
+    __weak IBOutlet NSLayoutConstraint *webViewLeftConstraint;
+    __weak IBOutlet NSLayoutConstraint *webViewRightConstraint;
+    __weak IBOutlet NSLayoutConstraint *tabViewLeftConstraint;
+    __weak IBOutlet NSLayoutConstraint *tabViewRightConstraint;
 }
 
 @end
