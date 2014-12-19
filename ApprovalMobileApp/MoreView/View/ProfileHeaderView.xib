@@ -65,7 +65,9 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="popup_phone_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fhd-PR-2aP">
                     <rect key="frame" x="398" y="72" width="19" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="14" id="CnF-3Y-VDL"/>
+                        <constraint firstAttribute="width" constant="14" id="CnF-3Y-VDL">
+                            <variation key="heightClass=regular-widthClass=compact" constant="21"/>
+                        </constraint>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
@@ -81,7 +83,9 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="010-9508-3273" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cc-OS-7tL">
                     <rect key="frame" x="425" y="72" width="162" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="10" id="GU3-n2-IDT"/>
+                        <constraint firstAttribute="height" constant="10" id="GU3-n2-IDT">
+                            <variation key="heightClass=regular-widthClass=compact" constant="11"/>
+                        </constraint>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <color key="textColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
@@ -142,27 +146,6 @@
                         </mask>
                     </variation>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="samann@webcash.co.kr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhm-df-OXT">
-                    <rect key="frame" x="425" y="562" width="162" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="10" id="XPX-kI-4zk">
-                            <variation key="heightClass=regular-widthClass=compact" constant="13"/>
-                        </constraint>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="XPX-kI-4zk"/>
-                        </mask>
-                    </variation>
-                    <variation key="heightClass=regular-widthClass=compact">
-                        <mask key="constraints">
-                            <include reference="XPX-kI-4zk"/>
-                        </mask>
-                    </variation>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="플랫폼센터" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QZ-aW-3vP">
                     <rect key="frame" x="471" y="41" width="75" height="21"/>
                     <constraints>
@@ -187,6 +170,27 @@
                         </mask>
                     </variation>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="samann@webcash.co.kr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhm-df-OXT">
+                    <rect key="frame" x="425" y="562" width="162" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="XPX-kI-4zk">
+                            <variation key="heightClass=regular-widthClass=compact" constant="11"/>
+                        </constraint>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="XPX-kI-4zk"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="XPX-kI-4zk"/>
+                        </mask>
+                    </variation>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -198,7 +202,9 @@
                 <constraint firstAttribute="trailing" secondItem="EVa-rF-UN1" secondAttribute="trailing" constant="46" id="A7u-I2-KbZ">
                     <variation key="heightClass=regular-widthClass=compact" constant="50"/>
                 </constraint>
-                <constraint firstItem="4cc-OS-7tL" firstAttribute="top" secondItem="0QZ-aW-3vP" secondAttribute="bottom" constant="10" id="AHJ-cy-Epy"/>
+                <constraint firstItem="4cc-OS-7tL" firstAttribute="top" secondItem="0QZ-aW-3vP" secondAttribute="bottom" constant="10" id="AHJ-cy-Epy">
+                    <variation key="heightClass=regular-widthClass=compact" constant="9"/>
+                </constraint>
                 <constraint firstItem="0QZ-aW-3vP" firstAttribute="leading" secondItem="Uy6-80-Izs" secondAttribute="trailing" constant="1" id="EA8-RN-wQq">
                     <variation key="heightClass=regular-widthClass=compact" constant="8"/>
                 </constraint>
@@ -213,7 +219,9 @@
                 <constraint firstItem="4cc-OS-7tL" firstAttribute="trailing" secondItem="xhm-df-OXT" secondAttribute="trailing" id="Y5v-jH-Nni"/>
                 <constraint firstItem="3SI-8c-sAq" firstAttribute="leading" secondItem="Fhd-PR-2aP" secondAttribute="leading" id="ada-ed-pz1"/>
                 <constraint firstItem="gld-Mj-toW" firstAttribute="top" secondItem="EVa-rF-UN1" secondAttribute="bottom" constant="5" id="cpk-cH-cGI"/>
-                <constraint firstItem="4cc-OS-7tL" firstAttribute="leading" secondItem="Fhd-PR-2aP" secondAttribute="trailing" constant="5" id="d6H-LA-nsr"/>
+                <constraint firstItem="4cc-OS-7tL" firstAttribute="leading" secondItem="Fhd-PR-2aP" secondAttribute="trailing" constant="5" id="d6H-LA-nsr">
+                    <variation key="heightClass=regular-widthClass=compact" constant="-2"/>
+                </constraint>
                 <constraint firstItem="Fhd-PR-2aP" firstAttribute="leading" secondItem="Uy6-80-Izs" secondAttribute="leading" id="dw2-XS-faf"/>
                 <constraint firstItem="0QZ-aW-3vP" firstAttribute="baseline" secondItem="Uy6-80-Izs" secondAttribute="baseline" id="fmm-sH-a2J"/>
                 <constraint firstItem="4cc-OS-7tL" firstAttribute="centerY" secondItem="Fhd-PR-2aP" secondAttribute="centerY" id="gHZ-qJ-pe9"/>
@@ -228,7 +236,7 @@
                 </constraint>
                 <constraint firstItem="0QZ-aW-3vP" firstAttribute="firstBaseline" secondItem="Uy6-80-Izs" secondAttribute="firstBaseline" id="uLK-WD-SEA"/>
                 <constraint firstItem="xhm-df-OXT" firstAttribute="top" secondItem="4cc-OS-7tL" secondAttribute="bottom" constant="14" id="zPV-69-gSV">
-                    <variation key="heightClass=regular-widthClass=compact" constant="12"/>
+                    <variation key="heightClass=regular-widthClass=compact" constant="13"/>
                 </constraint>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -311,7 +319,7 @@
     </objects>
     <resources>
         <image name="person_icon.png" width="82" height="82"/>
-        <image name="popup_mail_icon.png" width="28" height="32"/>
-        <image name="popup_phone_icon.png" width="28" height="32"/>
+        <image name="popup_mail_icon.png" width="42" height="32"/>
+        <image name="popup_phone_icon.png" width="42" height="32"/>
     </resources>
 </document>

@@ -7,6 +7,7 @@
 //
 
 #import "CustomerCenterViewController.h"
+#import "WebStyleViewController.h"
 
 #import "Constants.h"
 
@@ -73,6 +74,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    switch (indexPath.row) {
+        case 0:{
+            [self pushWebViewWithURL:@""];
+        }
+            break;
+        case 1:{
+            [self pushWebViewWithURL:@""];
+        }
+            break;
+        case 2:{
+            [self pushWebViewWithURL:@""];
+        }
+            break;
+        default:{
+            [self pushWebViewWithURL:@""];
+        }
+            break;
+    }
+    
 }
 
 #pragma mark - lazy instantiation
@@ -100,6 +121,13 @@
     
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
     self.navigationItem.leftBarButtonItem = leftBarButton;
+}
+
+- (void)pushWebViewWithURL:(NSString *)urlString{
+    if ([urlString isEqualToString:@""]) return;
+    
+    WebStyleViewController *webVC = [[WebStyleViewController alloc]initWithURL:urlString];
+    [self.navigationController pushViewController:webVC animated:NO];
 }
 
 #pragma mark - handle events

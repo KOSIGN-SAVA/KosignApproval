@@ -131,7 +131,7 @@
     }
     
     
-    WebStyleViewController *webView = [[WebStyleViewController alloc] initWithURL:[NSString stringWithFormat:@"%@%@/%@", _SM_GATEWAY_URL, _SM_GATEWAY_PATH, strUrl]];
+    WebStyleViewController *webView = [[WebStyleViewController alloc] initWithURL:[NSString stringWithFormat:@"%@/%@", [SessionManager sharedSessionManager].gateWayUrl, strUrl]];
     [self.navigationController pushViewController:webView animated:YES];
     
 }
@@ -189,7 +189,7 @@
     
     
     // URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/APPROVAL_MAIN_101.act", _SM_GATEWAY_URL, _SM_GATEWAY_PATH]]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_MAIN_101.act", [SessionManager sharedSessionManager].gateWayUrl]]];
     
     [mainWebView loadRequest:req];
     

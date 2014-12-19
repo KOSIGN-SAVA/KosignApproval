@@ -14,10 +14,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #if _DEBUG_
 #define kPushServerAddress      @"http://112.187.199.29/push/standard_gateway/gateway.jsp?"//@"http://112.187.199.29/push/gateway/gateway.jsp"
-#define kAuthenticationKey      @"429c1bae-04ed-4c93-97f7-14cb8c5a1ec3"
+#define kAuthenticationKey      @"4f6dd592-01ac-488d-9fc8-38e71c14b0f0"
 #else
 #define kPushServerAddress      @"https://sws.webcash.co.kr/wcp/gateway/gateway.jsp?"//@"http://112.187.199.29/push/gateway/gateway.jsp"
-#define kAuthenticationKey      @"8c6ad040-d831-4193-9492-cd534b8996b2"
+#define kAuthenticationKey      @"903522c1-9b0a-45f6-8b77-8313291249fa"
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
