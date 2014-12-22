@@ -400,7 +400,7 @@
     // 결재취소/결재처리 버튼 뷰.
     UIView *runButtonView           = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 296.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 296.0f, 43.0f)];
     runButtonView.backgroundColor   = [UIColor clearColor];
-    goRunPageButtonView.tag         = 10002;
+    runButtonView.tag         = 10002;
     [self.view addSubview:runButtonView];
     
     
@@ -641,116 +641,133 @@
 			NSString *actionCode = [actionDic objectForKey:@"_action_code"];
             
             
-            //go Home
-            if ([actionCode isEqualToString:@"1002"]) {
-                [SessionManager sharedSessionManager].userID = @"";
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
+            // 다중 액션.
+            NSArray *actionCodes = [actionCode componentsSeparatedByString:@"|"];
             
-            //logout
-            if ([actionCode isEqualToString:@"5005"]) {
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                [[NSNotificationCenter defaultCenter] postNotificationName:ksesstionLogout object:self userInfo:nil];
-
-            }
             
-            //write
-            if ([actionCode isEqualToString:@"4001"]) {
-                [AppUtils settingRightButton:self action:@selector(writeNoticeAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
-
-            }
-
-            if ([actionCode isEqualToString:@"4002"]) {
-                self.navigationItem.rightBarButtonItem = nil;
-
-            }
-            
-            //save
-            if ([actionCode isEqualToString:@"4003"]) {
-                [AppUtils settingRightButton:self action:@selector(saveAction:) normalImageCode:@"Top_check.png" highlightImageCode:@"Top_check.png"];
+            for (int i = 0; i < [actionCodes count]; i++) {
+                //go Home
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"1002"]) {
+                    [SessionManager sharedSessionManager].userID = @"";
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                }
                 
-            }
-
-            //modify
-            if ([actionCode isEqualToString:@"4004"]) {
-                [AppUtils settingRightButton:self action:@selector(modifyAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
+                //logout
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"5005"]) {
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ksesstionLogout object:self userInfo:nil];
+                    
+                }
                 
+                //write
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"4001"]) {
+                    [AppUtils settingRightButton:self action:@selector(writeNoticeAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
+                    
+                }
+                
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"4002"]) {
+                    self.navigationItem.rightBarButtonItem = nil;
+                    
+                }
+                
+                //save
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"4003"]) {
+                    [AppUtils settingRightButton:self action:@selector(saveAction:) normalImageCode:@"Top_check.png" highlightImageCode:@"Top_check.png"];
+                    
+                }
+                
+                //modify
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"4004"]) {
+                    [AppUtils settingRightButton:self action:@selector(modifyAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
+                    
+                }
+                
+                //delete
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"4005"]) {
+                    [AppUtils settingRightButton:self action:@selector(deleteAction:) normalImageCode:@"Top_delete.png" highlightImageCode:@"Top_delete.png"];
+                    
+                }
+                
+                //프로그래스바 시작
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2001"]) {
+                    [AppUtils showWaitingSplash];
+                    //self.view.userInteractionEnabled = NO;
+                    //super.navigationController.view.userInteractionEnabled = NO;
+                    
+                }
+                
+                //프로그래스바 종료
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2002"]) {
+                    [AppUtils closeWaitingSplash];
+                    //self.view.userInteractionEnabled = YES;
+                    //super.navigationController.view.userInteractionEnabled = YES;
+                    
+                }
+                
+                //Back 버튼 display
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2003"]) {
+                    [AppUtils settingLeftButton:self action:@selector(leftButtonClicked:) normalImageCode:@"top_back_btn.png" highlightImageCode:@"top_back_btn.png"];
+                    
+                }
+                
+                //Back 버튼 Hidden
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2004"]) {
+                    self.navigationItem.leftBarButtonItems = nil;
+                    
+                }
+                
+                //결재처리버튼 display
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2101"]) {
+                    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+                    buttonView.hidden = NO;
+                    
+                }
+                
+                //결재처리버튼 Hidden
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2102"]) {
+                    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+                    buttonView.hidden = YES;
+                    
+                }
+                
+                //결재정보버튼 display
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2103"]) {
+                    //[AppUtils settingRightButton:self action:@selector(goInfoPageAction:) normalImageCode:@"top_settlement_icon.png" highlightImageCode:@"top_settlement_icon_p.png"];
+                    
+                    // Creating a custom right navi bar button
+                    UIButton *goInfoPageButton  = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 54.0f, 18.0f)];
+                    [goInfoPageButton setImage:[UIImage imageNamed:@"top_settlement_icon.png"] forState:UIControlStateNormal];
+                    [goInfoPageButton setImage:[UIImage imageNamed:@"top_settlement_icon_p.png"] forState:UIControlStateHighlighted];
+                    [goInfoPageButton addTarget:self action:@selector(goInfoPageAction:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goInfoPageButton];
+                    self.navigationItem.rightBarButtonItem = barButtonItem;
+                    
+                }
+                
+                //결재정보버튼 Hidden
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2104"]) {
+                    self.navigationItem.rightBarButtonItems = nil;
+                    
+                }
+                
+                //결재처리/취소버튼 display
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2105"]) {
+                    UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
+                    buttonView.hidden = NO;
+                    
+                }
+                
+                //결재처리/취소버튼 Hidden
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2106"]) {
+                    UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
+                    buttonView.hidden = YES;
+                    
+                }
             }
             
-            //delete
-            if ([actionCode isEqualToString:@"4005"]) {
-                [AppUtils settingRightButton:self action:@selector(deleteAction:) normalImageCode:@"Top_delete.png" highlightImageCode:@"Top_delete.png"];
-
-            }
-            
-            //프로그래스바 시작
-            if ([actionCode isEqualToString:@"2001"]) {
-                [AppUtils showWaitingSplash];
-                //self.view.userInteractionEnabled = NO;
-                //super.navigationController.view.userInteractionEnabled = NO;
-                
-            }
-            
-            //프로그래스바 종료
-            if ([actionCode isEqualToString:@"2002"]) {
-                [AppUtils closeWaitingSplash];
-                //self.view.userInteractionEnabled = YES;
-                //super.navigationController.view.userInteractionEnabled = YES;
-                
-            }
-            
-            //Back 버튼 display
-            if ([actionCode isEqualToString:@"2003"]) {
-                [AppUtils settingLeftButton:self action:@selector(leftButtonClicked:) normalImageCode:@"top_back_btn.png" highlightImageCode:@"top_back_btn.png"];
-                
-            }
-            
-            //Back 버튼 Hidden
-            if ([actionCode isEqualToString:@"2004"]) {
-                self.navigationItem.leftBarButtonItems = nil;
-                
-            }
-            
-            //결재처리버튼 display
-            if ([actionCode isEqualToString:@"2101"]) {
-                UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
-                buttonView.hidden = NO;
-                
-            }
-            
-            //결재처리버튼 Hidden
-            if ([actionCode isEqualToString:@"2102"]) {
-                UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
-                buttonView.hidden = YES;
-                
-            }
-            
-            //결재정보버튼 display
-            if ([actionCode isEqualToString:@"2103"]) {
-                [AppUtils settingRightButton:self action:@selector(goInfoPageAction:) normalImageCode:@"top_settlement_icon.png" highlightImageCode:@"top_settlement_icon_p.png"];
-                
-            }
-            
-            //결재정보버튼 Hidden
-            if ([actionCode isEqualToString:@"2104"]) {
-                self.navigationItem.rightBarButtonItems = nil;
-                
-            }
-            
-            //결재처리/취소버튼 display
-            if ([actionCode isEqualToString:@"2105"]) {
-                UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
-                buttonView.hidden = NO;
-                
-            }
-            
-            //결재처리/취소버튼 Hidden
-            if ([actionCode isEqualToString:@"2106"]) {
-                UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
-                buttonView.hidden = YES;
-                
-            }
 		}
+        
 	}else{
         
 //        NSRange nRange;
@@ -783,7 +800,7 @@
 
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [AppUtils closeWaitingSplash];
+//    [AppUtils closeWaitingSplash];
     self.view.userInteractionEnabled = YES;
     
 	_isAppBackAction = YES;
@@ -793,7 +810,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-    [AppUtils closeWaitingSplash];
+//    [AppUtils closeWaitingSplash];
     self.view.userInteractionEnabled = YES;
     
     if ([urlFirstString length] > 0) {
@@ -829,7 +846,7 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [AppUtils showWaitingSplash];
+//    [AppUtils showWaitingSplash];
     
 	_isLoading = YES;
 }
@@ -839,10 +856,8 @@
 #pragma mark - custom Button Event
 #pragma mark -
 - (void)btnGoRunPageClicked:(id)sender {
+    [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval201();"];
     
-    //URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_201.act", [SessionManager sharedSessionManager].gateWayUrl]]];
-    [_web loadRequest:req];
 }
 
 - (void)btnCancelClicked:(id)sender {
@@ -878,10 +893,8 @@
 }
 
 - (void)goInfoPageAction:(id)sender {
+    [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval202();"];
     
-    //URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_202.act", [SessionManager sharedSessionManager].gateWayUrl]]];
-    [_web loadRequest:req];
 }
 
 - (void)leftButtonClicked:(UIButton *)sender {
