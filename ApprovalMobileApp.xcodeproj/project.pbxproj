@@ -188,6 +188,7 @@
 		959502471A2C03D700802056 /* SettingNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959502461A2C03D700802056 /* SettingNotificationViewController.m */; };
 		9595024D1A2C24EF00802056 /* CustomerCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9595024C1A2C24EF00802056 /* CustomerCenterViewController.m */; };
 		95A2EFD41A428E5D006CF902 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95A2EFD31A428E5D006CF902 /* CustomTableViewCell.m */; };
+		A004AB1A1A47E1B6009B85CE /* LoginPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A004AB191A47E1B6009B85CE /* LoginPageView.m */; };
 		A09985AD1A2D754F00BF8955 /* login_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985A71A2D754F00BF8955 /* login_btn.png */; };
 		A09985AE1A2D754F00BF8955 /* login_checkbox_default.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985A81A2D754F00BF8955 /* login_checkbox_default.png */; };
 		A09985AF1A2D754F00BF8955 /* login_checkbox_select.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985A91A2D754F00BF8955 /* login_checkbox_select.png */; };
@@ -195,7 +196,6 @@
 		A09985B11A2D754F00BF8955 /* login_line.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985AB1A2D754F00BF8955 /* login_line.png */; };
 		A09985B21A2D754F00BF8955 /* login_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985AC1A2D754F00BF8955 /* login_logo.png */; };
 		A09985B41A2D77D200BF8955 /* login_btn_p.png in Resources */ = {isa = PBXBuildFile; fileRef = A09985B31A2D77D200BF8955 /* login_btn_p.png */; };
-		A0D382261A4142C90005E7BD /* LoginPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D382221A4142C90005E7BD /* LoginPageView.m */; };
 		A0D382271A4142C90005E7BD /* TutorialsPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D382241A4142C90005E7BD /* TutorialsPageView.m */; };
 		A0D382281A4142C90005E7BD /* TutorialsPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D382251A4142C90005E7BD /* TutorialsPageView.xib */; };
 /* End PBXBuildFile section */
@@ -499,6 +499,8 @@
 		9595024C1A2C24EF00802056 /* CustomerCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomerCenterViewController.m; path = MoreView/CustomerCenterViewController.m; sourceTree = "<group>"; };
 		95A2EFD21A428E5C006CF902 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
 		95A2EFD31A428E5D006CF902 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
+		A004AB181A47E1B6009B85CE /* LoginPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPageView.h; sourceTree = "<group>"; };
+		A004AB191A47E1B6009B85CE /* LoginPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPageView.m; sourceTree = "<group>"; };
 		A09985A71A2D754F00BF8955 /* login_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_btn.png; sourceTree = "<group>"; };
 		A09985A81A2D754F00BF8955 /* login_checkbox_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_checkbox_default.png; sourceTree = "<group>"; };
 		A09985A91A2D754F00BF8955 /* login_checkbox_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_checkbox_select.png; sourceTree = "<group>"; };
@@ -506,8 +508,6 @@
 		A09985AB1A2D754F00BF8955 /* login_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_line.png; sourceTree = "<group>"; };
 		A09985AC1A2D754F00BF8955 /* login_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_logo.png; sourceTree = "<group>"; };
 		A09985B31A2D77D200BF8955 /* login_btn_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_btn_p.png; sourceTree = "<group>"; };
-		A0D382211A4142C90005E7BD /* LoginPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPageView.h; sourceTree = "<group>"; };
-		A0D382221A4142C90005E7BD /* LoginPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPageView.m; sourceTree = "<group>"; };
 		A0D382231A4142C90005E7BD /* TutorialsPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialsPageView.h; sourceTree = "<group>"; };
 		A0D382241A4142C90005E7BD /* TutorialsPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialsPageView.m; sourceTree = "<group>"; };
 		A0D382251A4142C90005E7BD /* TutorialsPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialsPageView.xib; sourceTree = "<group>"; };
@@ -1221,8 +1221,8 @@
 		A0D382201A4142C90005E7BD /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				A0D382211A4142C90005E7BD /* LoginPageView.h */,
-				A0D382221A4142C90005E7BD /* LoginPageView.m */,
+				A004AB181A47E1B6009B85CE /* LoginPageView.h */,
+				A004AB191A47E1B6009B85CE /* LoginPageView.m */,
 				A0D382231A4142C90005E7BD /* TutorialsPageView.h */,
 				A0D382241A4142C90005E7BD /* TutorialsPageView.m */,
 				A0D382251A4142C90005E7BD /* TutorialsPageView.xib */,
@@ -1378,7 +1378,6 @@
 				2AC6FFA71A2704DD00154253 /* MJPopupBackgroundView.m in Sources */,
 				2AC6000F1A2704DE00154253 /* IconLableView.m in Sources */,
 				959502441A2BF09E00802056 /* MoreViewController.m in Sources */,
-				A0D382261A4142C90005E7BD /* LoginPageView.m in Sources */,
 				2AC6FFDD1A2704DD00154253 /* UIImageView+HighlightedWebCache.m in Sources */,
 				2AC6FF891A2704DD00154253 /* JLToast.swift in Sources */,
 				2AC6FFE11A2704DD00154253 /* UIView+WebCacheOperation.m in Sources */,
@@ -1481,6 +1480,7 @@
 				2AC6000B1A2704DE00154253 /* WCTabMenuView.m in Sources */,
 				2AC6001D1A2704DE00154253 /* SevenSwitch.m in Sources */,
 				2AC6FF8F1A2704DD00154253 /* NSObject+SBJSON.m in Sources */,
+				A004AB1A1A47E1B6009B85CE /* LoginPageView.m in Sources */,
 				2AC6FFF91A2704DD00154253 /* SwipeView.m in Sources */,
 				2AC6FFB31A2704DD00154253 /* QBAssetsCollectionViewController.m in Sources */,
 				2AC6002B1A2704DE00154253 /* SystemCheck.m in Sources */,

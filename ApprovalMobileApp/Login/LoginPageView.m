@@ -61,15 +61,12 @@
         CheckAutoLogin++;
         
         NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
-#if _DEBUG_
-        [reqData setObject:@""                  forKey:@"PTL_ID"];
-        [reqData setObject:@"CHNL_1"            forKey:@"CHNL_ID"];
-#else
-        [reqData setObject:@"PTL_3"             forKey:@"PTL_ID"];
-        [reqData setObject:@"CHNL_1"            forKey:@"CHNL_ID"];
-#endif
+        
+        [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
+        [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
         [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
         [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
+        
         if(_TxtPassword.text.length > 0){
              NSLog(@"Auto Login");
             [AppUtils showWaitingSplash];
@@ -104,41 +101,48 @@
         NSLog(@"URL Name : %@",transCode);
         NSLog(@"Reponse  : %@",responseArray);
         if([transCode isEqualToString:@"APPR_LOGIN_R001"]){
-            NSUserDefaults *defaults                            = [NSUserDefaults standardUserDefaults];
-            [SessionManager sharedSessionManager].userID        = _TxtId.text;
-            [SessionManager sharedSessionManager].loginDataDic  = [NSMutableDictionary dictionaryWithDictionary:responseArray[0]];
-            
-            [defaults setObject:_TxtId.text         forKey:@"saveId"];
-            [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
-            [defaults synchronize];
-    
-            [self dismissViewControllerAnimated:NO completion:^{}];
-            _launchImageV.hidden=YES;
+            NSLog(@"%@",responseArray);
+//            NSUserDefaults *defaults                            = [NSUserDefaults standardUserDefaults];
+//            [SessionManager sharedSessionManager].userID        = _TxtId.text;
+//            [SessionManager sharedSessionManager].loginDataDic  = [NSMutableDictionary dictionaryWithDictionary:responseArray[0]];
+//            
+//            [defaults setObject:_TxtId.text         forKey:@"saveId"];
+//            [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
+//            [defaults synchronize];
+//    
+//            [self dismissViewControllerAnimated:NO completion:^{}];
+//            _launchImageV.hidden=YES;
         }else{
             if(responseArray == nil){
                 return;
             }
             [SessionManager sharedSessionManager].appInfoDataArr = [responseArray valueForKey:@"_app_info"][0];
-            URL_Resgister   = [[responseArray valueForKey:@"_menu_info"][0][0] valueForKey:@"c_member_url"];
-            URL_Id_Forget   = [[responseArray valueForKey:@"_menu_info"][0][0] valueForKey:@"c_forget_id_url"];
-            URL_PW_Forget   = [[responseArray valueForKey:@"_menu_info"][0][0] valueForKey:@"c_forget_pw_url"];
             
-            NSArray *MenuInfoArray  = [[NSArray alloc]init];
-            MenuInfoArray           = [responseArray valueForKey:@"_menu_info"][0][0];
+            [SessionManager sharedSessionManager].gateWayUrl    = [responseArray valueForKey:@"c_bizplay_url"][0];
+            [SessionManager sharedSessionManager].channelID     = [responseArray valueForKey:@"c_channel_id"][0];
+            [SessionManager sharedSessionManager].portalID      = [responseArray valueForKey:@"c_portal_id"][0];
             
-            if([[MenuInfoArray valueForKey:@"c_available_service"] boolValue] !=true || responseArray==nil){
-                UIAlertView *Alert=[[UIAlertView alloc]initWithTitle:@"" message:[MenuInfoArray valueForKey:@"c_act"] delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+            URL_Resgister   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_member_url"][0];
+            URL_Id_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_id_url"][0];
+            URL_PW_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_pw_url"][0];
+            
+    
+            
+    
+            if([[responseArray valueForKey:@"c_available_service"][0] boolValue] !=true || responseArray==nil){
+                UIAlertView *Alert=[[UIAlertView alloc]initWithTitle:@"" message:[responseArray valueForKey:@"c_act"][0] delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
                 Alert.tag       = 1010;
                 Alert.delegate  = self;
                 [Alert show];
                 return;
             }
-            [SessionManager sharedSessionManager].latestVersion = [MenuInfoArray valueForKey:@"c_program_ver"];
-            [SessionManager sharedSessionManager].appUrl        = [MenuInfoArray valueForKey:@"c_appstore_url"];
             
+            [SessionManager sharedSessionManager].latestVersion = [responseArray valueForKey:@"c_program_ver"][0];
+            [SessionManager sharedSessionManager].appUrl        = [responseArray valueForKey:@"c_appstore_url"][0];
+
             NSString *appVersionString      = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-            NSString *minimum_verString     = [MenuInfoArray valueForKey:@"c_minimum_ver"];
-            NSString *c_update_actString    = [MenuInfoArray valueForKey:@"c_update_act"];
+            NSString *minimum_verString     = [responseArray valueForKey:@"c_minimum_ver"][0];
+            NSString *c_update_actString    = [responseArray valueForKey:@"c_update_act"][0];
             
             //force to update
             if([SysUtils versionToInteger:minimum_verString] < [SysUtils versionToInteger:appVersionString]){
@@ -244,13 +248,10 @@
     super.navigationController.view.userInteractionEnabled  = NO;
     
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
-#if _DEBUG_
-    [reqData setObject:@""                  forKey:@"PTL_ID"];
-    [reqData setObject:@"CHNL_1"            forKey:@"CHNL_ID"];
-#else
-    [reqData setObject:@""                  forKey:@"PTL_ID"];
-    [reqData setObject:@"CHNL_1"            forKey:@"CHNL_ID"];
-#endif
+    
+    [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
+    [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
+    
     [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
     [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
     
