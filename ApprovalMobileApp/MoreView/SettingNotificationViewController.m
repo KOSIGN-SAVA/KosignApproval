@@ -141,12 +141,16 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     UIButton *soundButton       = (UIButton *)[self.view viewWithTag:1901];
     UIButton *vibrationButton   = (UIButton *)[self.view viewWithTag:1902];
     
-    soundButton.selected    = sender.selected;
-    vibrationButton.selected= sender.selected;
-    
-    if (sender.tag == 1900) {
-        soundButton.selected    = sender.selected;
-        vibrationButton.selected= sender.selected;
+    switch (sender.tag) {
+        case 1900:
+            soundButton.selected    = sender.selected;
+            vibrationButton.selected= sender.selected;
+            break;
+        case 1901:
+            soundButton.selected    = sender.selected;
+        default:
+            vibrationButton.selected = sender.selected;
+            break;
     }
 }
 
@@ -162,11 +166,16 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     [userDefaults synchronize];
     
     self.apiKey = API_KEY;
+    NSLog(@"token %@",[[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken]);
+
+    NSLog(@"os version %@",[NSString stringWithFormat:@"%ld",(long)[SysUtils getOSVersion]]);
+    NSLog(@"udid --> %@",[SysUtils getCurrentUDID]);
+    
     NSDictionary *subChildDic = @{@"USER_ID"            : [SessionManager sharedSessionManager].userID,
                                   @"PUSH_ALAM_USE_YN"   : pushButton.selected ? @"Y" : @"N",
                                   @"PUSHSERVER_KIND"    : @"APNS",
                                   @"APP_ID"             : [[NSBundle mainBundle]bundleIdentifier],
-                                  @"PUSH_ID"            : [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken],
+                                  @"PUSH_ID"            : @"",
                                   @"MODEL_NAME"         : @"iPhone",
                                   @"OS"                 : [NSString stringWithFormat:@"%ld",(long)[SysUtils getOSVersion]],
                                   @"DEVICE_ID"          : [SysUtils getCurrentUDID]

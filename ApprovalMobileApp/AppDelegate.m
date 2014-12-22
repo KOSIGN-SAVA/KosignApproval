@@ -64,6 +64,7 @@
 
 
 - (void)PushStartNotification:(NSNotificationCenter *)note {
+    
 #if _PUSH_
     [[WCPushService sharedPushService] registerAPNKey:[SessionManager sharedSessionManager].userID companyID:@"bizplay"];
 #endif
