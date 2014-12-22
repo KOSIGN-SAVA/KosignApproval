@@ -643,6 +643,9 @@
             
             // 다중 액션.
             NSArray *actionCodes = [actionCode componentsSeparatedByString:@"|"];
+#if _DEBUG_
+            NSLog(@"actionCodes : %@", actionCodes);
+#endif
             
             
             for (int i = 0; i < [actionCodes count]; i++) {
@@ -713,6 +716,18 @@
                 //Back 버튼 Hidden
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2004"]) {
                     self.navigationItem.leftBarButtonItems = nil;
+                    
+                }
+                
+                //화면 확대가능
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2005"]) {
+                    _web.scalesPageToFit = NO;
+                    
+                }
+                
+                //화면 확대불가
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2006"]) {
+                    _web.scalesPageToFit = YES;
                     
                 }
                 
@@ -800,7 +815,7 @@
 
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-//    [AppUtils closeWaitingSplash];
+    [AppUtils closeWaitingSplash];
     self.view.userInteractionEnabled = YES;
     
 	_isAppBackAction = YES;
@@ -810,7 +825,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-//    [AppUtils closeWaitingSplash];
+    [AppUtils closeWaitingSplash];
     self.view.userInteractionEnabled = YES;
     
     if ([urlFirstString length] > 0) {
@@ -846,7 +861,7 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-//    [AppUtils showWaitingSplash];
+    [AppUtils showWaitingSplash];
     
 	_isLoading = YES;
 }
