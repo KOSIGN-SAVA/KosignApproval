@@ -490,7 +490,7 @@ static NSTimer						*_sessionTimer		= nil;
     if (url == nil) {
         
         handler.url			= [NSString stringWithFormat:@"%@%@?", _SM_GATEWAY_URL, _SM_GATEWAY_PATH];
-        query = [NSString stringWithFormat:@"master_id=%@", @"A_BA_G_1"];
+        query = [NSString stringWithFormat:@"master_id=%@", @"I_BA_G_1"];
     } else {
         
         handler.url			= [SessionManager sharedSessionManager].gateWayUrl;
