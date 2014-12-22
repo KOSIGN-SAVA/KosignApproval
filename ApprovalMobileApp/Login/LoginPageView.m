@@ -102,16 +102,16 @@
         NSLog(@"Reponse  : %@",responseArray);
         if([transCode isEqualToString:@"APPR_LOGIN_R001"]){
             NSLog(@"%@",responseArray);
-//            NSUserDefaults *defaults                            = [NSUserDefaults standardUserDefaults];
-//            [SessionManager sharedSessionManager].userID        = _TxtId.text;
-//            [SessionManager sharedSessionManager].loginDataDic  = [NSMutableDictionary dictionaryWithDictionary:responseArray[0]];
-//            
-//            [defaults setObject:_TxtId.text         forKey:@"saveId"];
-//            [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
-//            [defaults synchronize];
-//    
-//            [self dismissViewControllerAnimated:NO completion:^{}];
-//            _launchImageV.hidden=YES;
+            NSUserDefaults *defaults                            = [NSUserDefaults standardUserDefaults];
+            [SessionManager sharedSessionManager].userID        = _TxtId.text;
+            [SessionManager sharedSessionManager].loginDataDic  = [NSMutableDictionary dictionaryWithDictionary:responseArray[0]];
+            
+            [defaults setObject:_TxtId.text         forKey:@"saveId"];
+            [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
+            [defaults synchronize];
+    
+            [self dismissViewControllerAnimated:NO completion:^{}];
+            _launchImageV.hidden=YES;
         }else{
             if(responseArray == nil){
                 return;
