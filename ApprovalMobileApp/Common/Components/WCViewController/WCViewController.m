@@ -527,12 +527,6 @@ static NSInteger kIndicatorSize = 32;
 	if (errorCode == 0) {
 		NSDictionary *docDic		= [returnResult JSONValue];
 		NSString *transCode			= [docDic objectForKey:kTransCode];
-        NSString *transCodeMG		= @"";
-
-        if ([SysUtils isNull:transCode]) {
-            transCodeMG			= [docDic objectForKey:@"_tran_cd"];
-
-        }
         
         NSArray *transResponses		= nil;
 		NSDictionary *transResponse	= nil;
@@ -544,7 +538,7 @@ static NSInteger kIndicatorSize = 32;
         
         transResponses		= [docDic objectForKey:kTransResponseData];
         
-        if ([SysUtils isNull:transCodeMG]){
+        if ([SysUtils isNull:transCode]){
             transResponses		= [[docDic objectForKey:@"RESP_DATA"] objectForKey:@"_tran_res_data"];
             
         }
