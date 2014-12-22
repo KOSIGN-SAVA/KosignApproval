@@ -148,6 +148,7 @@ static NSString *API_KEY      = @"APPR_SET_C101";
             break;
         case 1901:
             soundButton.selected    = sender.selected;
+            break;
         default:
             vibrationButton.selected = sender.selected;
             break;
@@ -175,7 +176,7 @@ static NSString *API_KEY      = @"APPR_SET_C101";
                                   @"PUSH_ALAM_USE_YN"   : pushButton.selected ? @"Y" : @"N",
                                   @"PUSHSERVER_KIND"    : @"APNS",
                                   @"APP_ID"             : [[NSBundle mainBundle]bundleIdentifier],
-                                  @"PUSH_ID"            : @"",
+                                  @"PUSH_ID"            : [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken],
                                   @"MODEL_NAME"         : @"iPhone",
                                   @"OS"                 : [NSString stringWithFormat:@"%ld",(long)[SysUtils getOSVersion]],
                                   @"DEVICE_ID"          : [SysUtils getCurrentUDID]
