@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="-342" y="939"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Gate View Ctrl-->
         <scene sceneID="Fc5-DK-jPo">
             <objects>
-                <navigationController id="0pm-wF-vVq" sceneMemberID="viewController">
+                <navigationController id="0pm-wF-vVq" customClass="GateViewCtrl" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tVM-3a-dgr">

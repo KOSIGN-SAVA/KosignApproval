@@ -296,9 +296,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [AppUtils settingLeftButton:self action:@selector(leftButtonClicked:) normalImageCode:@"top_back_btn.png" highlightImageCode:@"top_back_btn.png"];
-    
-    // 결재정보 페이지로 이동.
-    //[AppUtils settingRightButton:self action:@selector(goInfoPageAction:) normalImageCode:@"top_settlement_icon.png" highlightImageCode:@"top_settlement_icon_p.png"];
 
 	_isAppBackAction = NO;
     //    self.view.backgroundColor = [UIColor greenColor];
@@ -624,16 +621,16 @@
     
 	NSString *URLScheme = [[aRequest URL] scheme];
     
-    if ([URLScheme isEqualToString:@"iwebactioncb"] == YES || [URLScheme isEqualToString:@"iWebActionCB"] == YES){
+    if ([URLScheme isEqualToString:@"iwebactionba"] == YES || [URLScheme isEqualToString:@"iWebActionBA"] == YES){
         
         NSRange range;
         NSString *action;
-        if ([URLScheme isEqualToString:@"iWebActionCB"]) {
-            range = [decoded rangeOfString:@"iWebActionCB:"];
+        if ([URLScheme isEqualToString:@"iWebActionBA"]) {
+            range = [decoded rangeOfString:@"iWebActionBA:"];
             action = [decoded substringFromIndex:range.location + 11];
             
         }else{
-            range = [decoded rangeOfString:@"iwebactioncb:"];
+            range = [decoded rangeOfString:@"iwebactionba:"];
             action = [decoded substringFromIndex:range.location + 13];
             
             
@@ -656,6 +653,7 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:ksesstionLogout object:self userInfo:nil];
 
             }
+            
             //write
             if ([actionCode isEqualToString:@"4001"]) {
                 [AppUtils settingRightButton:self action:@selector(writeNoticeAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
@@ -683,6 +681,74 @@
             if ([actionCode isEqualToString:@"4005"]) {
                 [AppUtils settingRightButton:self action:@selector(deleteAction:) normalImageCode:@"Top_delete.png" highlightImageCode:@"Top_delete.png"];
 
+            }
+            
+            //프로그래스바 시작
+            if ([actionCode isEqualToString:@"2001"]) {
+                [AppUtils showWaitingSplash];
+                //self.view.userInteractionEnabled = NO;
+                //super.navigationController.view.userInteractionEnabled = NO;
+                
+            }
+            
+            //프로그래스바 종료
+            if ([actionCode isEqualToString:@"2002"]) {
+                [AppUtils closeWaitingSplash];
+                //self.view.userInteractionEnabled = YES;
+                //super.navigationController.view.userInteractionEnabled = YES;
+                
+            }
+            
+            //Back 버튼 display
+            if ([actionCode isEqualToString:@"2003"]) {
+                [AppUtils settingLeftButton:self action:@selector(leftButtonClicked:) normalImageCode:@"top_back_btn.png" highlightImageCode:@"top_back_btn.png"];
+                
+            }
+            
+            //Back 버튼 Hidden
+            if ([actionCode isEqualToString:@"2004"]) {
+                self.navigationItem.leftBarButtonItems = nil;
+                
+            }
+            
+            //결재처리버튼 display
+            if ([actionCode isEqualToString:@"2101"]) {
+                UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+                buttonView.hidden = NO;
+                
+            }
+            
+            //결재처리버튼 Hidden
+            if ([actionCode isEqualToString:@"2102"]) {
+                UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+                buttonView.hidden = YES;
+                
+            }
+            
+            //결재정보버튼 display
+            if ([actionCode isEqualToString:@"2103"]) {
+                [AppUtils settingRightButton:self action:@selector(goInfoPageAction:) normalImageCode:@"top_settlement_icon.png" highlightImageCode:@"top_settlement_icon_p.png"];
+                
+            }
+            
+            //결재정보버튼 Hidden
+            if ([actionCode isEqualToString:@"2104"]) {
+                self.navigationItem.rightBarButtonItems = nil;
+                
+            }
+            
+            //결재처리/취소버튼 display
+            if ([actionCode isEqualToString:@"2105"]) {
+                UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
+                buttonView.hidden = NO;
+                
+            }
+            
+            //결재처리/취소버튼 Hidden
+            if ([actionCode isEqualToString:@"2106"]) {
+                UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
+                buttonView.hidden = YES;
+                
             }
 		}
 	}else{
