@@ -36,7 +36,6 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     // Do any additional setup after loading the view.
     [self setNavigationBar];
     
-    self.tableView.backgroundColor = [UIColor redColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +84,7 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     switch (indexPath.row) {
         case 0:{
             self.apiKey = APPR_SET_R101;
+            NSLog(@"user id %@", [SessionManager sharedSessionManager].userID);
             NSDictionary *subChildDic = @{ @"USER_ID" : [SessionManager sharedSessionManager].userID };
             [self sendJSONWithAPI:self.apiKey forDictionary:subChildDic];
         }
@@ -214,10 +214,14 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
         NSLog(@"avaiableApps --- > %@",avaiableApps);
 #endif
         
+        
         if (avaiableApps.count == 0) return _footerView;
 
         [self setAppAvaible:avaiableApps inView:_footerView];
     }
+    
+    
+    
     
     return _footerView;
 }
@@ -243,7 +247,7 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     //right nav
     UIImage *rightImage    = [UIImage imageNamed:@"top_logout_btn.png"];
     UIButton *rightButton = [[UIButton alloc]initWithFrame:
-                                        CGRectMake(.0, .0, 54.0 , 15.0)];
+                                        CGRectMake(.0, .0, 54.0 , 18.0)];
     [rightButton setBackgroundImage:rightImage forState:UIControlStateNormal];
 //    [rightButton setBackgroundImage:[UIImage imageNamed:@"top_logout_btn_p.png"] forState:UIControlStateSelected];
     
@@ -259,6 +263,10 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     SessionManager *sessionManager = [SessionManager sharedSessionManager];
     sessionManager.userID = @"";
     sessionManager.loginDataDic = nil;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"N" forKey:@"isAutoLogin"];
+    [defaults synchronize];
     
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
@@ -360,18 +368,33 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
 
 -(void)setAppAvaible:(NSArray *)apps inView:(FooterView *) footerView{
     
+    [_footerView.containerView[5] setHidden:YES];
+    [_footerView.appNameLabel[5] setHidden:YES];
+    
+    [_footerView.containerView[4] setHidden:YES];
+    [_footerView.appNameLabel[4] setHidden:YES];
+    
+    
     int index = 0;
     NSArray *colorImageName    = @[@"more_schedule_icon_color.png",
                                    @"more_gm_icon_color.png",
-                                   @""];
+                                   @"more_memo_icon_colory.png",
+                                   @"more_ob_icon_color.png"];
     NSArray *bulrImageName     = @[@"more_schedule_icon_grey.png",
                                    @"more_gm_icon_grey.png",
-                                   @""];
+                                   @"more_memo_icon_grey.png",
+                                   @"more_ob_icon_grey.png"];
+    
     UIImageView *iconImage     = nil;
     UILabel *appName           = nil;
     
+    
     for (NSDictionary *dic in apps) {
         appName         = (UILabel *) _footerView.appNameLabel[index];
+        
+#if _DEBUG_
+    NSLog(@"app name : %@", appName.text);
+#endif
         appName.text    = dic[@"c_name"];
         
         iconImage       = (UIImageView *) footerView.iconImageView[index];
