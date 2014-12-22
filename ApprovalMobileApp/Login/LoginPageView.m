@@ -45,11 +45,12 @@
     UITapGestureRecognizer *tap         = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardAction:)];
     [self.view addGestureRecognizer:tap];
     
-    [self menuGate];
-   
+    
+    
+    
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
     _TxtId.text              = [defaults objectForKey:@"saveId"];
@@ -59,16 +60,14 @@
         [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
         
         CheckAutoLogin++;
-        
         NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
-        
         [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
         [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
         [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
         [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
         
         if(_TxtPassword.text.length > 0){
-             NSLog(@"Auto Login");
+            NSLog(@"Auto Login");
             [AppUtils showWaitingSplash];
             [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
         }
@@ -78,6 +77,10 @@
         CheckAutoLogin      = nil;
         [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
     }
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [self menuGate];
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - AppInfo Request
