@@ -185,14 +185,6 @@
     
     [AppUtils settingRightButton:self action:@selector(btnMoreMenuClicked:) normalImageCode:@"top_more_btn.png" highlightImageCode:@"top_more_btn_p.png"];
     
-    
-    
-    
-    // URL Open
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_MAIN_101.act", [SessionManager sharedSessionManager].gateWayUrl]]];
-    
-    [mainWebView loadRequest:req];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -207,6 +199,12 @@
         [self presentViewController:navigation animated:NO completion:nil];
         
     } else {
+        
+        // URL Open
+        NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_MAIN_101.act", [SessionManager sharedSessionManager].gateWayUrl]]];
+        
+        [mainWebView loadRequest:req];
+        
         
         // 결재함 알림 건수 조회 전문 전송
         [self sendTranData:@"APPR_ALAM_R101"];
