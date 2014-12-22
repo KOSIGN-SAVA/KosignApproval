@@ -86,7 +86,7 @@
 #pragma mark - AppInfo Request
 #pragma mark -----------------------------------------------------------
 -(void)menuGate{
-//    _TxtId.text=[[NSUserDefaults standardUserDefaults] stringForKey:@"saveId"];
+    _TxtId.text=[[NSUserDefaults standardUserDefaults] stringForKey:@"saveId"];
 //    NSMutableDictionary *sendDictionary=[[NSMutableDictionary alloc]init];
 //    [sendDictionary setValue:@"I_BA_G_1" forKey:@"_master_id"];
 //    I_BC_G_1
