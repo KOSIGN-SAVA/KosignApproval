@@ -125,11 +125,9 @@
             [SessionManager sharedSessionManager].channelID     = [responseArray valueForKey:@"c_channel_id"][0];
             [SessionManager sharedSessionManager].portalID      = [responseArray valueForKey:@"c_portal_id"][0];
             
-            URL_Resgister   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_member_url"][0];
-            URL_Id_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_id_url"][0];
-            URL_PW_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_pw_url"][0];
-            
-    
+            URL_Resgister   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_member_url"][0][0];
+            URL_Id_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_id_url"][0][0];
+            URL_PW_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_pw_url"][0][0];
             
     
             if([[responseArray valueForKey:@"c_available_service"][0] boolValue] !=true || responseArray==nil){
@@ -310,6 +308,22 @@
     WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
     WebC.menuURL                    = URL_Id_Forget;
     [self.navigationController pushViewController:WebC animated:YES];
+}
+- (IBAction)PasswordFindAction:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"" forKey:@"savePassword"];
+    [defaults synchronize];
+    
+    if([URL_Id_Forget isEqualToString:@""]){
+        UIAlertView *Alert=[[UIAlertView alloc]initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        [Alert show];
+        return;
+    }
+    
+    WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
+    WebC.menuURL                    = URL_PW_Forget;
+    [self.navigationController pushViewController:WebC animated:YES];
+    
 }
 
 @end
