@@ -44,10 +44,7 @@
    
     UITapGestureRecognizer *tap         = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardAction:)];
     [self.view addGestureRecognizer:tap];
-    
-    
-    
-    
+
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
