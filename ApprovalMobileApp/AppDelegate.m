@@ -50,6 +50,20 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    /*
+    if ([SysUtils isNull:[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"]] == NO) {
+        NSDate *todayDate = [[NSDate date] copy];
+        if ([[todayDate dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] integerValue] > [[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"] integerValue]) {
+            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+            [userD setObject:@"" forKey:@"savePassword"];
+            [userD setObject:@"N" forKey:@"isAutoLogin"];
+            [userD setObject:@"" forKey:@"autoTimer"];
+            [userD synchronize];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kDayLogoutNotification object:self userInfo:nil];
+        }
+    }
+     */
 }
 
 

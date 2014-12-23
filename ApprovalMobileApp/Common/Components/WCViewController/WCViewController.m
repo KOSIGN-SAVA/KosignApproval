@@ -553,14 +553,16 @@ static NSInteger kIndicatorSize = 32;
             recvErrorMessage	= [docDic objectForKey:kResponseErrorMsg];
         }
         
-        if (([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"]) && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
+        if ([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"]) // && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
         {
             [AppUtils closeWaitingSplash];
             self.view.userInteractionEnabled = YES;
+            
             [SessionManager sharedSessionManager].userID = @"";
             [SessionManager sharedSessionManager].sessionOutString = @"Y";
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            //[[NSNotificationCenter defaultCenter] postNotificationName:kLogoutGo object:self userInfo:nil];
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
             return;
             
         }
@@ -611,6 +613,14 @@ static NSInteger kIndicatorSize = 32;
 	} else {
 		//전문의 실패 처리.
 		[self returnTrans:@"" responseArray:nil success:NO];
+        
+        [AppUtils closeWaitingSplash];
+        self.view.userInteractionEnabled = YES;
+        
+        [SessionManager sharedSessionManager].userID = @"";
+        [SessionManager sharedSessionManager].sessionOutString = @"Y";
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:kLogoutGo object:self userInfo:nil];
 
 		[SysUtils showMessage:errorMessage];
 

@@ -266,6 +266,20 @@
 #pragma mark -
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 	switch (alertView.tag) {
+//        case 9995:
+//            if (buttonIndex == 1) { // "결재를 취소하시겠습니까?" "네"
+//                [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsCancel();"];
+//                
+//            }
+//            break;
+//            
+//        case 9996:
+//            if (buttonIndex == 1) { // "결재처리를 진행하시겠습니까?" "네"
+//                [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsSave();"];
+//                
+//            }
+//            break;
+            
         case 9997: // 로그아웃 처리
 			if (buttonIndex == 1) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNaviBarShowNotification object:self userInfo:nil];
@@ -574,14 +588,16 @@
             return;
         }
         
-        if ([recvErrorCode isEqualToString:@"0001"] && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
+        if ([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"]) // && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
         {
             [AppUtils closeWaitingSplash];
             self.view.userInteractionEnabled = YES;
+            
             [SessionManager sharedSessionManager].userID = @"";
             [SessionManager sharedSessionManager].sessionOutString = @"Y";
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            //[[NSNotificationCenter defaultCenter] postNotificationName:kLogoutGo object:self userInfo:nil];
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
             return;
             
         }
@@ -662,6 +678,12 @@
                     
                 }
                 
+                //back
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"5001"]) {
+                    [self leftButtonClicked:nil];
+                    
+                }
+                
                 //write
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"4001"]) {
                     [AppUtils settingRightButton:self action:@selector(writeNoticeAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
@@ -721,13 +743,13 @@
                 
                 //화면 확대가능
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2005"]) {
-                    _web.scalesPageToFit = NO;
+                    _web.scalesPageToFit = YES;
                     
                 }
                 
                 //화면 확대불가
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2006"]) {
-                    _web.scalesPageToFit = YES;
+                    _web.scalesPageToFit = NO;
                     
                 }
                 
@@ -871,16 +893,39 @@
 #pragma mark - custom Button Event
 #pragma mark -
 - (void)btnGoRunPageClicked:(id)sender {
+    // 결재처리/결재정보 버튼 히든 처리.
+    self.navigationItem.rightBarButtonItems = nil;
+    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+    buttonView.hidden = YES;
+    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval201();"];
     
 }
 
 - (void)btnCancelClicked:(id)sender {
+    [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsCancel();"];
     
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+//                                                        message:@"결재를 취소하시겠습니까?"
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"아니오"
+//                                              otherButtonTitles:@"네", nil];
+//    alertView.tag = 9995;
+//    
+//    [alertView show];
 }
 
 - (void)btnRunClicked:(id)sender {
+    [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsSave();"];
     
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+//                                                        message:@"결재처리를 진행하시겠습니까?"
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"아니오" 
+//                                              otherButtonTitles:@"네", nil];
+//    alertView.tag = 9996;
+//    
+//    [alertView show];
 }
 
 
@@ -908,6 +953,11 @@
 }
 
 - (void)goInfoPageAction:(id)sender {
+    // 결재처리/결재정보 버튼 히든 처리.
+    self.navigationItem.rightBarButtonItems = nil;
+    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+    buttonView.hidden = YES;
+    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval202();"];
     
 }
@@ -915,6 +965,11 @@
 - (void)leftButtonClicked:(UIButton *)sender {
 	//만일 분기 처리가 있을 경우 Back 이나 다른 부분을 처리 하자. Back만있을 경우 함수 자체를 삭제 해도 무방.
     if ([_web canGoBack]) {
+        // 결재처리/결재정보 버튼 히든 처리.
+        self.navigationItem.rightBarButtonItems = nil;
+        UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+        buttonView.hidden = YES;
+        
         [_web goBack];
     }else{
         [self.navigationController popViewControllerAnimated:YES];

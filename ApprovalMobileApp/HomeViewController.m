@@ -185,7 +185,23 @@
     
     [AppUtils settingRightButton:self action:@selector(btnMoreMenuClicked:) normalImageCode:@"top_more_btn.png" highlightImageCode:@"top_more_btn_p.png"];
     
+    
+    mainWebView.scrollView.bounces = NO;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LogoutGo:) name:kLogoutGo object:nil];
+    
 }
+
+
+- (void)LogoutGo:(NSNotification *)note {
+    
+    UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+    [self presentViewController:navigation animated:NO completion:nil];
+    
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -194,9 +210,7 @@
     
     if ([[SessionManager sharedSessionManager].userID isEqualToString:@""]) {
         
-        UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
-        [self presentViewController:navigation animated:NO completion:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutGo object:self userInfo:nil];
         
     } else {
         
