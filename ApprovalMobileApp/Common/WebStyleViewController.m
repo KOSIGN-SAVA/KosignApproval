@@ -878,6 +878,11 @@
         
 	}
     
+    if ([self.title isEqualToString:@""]) {
+        self.title = @"결재함";
+        
+    }
+    
 	_isLoading = NO;
 }
 
