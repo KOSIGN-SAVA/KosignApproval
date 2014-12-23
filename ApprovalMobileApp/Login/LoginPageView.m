@@ -8,6 +8,7 @@
 
 #import "LoginPageView.h"
 #import "TutorialsPageView.h"
+#import "GateViewCtrl.h"
 
 @implementation LoginPageView
 
@@ -76,8 +77,16 @@
     }
 }
 -(void)viewWillAppear:(BOOL)animated{
-    [self menuGate];
+  
     [super viewWillAppear:animated];
+    
+    if([[SessionManager sharedSessionManager].latestVersion isEqualToString:@""]){
+        [self menuGate];
+        return;
+    }else{
+        
+    }
+    
 }
 
 #pragma mark - AppInfo Request
@@ -110,8 +119,13 @@
             [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
             [defaults synchronize];
     
-            [self dismissViewControllerAnimated:NO completion:^{}];
-            _launchImageV.hidden=YES;
+//            [self dismissViewControllerAnimated:NO completion:^{}];
+//            _launchImageV.hidden=YES;
+            
+            UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"HomeViewController"];
+            GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+            [self presentViewController:navigation animated:NO completion:nil];
+            
         }else{
             if(responseArray == nil){
                 return;
