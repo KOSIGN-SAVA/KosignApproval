@@ -53,24 +53,28 @@
     NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
     _TxtId.text              = [defaults objectForKey:@"saveId"];
     _TxtPassword.text        = [defaults objectForKey:@"savePassword"];
+    NSString *AutoTimer      = [defaults objectForKey:@"autoTimer"];
     
-    if([autoLogin isEqualToString:@"Y"]){
-        [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
-        
-        CheckAutoLogin++;
-        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
-        [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
-        [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
-        [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
-        [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
-        
-        if(_TxtPassword.text.length > 0){
-            NSLog(@"Auto Login");
-            [AppUtils showWaitingSplash];
-            [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
+    if([AutoTimer intValue] < 30 ){
+        if([autoLogin isEqualToString:@"Y"]){
+            [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
+            
+            CheckAutoLogin++;
+            NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
+            [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
+            [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
+            [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
+            [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
+            
+            if(_TxtPassword.text.length > 0){
+                NSLog(@"Auto Login");
+                [AppUtils showWaitingSplash];
+                [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
+            }
         }
     }else{
         NSLog(@"Loign Again ");
+        _launchImageV.hidden = YES;
         _TxtPassword.text   = @"";
         CheckAutoLogin      = nil;
         [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
@@ -109,19 +113,27 @@
     if (success) {
         NSLog(@"URL Name : %@",transCode);
         NSLog(@"Reponse  : %@",responseArray);
+        
         if([transCode isEqualToString:@"APPR_LOGIN_R001"]){
             NSLog(@"%@",responseArray);
             NSUserDefaults *defaults                            = [NSUserDefaults standardUserDefaults];
             [SessionManager sharedSessionManager].userID        = _TxtId.text;
             [SessionManager sharedSessionManager].loginDataDic  = [NSMutableDictionary dictionaryWithDictionary:responseArray[0]];
             
+       
+            
             [defaults setObject:_TxtId.text         forKey:@"saveId"];
             [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
             [defaults synchronize];
-    
-//            [self dismissViewControllerAnimated:NO completion:^{}];
-//            _launchImageV.hidden=YES;
             
+            
+            NSDate *nextDate;
+            NSString *IsAutoLoginN=[defaults objectForKey:@"isAutoLogin"];
+            if([IsAutoLoginN isEqualToString:@"autoTimer"] || ([IsAutoLoginN isEqualToString:nil] && [[defaults objectForKey:@"autoTimer"] isEqualToString:@"Y"]) ){
+                [defaults setObject:[NSString stringWithFormat:@"%d",[[[nextDate addDay:30]dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] intValue]] forKey:@"autoTimer"];
+                [defaults synchronize];
+            }
+    
             UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"HomeViewController"];
             GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
             [self presentViewController:navigation animated:NO completion:nil];
@@ -279,6 +291,9 @@
 }
 //==========AutoLogin Button Click =============//
 - (IBAction)AutoLoginAction:(id)sender {
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"" forKey:@"autoTimer"];
+    [defaults synchronize];
     if(CheckAutoLogin==(int)nil){
         CheckAutoLogin++;
         [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
