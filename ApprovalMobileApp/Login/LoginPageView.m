@@ -47,39 +47,42 @@
     [self.view addGestureRecognizer:tap];
 
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
-    _TxtId.text              = [defaults objectForKey:@"saveId"];
-    _TxtPassword.text        = [defaults objectForKey:@"savePassword"];
-    NSString *AutoTimer      = [defaults objectForKey:@"autoTimer"];
-    
-    if([AutoTimer intValue] < 30 ){
-        if([autoLogin isEqualToString:@"Y"]){
-            [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
-            
-            CheckAutoLogin++;
-            NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
-            [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
-            [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
-            [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
-            [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
-            
-            if(_TxtPassword.text.length > 0){
-                NSLog(@"Auto Login");
-                [AppUtils showWaitingSplash];
-                [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
-            }
-        }
-    }else{
-        NSLog(@"Loign Again ");
-        _launchImageV.hidden = YES;
-        _TxtPassword.text   = @"";
-        CheckAutoLogin      = nil;
-        [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
-    }
-}
+
+//-(void)viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
+//    _TxtId.text              = [defaults objectForKey:@"saveId"];
+//    _TxtPassword.text        = [defaults objectForKey:@"savePassword"];
+//    NSString *AutoTimer      = [defaults objectForKey:@"autoTimer"];
+//    
+//    if([AutoTimer intValue] < 30 ){
+//        if([autoLogin isEqualToString:@"Y"]){
+//            [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
+//            
+//            CheckAutoLogin++;
+//            NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
+//            [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
+//            [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
+//            [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
+//            [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
+//            
+//            if(_TxtPassword.text.length > 0){
+//                NSLog(@"Auto Login");
+//                [AppUtils showWaitingSplash];
+//                [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
+//            }
+//        }
+//    }else{
+//        NSLog(@"Loign Again ");
+//        _launchImageV.hidden = YES;
+//        _TxtPassword.text   = @"";
+//        CheckAutoLogin      = nil;
+//        [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
+//    }
+//}
+
 -(void)viewWillAppear:(BOOL)animated{
   
     [super viewWillAppear:animated];
@@ -190,6 +193,38 @@
                 Alert.delegate = self;
                 [Alert show];
                 
+            }
+            
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
+            _TxtId.text              = [defaults objectForKey:@"saveId"];
+            _TxtPassword.text        = [defaults objectForKey:@"savePassword"];
+            NSString *AutoTimer      = [defaults objectForKey:@"autoTimer"];
+            
+            if([AutoTimer intValue] < 30 ){
+                if([autoLogin isEqualToString:@"Y"]){
+                    [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
+                    
+                    CheckAutoLogin++;
+                    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
+                    [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
+                    [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
+                    [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
+                    [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
+                    
+                    if(_TxtPassword.text.length > 0){
+                        NSLog(@"Auto Login");
+                        [AppUtils showWaitingSplash];
+                        [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
+                    }
+                }
+            }else{
+                NSLog(@"Loign Again ");
+                _launchImageV.hidden = YES;
+                _TxtPassword.text   = @"";
+                CheckAutoLogin      = nil;
+                [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
             }
         }
     }

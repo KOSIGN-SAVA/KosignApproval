@@ -188,18 +188,6 @@
     
     mainWebView.scrollView.bounces = NO;
     
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LogoutGo:) name:kLogoutGo object:nil];
-    
-}
-
-
-- (void)LogoutGo:(NSNotification *)note {
-    
-    UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
-    [self presentViewController:navigation animated:NO completion:nil];
-    
 }
 
 
@@ -208,22 +196,14 @@
     [super viewWillAppear:animated];
     
     
-    if ([[SessionManager sharedSessionManager].userID isEqualToString:@""]) {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutGo object:self userInfo:nil];
-        
-    } else {
-        
-        // URL Open
-        NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_MAIN_101.act", [SessionManager sharedSessionManager].gateWayUrl]]];
-        
-        [mainWebView loadRequest:req];
-        
-        
-        // 결재함 알림 건수 조회 전문 전송
-        [self sendTranData:@"APPR_ALAM_R101"];
-        
-    }
+    // URL Open
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/APPROVAL_MAIN_101.act", [SessionManager sharedSessionManager].gateWayUrl]]];
+    
+    [mainWebView loadRequest:req];
+    
+    
+    // 결재함 알림 건수 조회 전문 전송
+    [self sendTranData:@"APPR_ALAM_R101"];
     
 }
 

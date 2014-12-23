@@ -15,6 +15,7 @@
 #import "Constants.h"
 #import "AllUtils.h"
 #import "SessionManager.h"
+#import "GateViewCtrl.h"
 
 static NSString * APPR_SET_R101 = @"APPR_SET_R101";
 
@@ -261,13 +262,16 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
 - (void)popToRootViewController{
     SessionManager *sessionManager = [SessionManager sharedSessionManager];
     sessionManager.userID = @"";
+    sessionManager.sessionOutString = @"Y";
     sessionManager.loginDataDic = nil;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:@"N" forKey:@"isAutoLogin"];
     [defaults synchronize];
     
-    [self.navigationController popToRootViewControllerAnimated:NO];
+    UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+    [self presentViewController:navigation animated:NO completion:nil];
 }
 
 - (NSString *)getHyphenPhonNumber:(NSString *)sender {

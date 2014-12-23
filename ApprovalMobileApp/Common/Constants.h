@@ -260,7 +260,6 @@
 #define kMainViewChangeNotification             @"MainViewChangeNotification"
 
 #define kDayLogoutNotification                  @"DayLogoutNotification"
-#define kLogoutGo                               @"LogoutGo"
 
 #pragma mark-
 #pragma mark Error action code constants
