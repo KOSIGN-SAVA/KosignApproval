@@ -84,13 +84,15 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     switch (indexPath.row) {
         case 0:{
             self.apiKey = APPR_SET_R101;
-            NSLog(@"user id %@", [SessionManager sharedSessionManager].userID);
             NSDictionary *subChildDic = @{ @"USER_ID" : [SessionManager sharedSessionManager].userID };
             [self sendJSONWithAPI:self.apiKey forDictionary:subChildDic];
         }
             break;
-        default:
-            [self performSegueWithIdentifier:@"customerCenterSegueForward" sender:nil];
+        default:{
+            //            [self performSegueWithIdentifier:@"customerCenterSegueForward" sender:nil];
+            NSString *urlString = @"https://docs.google.com/forms/d/1Ggn4coy5Hsfb56fl60NWFf2U1Op2YnZoBiL_Uid30UI/viewform?usp=send_form";
+            [SysUtils applicationExecute:urlString];
+        }
             break;
     }
 }
@@ -114,7 +116,7 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    CGFloat profileHeight = [self tableView:self.tableView heightForHeaderInSection:section];
+    CGFloat profileHeight = [self tableView:tableView heightForHeaderInSection:section];
     CGFloat cellHeight    = [self.tableView rowHeight];
     
 #if _DEBUG_
@@ -219,9 +221,6 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
 
         [self setAppAvaible:avaiableApps inView:_footerView];
     }
-    
-    
-    
     
     return _footerView;
 }

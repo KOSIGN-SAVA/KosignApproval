@@ -39,6 +39,19 @@ static NSString *API_KEY      = @"APPR_SET_C101";
 #if _DEBUG_
     NSLog(@"--> push %@", self.responsePushDictionary);
 #endif
+
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([self.responsePushDictionary[@"PUSH_ALAM_USE_YN"]isEqualToString:@"Y"]) {
+        [userDefaults setObject:@"Y" forKey:SOUND_NOTIFI];
+        [userDefaults setObject:@"Y" forKey:VIBRATION_NOTIFI];
+    }else{
+        [userDefaults setObject:@"N" forKey:SOUND_NOTIFI];
+        [userDefaults setObject:@"N" forKey:VIBRATION_NOTIFI];
+    }
+    
+    [userDefaults synchronize];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,7 +112,9 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     [AppUtils showWaitingSplash];
     self.view.userInteractionEnabled = NO;
     super.navigationController.view.userInteractionEnabled = NO;
-    
+#if _DEBUG_
+    NSLog(@"send ---> %@",reqDic);
+#endif
     [super sendTransaction:api requestDictionary:reqDic];
 }
 
@@ -167,21 +182,26 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     [userDefaults synchronize];
     
     self.apiKey = API_KEY;
+    
+#if _DEBUG_
     NSLog(@"token %@",[[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken]);
-
     NSLog(@"os version %@",[NSString stringWithFormat:@"%ld",(long)[SysUtils getOSVersion]]);
-    NSLog(@"udid --> %@",[SysUtils getCurrentUDID]);
+    NSLog(@"udid --> %@",[[[UIDevice currentDevice] identifierForVendor] UUIDString]);
+#endif
+    
+    NSString *tokenID = [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken];
     
     NSDictionary *subChildDic = @{@"USER_ID"            : [SessionManager sharedSessionManager].userID,
                                   @"PUSH_ALAM_USE_YN"   : pushButton.selected ? @"Y" : @"N",
                                   @"PUSHSERVER_KIND"    : @"APNS",
                                   @"APP_ID"             : [[NSBundle mainBundle]bundleIdentifier],
-                                  @"PUSH_ID"            : [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken],
+                                  @"PUSH_ID"            : [tokenID isEqualToString:@""] ? @"" : tokenID,
                                   @"MODEL_NAME"         : @"iPhone",
                                   @"OS"                 : [NSString stringWithFormat:@"%ld",(long)[SysUtils getOSVersion]],
-                                  @"DEVICE_ID"          : [SysUtils getCurrentUDID]
+                                  @"DEVICE_ID"          : [[[UIDevice currentDevice] identifierForVendor] UUIDString]
                                 };
     [self sendJSONDataWithAPIKey:self.apiKey forDictionary:subChildDic];
+
 }
 
 - (void)returnTrans:(NSString *)transCode responseArray:(NSArray *)responseArray success:(BOOL)success{
