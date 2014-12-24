@@ -854,7 +854,7 @@
     [AppUtils closeWaitingSplash];
     self.view.userInteractionEnabled = YES;
     
-	_isAppBackAction = NO;
+	//_isAppBackAction = NO;
 	_isLoading = NO;
 }
 
@@ -900,7 +900,7 @@
 	_isLoading = NO;
     
     // Navigation "Back" 버튼 기능 설정
-    NSString *sFirstScreen = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById(\"_IS_FIRST_SCREEN\").innerText"];
+    NSString *sFirstScreen = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById(\"_IS_FIRST_SCREEN\").value"];
     
     _isAppBackAction = NO;
     
