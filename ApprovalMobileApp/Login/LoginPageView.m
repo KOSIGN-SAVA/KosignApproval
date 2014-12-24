@@ -48,12 +48,12 @@
 
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _TxtId.text              = [defaults objectForKey:@"saveId"];
-    _TxtPassword.text        = @"";
-}
+//-(void)viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    _TxtId.text              = [defaults objectForKey:@"saveId"];
+//    _TxtPassword.text        = @"";
+//}
 
 -(void)viewWillAppear:(BOOL)animated{
   
@@ -108,6 +108,8 @@
                 [defaults setObject:[NSString stringWithFormat:@"%d",[[[nextDate addDay:30]dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] intValue]] forKey:@"autoTimer"];
                 [defaults synchronize];
             }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPushStartNotification object:self userInfo:nil];
     
             UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"HomeViewController"];
             GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
