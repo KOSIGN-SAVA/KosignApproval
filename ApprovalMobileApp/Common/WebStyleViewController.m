@@ -949,11 +949,6 @@
 }
 
 - (void)btnRunClicked:(id)sender {
-    // 결재처리/취소버튼 히든 처리.
-    UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
-    buttonView.hidden = YES;
-    
-    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsSave();"];
     
 //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
