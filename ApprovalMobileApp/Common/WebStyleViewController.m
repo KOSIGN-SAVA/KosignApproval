@@ -687,6 +687,17 @@
                     
                 }
                 
+                //safari
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"5109"]) {
+                    
+                    if ([SysUtils canExecuteApplication:[actionDic objectForKey:@"_move_url"]] == YES) {
+                        [SysUtils applicationExecute:[actionDic objectForKey:@"_move_url"]]; // 웹 페이지(사파리)로 연결
+                    } else {
+                        [SysUtils showMessage:@"해당 URL에 연결할 수 없습니다."];
+                    }
+                    
+                }
+                
                 //write
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"4001"]) {
                     [AppUtils settingRightButton:self action:@selector(writeNoticeAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
