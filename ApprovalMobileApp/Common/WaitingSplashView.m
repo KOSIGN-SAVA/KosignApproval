@@ -46,7 +46,7 @@ static NSInteger kIndicatorSize = 32;
 - (void)show {
 	[CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithBool:YES] forKey:kCATransactionDisableActions];
-    [CATransaction setValue:[NSNumber numberWithFloat:0.0f] forKey:kCATransactionAnimationDuration];
+    [CATransaction setValue:[NSNumber numberWithFloat:0.1f] forKey:kCATransactionAnimationDuration]; //0.0f
     
 	CATransition* push	= [CATransition animation];
     push.type			= kCATransitionPush;
@@ -117,29 +117,41 @@ static NSInteger kIndicatorSize = 32;
 //        width = 100;
 //    }
     
-    UIImageView* lodingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((screenRect.size.width/2) - 55,(screenRect.size.height/2)-55, 110, 100)];
-    lodingImageView.image        = [UIImage imageNamed:@"loading_bg.png"];
-
-    UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 70, 60)];
+//    UIImageView* lodingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((screenRect.size.width/2) - 55,(screenRect.size.height/2)-55, 110, 100)];
+//    lodingImageView.image        = [UIImage imageNamed:@"loading_bg.png"];
+//
+//    UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 70, 60)];
+//    
+//    animatedImageView.animationImages = [NSArray arrayWithObjects:
+//                                         [UIImage imageNamed:@"loading_img01"],
+//                                         [UIImage imageNamed:@"loading_img02"],
+//                                         [UIImage imageNamed:@"loading_img03"],
+//                                         [UIImage imageNamed:@"loading_img04"],
+//                                         [UIImage imageNamed:@"loading_img05"],
+//                                         [UIImage imageNamed:@"loading_img06"],
+//
+//                                         nil];
+//    
+//    animatedImageView.animationDuration = 1.0;
+//    animatedImageView.animationRepeatCount = 0;
+//    [lodingImageView addSubview:animatedImageView];
+//    lodingImageView.tag = 55000;
+//
+//    [self addSubview:lodingImageView];
+//
+//    [animatedImageView startAnimating];
     
-    animatedImageView.animationImages = [NSArray arrayWithObjects:
-                                         [UIImage imageNamed:@"loading_img01"],
-                                         [UIImage imageNamed:@"loading_img02"],
-                                         [UIImage imageNamed:@"loading_img03"],
-                                         [UIImage imageNamed:@"loading_img04"],
-                                         [UIImage imageNamed:@"loading_img05"],
-                                         [UIImage imageNamed:@"loading_img06"],
-
-                                         nil];
     
-    animatedImageView.animationDuration = 1.0;
-    animatedImageView.animationRepeatCount = 0;
-    [lodingImageView addSubview:animatedImageView];
-    lodingImageView.tag = 55000;
-
-    [self addSubview:lodingImageView];
-
-    [animatedImageView startAnimating];
+    //로딩중 이미지 처리
+    UIActivityIndicatorView *indicator	= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle)UIActivityIndicatorViewStyleGray];
+    indicator.frame						= CGRectMake(([[UIScreen mainScreen] bounds].size.width - 16.0f) / 2, ([[UIScreen mainScreen] bounds].size.height - 16.0f) / 2, 16.0f, 16.0f);
+    indicator.tag                       = 3002;
+    indicator.hidesWhenStopped			= YES;
+    
+    
+    [self addSubview:indicator];
+    [indicator startAnimating];
+    //[indicator release];
     
 }
 
