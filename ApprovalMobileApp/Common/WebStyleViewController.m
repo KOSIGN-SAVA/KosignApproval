@@ -14,6 +14,7 @@
 #import "AppUtils.h"
 #import "JSON.h"
 #import "UserSettings.h"
+#import "GateViewCtrl.h"
 
 
 @interface WebStyleViewController()
@@ -266,6 +267,20 @@
 #pragma mark -
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 	switch (alertView.tag) {
+//        case 9995:
+//            if (buttonIndex == 1) { // "결재를 취소하시겠습니까?" "네"
+//                [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsCancel();"];
+//                
+//            }
+//            break;
+//            
+//        case 9996:
+//            if (buttonIndex == 1) { // "결재처리를 진행하시겠습니까?" "네"
+//                [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsSave();"];
+//                
+//            }
+//            break;
+            
         case 9997: // 로그아웃 처리
 			if (buttonIndex == 1) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNaviBarShowNotification object:self userInfo:nil];
@@ -301,13 +316,13 @@
     //    self.view.backgroundColor = [UIColor greenColor];
     //	CGRect selfViewBounds = self.view.bounds;
     //			const CGFloat TabBarSize = 76.0;
-    _web = [[UIWebView alloc] init];
+    _web                        = [[UIWebView alloc] init];
 	_web.backgroundColor		= [UIColor viewFlipsideBackgroundColor];
 	_web.scalesPageToFit		= YES;
 	_web.dataDetectorTypes		= UIDataDetectorTypeLink;
 	_web.delegate				= self;
-    _web.scrollView.bounces = NO;
-    //	_web.autoresizingMask		= (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
+    _web.scrollView.bounces     = NO;
+    //_web.autoresizingMask		= (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
 	[self.view addSubview:_web];
     
     //
@@ -556,8 +571,8 @@
         
         // action code 또는 return error code에 값이 있다면 오류이다.
         if (((actionCode != nil) && ([actionCode isEqualToString:@""] == NO)) || ((recvErrorCode != nil) && ([recvErrorCode isEqualToString:@""] == NO))) {
-            [SessionManager sharedSessionManager].userID = @"";
-            [SessionManager sharedSessionManager].sessionOutString = @"Y";
+//            [SessionManager sharedSessionManager].userID = @"";
+//            [SessionManager sharedSessionManager].sessionOutString = @"Y";
             
             // delegate를 통해 전달할 오류 메시지를 생성한다.
             if ([recvErrorCode isEqualToString:@"100"])
@@ -574,14 +589,18 @@
             return;
         }
         
-        if ([recvErrorCode isEqualToString:@"0001"] && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
+        if ([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"]) // && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
         {
             [AppUtils closeWaitingSplash];
             self.view.userInteractionEnabled = YES;
+            
             [SessionManager sharedSessionManager].userID = @"";
             [SessionManager sharedSessionManager].sessionOutString = @"Y";
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+            [self presentViewController:navigation animated:NO completion:nil];
+            
             return;
             
         }
@@ -662,6 +681,23 @@
                     
                 }
                 
+                //back
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"5001"]) {
+                    [self leftButtonClicked:nil];
+                    
+                }
+                
+                //safari
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"5109"]) {
+                    
+                    if ([SysUtils canExecuteApplication:[actionDic objectForKey:@"_move_url"]] == YES) {
+                        [SysUtils applicationExecute:[actionDic objectForKey:@"_move_url"]]; // 웹 페이지(사파리)로 연결
+                    } else {
+                        [SysUtils showMessage:@"해당 URL에 연결할 수 없습니다."];
+                    }
+                    
+                }
+                
                 //write
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"4001"]) {
                     [AppUtils settingRightButton:self action:@selector(writeNoticeAction:) normalImageCode:@"Top_write.png" highlightImageCode:@"Top_write.png"];
@@ -721,13 +757,13 @@
                 
                 //화면 확대가능
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2005"]) {
-                    _web.scalesPageToFit = NO;
+                    _web.scalesPageToFit = YES;
                     
                 }
                 
                 //화면 확대불가
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2006"]) {
-                    _web.scalesPageToFit = YES;
+                    _web.scalesPageToFit = NO;
                     
                 }
                 
@@ -856,6 +892,11 @@
         
 	}
     
+    if ([self.title isEqualToString:@""]) {
+        self.title = @"결재함";
+        
+    }
+    
 	_isLoading = NO;
 }
 
@@ -871,16 +912,39 @@
 #pragma mark - custom Button Event
 #pragma mark -
 - (void)btnGoRunPageClicked:(id)sender {
+    // 결재처리/결재정보 버튼 히든 처리.
+    self.navigationItem.rightBarButtonItems = nil;
+    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+    buttonView.hidden = YES;
+    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval201();"];
     
 }
 
 - (void)btnCancelClicked:(id)sender {
+    [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsCancel();"];
     
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+//                                                        message:@"결재를 취소하시겠습니까?"
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"아니오"
+//                                              otherButtonTitles:@"네", nil];
+//    alertView.tag = 9995;
+//    
+//    [alertView show];
 }
 
 - (void)btnRunClicked:(id)sender {
+    [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsSave();"];
     
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+//                                                        message:@"결재처리를 진행하시겠습니까?"
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"아니오" 
+//                                              otherButtonTitles:@"네", nil];
+//    alertView.tag = 9996;
+//    
+//    [alertView show];
 }
 
 
@@ -908,6 +972,11 @@
 }
 
 - (void)goInfoPageAction:(id)sender {
+    // 결재처리/결재정보 버튼 히든 처리.
+    self.navigationItem.rightBarButtonItems = nil;
+    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+    buttonView.hidden = YES;
+    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval202();"];
     
 }
@@ -915,6 +984,11 @@
 - (void)leftButtonClicked:(UIButton *)sender {
 	//만일 분기 처리가 있을 경우 Back 이나 다른 부분을 처리 하자. Back만있을 경우 함수 자체를 삭제 해도 무방.
     if ([_web canGoBack]) {
+        // 결재처리/결재정보 버튼 히든 처리.
+        self.navigationItem.rightBarButtonItems = nil;
+        UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+        buttonView.hidden = YES;
+        
         [_web goBack];
     }else{
         [self.navigationController popViewControllerAnimated:YES];

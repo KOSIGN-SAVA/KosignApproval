@@ -8,6 +8,7 @@
 
 #import "LoginPageView.h"
 #import "TutorialsPageView.h"
+#import "GateViewCtrl.h"
 
 @implementation LoginPageView
 
@@ -44,43 +45,27 @@
    
     UITapGestureRecognizer *tap         = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardAction:)];
     [self.view addGestureRecognizer:tap];
-    
-    
-    
-    
+
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
-    _TxtId.text              = [defaults objectForKey:@"saveId"];
-    _TxtPassword.text        = [defaults objectForKey:@"savePassword"];
-    
-    if([autoLogin isEqualToString:@"Y"]){
-        [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
-        
-        CheckAutoLogin++;
-        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
-        [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
-        [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
-        [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
-        [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
-        
-        if(_TxtPassword.text.length > 0){
-            NSLog(@"Auto Login");
-            [AppUtils showWaitingSplash];
-            [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
-        }
-    }else{
-        NSLog(@"Loign Again ");
-        _TxtPassword.text   = @"";
-        CheckAutoLogin      = nil;
-        [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
-    }
-}
+
+//-(void)viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    _TxtId.text              = [defaults objectForKey:@"saveId"];
+//    _TxtPassword.text        = @"";
+//}
+
 -(void)viewWillAppear:(BOOL)animated{
-    [self menuGate];
+  
     [super viewWillAppear:animated];
+    
+    if([[SessionManager sharedSessionManager].latestVersion isEqualToString:@""]){
+        [self menuGate];
+        return;
+    }else{
+        
+    }
+    
 }
 
 #pragma mark - AppInfo Request
@@ -103,18 +88,33 @@
     if (success) {
         NSLog(@"URL Name : %@",transCode);
         NSLog(@"Reponse  : %@",responseArray);
+        
         if([transCode isEqualToString:@"APPR_LOGIN_R001"]){
             NSLog(@"%@",responseArray);
             NSUserDefaults *defaults                            = [NSUserDefaults standardUserDefaults];
             [SessionManager sharedSessionManager].userID        = _TxtId.text;
             [SessionManager sharedSessionManager].loginDataDic  = [NSMutableDictionary dictionaryWithDictionary:responseArray[0]];
             
+       
+            
             [defaults setObject:_TxtId.text         forKey:@"saveId"];
             [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
             [defaults synchronize];
+            
+            
+            NSDate *nextDate;
+            NSString *IsAutoLoginN=[defaults objectForKey:@"isAutoLogin"];
+            if([IsAutoLoginN isEqualToString:@"autoTimer"] || ([IsAutoLoginN isEqualToString:nil] && [[defaults objectForKey:@"autoTimer"] isEqualToString:@"Y"]) ){
+                [defaults setObject:[NSString stringWithFormat:@"%d",[[[nextDate addDay:30]dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] intValue]] forKey:@"autoTimer"];
+                [defaults synchronize];
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPushStartNotification object:self userInfo:nil];
     
-            [self dismissViewControllerAnimated:NO completion:^{}];
-            _launchImageV.hidden=YES;
+            UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"HomeViewController"];
+            GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+            [self presentViewController:navigation animated:NO completion:nil];
+            
         }else{
             if(responseArray == nil){
                 return;
@@ -125,11 +125,9 @@
             [SessionManager sharedSessionManager].channelID     = [responseArray valueForKey:@"c_channel_id"][0];
             [SessionManager sharedSessionManager].portalID      = [responseArray valueForKey:@"c_portal_id"][0];
             
-            URL_Resgister   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_member_url"][0];
-            URL_Id_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_id_url"][0];
-            URL_PW_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_pw_url"][0];
-            
-    
+            URL_Resgister   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_member_url"][0][0];
+            URL_Id_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_id_url"][0][0];
+            URL_PW_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_pw_url"][0][0];
             
     
             if([[responseArray valueForKey:@"c_available_service"][0] boolValue] !=true || responseArray==nil){
@@ -169,6 +167,38 @@
                 Alert.delegate = self;
                 [Alert show];
                 
+            }
+            
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
+            _TxtId.text              = [defaults objectForKey:@"saveId"];
+            _TxtPassword.text        = [defaults objectForKey:@"savePassword"];
+            NSString *AutoTimer      = [defaults objectForKey:@"autoTimer"];
+            
+            if([AutoTimer intValue] < 30 ){
+                if([autoLogin isEqualToString:@"Y"]){
+                    [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
+                    
+                    CheckAutoLogin++;
+                    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
+                    [reqData setObject:[SessionManager sharedSessionManager].portalID   forKey:@"PTL_ID"];
+                    [reqData setObject:[SessionManager sharedSessionManager].channelID  forKey:@"CHNL_ID"];
+                    [reqData setObject:_TxtId.text          forKey:@"USER_ID"];
+                    [reqData setObject:_TxtPassword.text    forKey:@"PWD"];
+                    
+                    if(_TxtPassword.text.length > 0){
+                        NSLog(@"Auto Login");
+                        [AppUtils showWaitingSplash];
+                        [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
+                    }
+                }
+            }else{
+                NSLog(@"Loign Again ");
+                _launchImageV.hidden = YES;
+                _TxtPassword.text   = @"";
+                CheckAutoLogin      = nil;
+                [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
             }
         }
     }
@@ -270,6 +300,9 @@
 }
 //==========AutoLogin Button Click =============//
 - (IBAction)AutoLoginAction:(id)sender {
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"" forKey:@"autoTimer"];
+    [defaults synchronize];
     if(CheckAutoLogin==(int)nil){
         CheckAutoLogin++;
         [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_select.png"] forState:UIControlStateNormal];
@@ -310,6 +343,22 @@
     WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
     WebC.menuURL                    = URL_Id_Forget;
     [self.navigationController pushViewController:WebC animated:YES];
+}
+- (IBAction)PasswordFindAction:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"" forKey:@"savePassword"];
+    [defaults synchronize];
+    
+    if([URL_Id_Forget isEqualToString:@""]){
+        UIAlertView *Alert=[[UIAlertView alloc]initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        [Alert show];
+        return;
+    }
+    
+    WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
+    WebC.menuURL                    = URL_PW_Forget;
+    [self.navigationController pushViewController:WebC animated:YES];
+    
 }
 
 @end

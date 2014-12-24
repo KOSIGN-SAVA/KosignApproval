@@ -42,7 +42,7 @@ typedef NSUInteger SecurityMethod;
 //#define _SM_GATEWAY_URL             @"https://approval.appplay.co.kr" //GATEWAY URL
 #define _SM_GATEWAY_PATH            @"/MgGate" //GATEWAY PATH
 //#define _SM_GATEWAY_URL             @"http://sportal.dev.weplatform.co.kr:18880" //GATEWAY URL
-#define _SM_GATEWAY_URL             @"http://172.20.20.190:28080" //GATEWAY URL
+#define _SM_GATEWAY_URL             @"https://www.bizplay.co.kr/" //GATEWAY URL
 
 #endif
 

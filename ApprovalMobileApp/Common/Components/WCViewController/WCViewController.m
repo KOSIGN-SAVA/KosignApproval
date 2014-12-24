@@ -11,6 +11,7 @@
 #import "Constants.h"
 #import "JSON.h"
 #import "SessionManager.h"
+#import "GateViewCtrl.h"
 
 
 @implementation WCViewController
@@ -553,22 +554,26 @@ static NSInteger kIndicatorSize = 32;
             recvErrorMessage	= [docDic objectForKey:kResponseErrorMsg];
         }
         
-        if (([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"]) && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
+        if ([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"]) // && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
         {
             [AppUtils closeWaitingSplash];
             self.view.userInteractionEnabled = YES;
+            
             [SessionManager sharedSessionManager].userID = @"";
             [SessionManager sharedSessionManager].sessionOutString = @"Y";
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+            [self presentViewController:navigation animated:NO completion:nil];
+            
             return;
             
         }
         
 		// action code 또는 return error code에 값이 있다면 오류이다.
 		if (((actionCode != nil) && ([actionCode isEqualToString:@""] == NO)) || ((recvErrorCode != nil) && ([recvErrorCode isEqualToString:@""] == NO))) {
-            [SessionManager sharedSessionManager].userID = @"";
-            [SessionManager sharedSessionManager].sessionOutString = @"Y";
+//            [SessionManager sharedSessionManager].userID = @"";
+//            [SessionManager sharedSessionManager].sessionOutString = @"Y";
             
 			if ([recvErrorCode isEqualToString:@"100"]) {
 				retErrorMessage = recvErrorMessage;
@@ -611,6 +616,16 @@ static NSInteger kIndicatorSize = 32;
 	} else {
 		//전문의 실패 처리.
 		[self returnTrans:@"" responseArray:nil success:NO];
+        
+        [AppUtils closeWaitingSplash];
+        self.view.userInteractionEnabled = YES;
+        
+        [SessionManager sharedSessionManager].userID = @"";
+        [SessionManager sharedSessionManager].sessionOutString = @"Y";
+        
+        UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+        [self presentViewController:navigation animated:NO completion:nil];
 
 		[SysUtils showMessage:errorMessage];
 

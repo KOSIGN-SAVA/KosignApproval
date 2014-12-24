@@ -46,7 +46,7 @@ static NSInteger kIndicatorSize = 32;
 - (void)show {
 	[CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithBool:YES] forKey:kCATransactionDisableActions];
-    [CATransaction setValue:[NSNumber numberWithFloat:0.0f] forKey:kCATransactionAnimationDuration];
+    [CATransaction setValue:[NSNumber numberWithFloat:0.0f] forKey:kCATransactionAnimationDuration]; //0.1f
     
 	CATransition* push	= [CATransition animation];
     push.type			= kCATransitionPush;
@@ -118,18 +118,18 @@ static NSInteger kIndicatorSize = 32;
 //    }
     
     UIImageView* lodingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((screenRect.size.width/2) - 55,(screenRect.size.height/2)-55, 110, 100)];
-    lodingImageView.image        = [UIImage imageNamed:@"loading_bg.png"];
+    //lodingImageView.image        = [UIImage imageNamed:@"loading_bg.png"];
 
-    UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 70, 60)];
+    UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:CGRectMake((110-24)/2, (100-27)/2, 24, 27)]; //(20, 20, 70, 60)
     
     animatedImageView.animationImages = [NSArray arrayWithObjects:
-                                         [UIImage imageNamed:@"loading_img01"],
-                                         [UIImage imageNamed:@"loading_img02"],
-                                         [UIImage imageNamed:@"loading_img03"],
-                                         [UIImage imageNamed:@"loading_img04"],
-                                         [UIImage imageNamed:@"loading_img05"],
-                                         [UIImage imageNamed:@"loading_img06"],
-
+                                         [UIImage imageNamed:@"load_01"], //loading_img01
+                                         [UIImage imageNamed:@"load_02"],
+                                         [UIImage imageNamed:@"load_03"],
+                                         [UIImage imageNamed:@"load_04"],
+                                         [UIImage imageNamed:@"load_05"],
+                                         [UIImage imageNamed:@"load_06"],
+                                         
                                          nil];
     
     animatedImageView.animationDuration = 1.0;
@@ -141,6 +141,19 @@ static NSInteger kIndicatorSize = 32;
 
     [animatedImageView startAnimating];
     
+    
+    /*
+    //로딩중 이미지 처리
+    UIActivityIndicatorView *indicator	= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle)UIActivityIndicatorViewStyleGray];
+    indicator.frame						= CGRectMake(([[UIScreen mainScreen] bounds].size.width - 16.0f) / 2, ([[UIScreen mainScreen] bounds].size.height - 16.0f) / 2, 16.0f, 16.0f);
+    indicator.tag                       = 3002;
+    indicator.hidesWhenStopped			= YES;
+    
+    
+    [self addSubview:indicator];
+    [indicator startAnimating];
+    //[indicator release];
+    */
 }
 
 

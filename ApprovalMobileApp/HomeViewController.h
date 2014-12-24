@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WCViewController.h"
 
-@interface HomeViewController : WCViewController {
+@interface HomeViewController : WCViewController <UIWebViewDelegate> {
     
     __weak IBOutlet UIWebView *mainWebView;
     
