@@ -128,7 +128,7 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
         return self.tableView.frame.size.height - (cellHeight * self.cellTitle.count) - profileHeight;
     }
     else{   // for iPhone 4s
-        return 250.0;
+        return 180.0;
     }
 }
 
@@ -220,6 +220,37 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
         if (avaiableApps.count == 0) return _footerView;
 
         [self setAppAvaible:avaiableApps inView:_footerView];
+        
+        CGFloat versionViewHeight;
+        
+        versionViewHeight = (self.tableView.frame.size.height > 416) ? 40.0 : 25.0;
+        
+        CGFloat height = [self tableView:self.tableView heightForFooterInSection:1];
+        //NSLog(@"height %f", height);
+        
+        UIView *versionView = [[UIView alloc]initWithFrame:CGRectMake(.0, height - versionViewHeight, self.tableView.frame.size.width, versionViewHeight)];
+        versionView.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1.0];
+        
+        [_footerView addSubview:versionView];
+        
+        UIImageView *icon   = [[UIImageView alloc]initWithFrame:
+                               CGRectMake(0, 0, 16.0 , 16.0)];
+        icon.image          = [UIImage imageNamed:@"version_icon.png"];
+        
+        
+        UILabel *versionLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 0, 70.0, 15)];
+        versionLabel.textColor= [UIColor colorWithRed:180 / 255.0 green:180 / 255.0 blue:180 / 255.0 alpha:1.0];
+        versionLabel.font     = [UIFont systemFontOfSize:12.0];
+        
+        versionLabel.text     = [NSString stringWithFormat:@"버전 %@",[[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"]];
+        
+        
+        UIView *centerView  = [[UIView alloc]initWithFrame:CGRectMake( (versionView.frame.size.width / 2) - 37.5 , versionViewHeight == 40.0 ? 13 : 7, 75, 16)];
+        [centerView addSubview:icon];
+        [centerView addSubview:versionLabel];
+        
+        [versionView addSubview:centerView];
+        
     }
     
     return _footerView;
@@ -377,12 +408,12 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     int index = 0;
     NSArray *colorImageName    = @[@"more_schedule_icon_color.png",
                                    @"more_gm_icon_color.png",
-                                   @"more_memo_icon_colory.png",
-                                   @"more_ob_icon_color.png"];
+                                   @"more_ob_icon_color.png",
+                                   @"more_memo_icon_colory.png"];
     NSArray *bulrImageName     = @[@"more_schedule_icon_grey.png",
                                    @"more_gm_icon_grey.png",
-                                   @"more_memo_icon_grey.png",
-                                   @"more_ob_icon_grey.png"];
+                                   @"more_ob_icon_grey.png",
+                                   @"more_memo_icon_grey.png"];
     
     UIImageView *iconImage     = nil;
     UILabel *appName           = nil;
@@ -392,9 +423,12 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
         appName         = (UILabel *) _footerView.appNameLabel[index];
         
 #if _DEBUG_
-    NSLog(@"app name : %@", appName.text);
+    NSLog(@"app name : %@", dic[@"c_name"]);
+    NSLog(@"index %d",index);
 #endif
         appName.text    = dic[@"c_name"];
+        
+        
         
         iconImage       = (UIImageView *) footerView.iconImageView[index];
         if ([dic[@"c_available"]isEqualToString:@"true"]) {

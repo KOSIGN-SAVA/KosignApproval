@@ -228,6 +228,7 @@
                 <constraint firstItem="cGH-A0-eI4" firstAttribute="top" secondItem="EVa-rF-UN1" secondAttribute="top" id="hCd-Ba-zFJ"/>
                 <constraint firstItem="gld-Mj-toW" firstAttribute="centerY" secondItem="Uy6-80-Izs" secondAttribute="centerY" id="lp0-RQ-3O5"/>
                 <constraint firstItem="4cc-OS-7tL" firstAttribute="leading" secondItem="xhm-df-OXT" secondAttribute="leading" id="nGj-eg-wXL"/>
+                <constraint firstItem="0QZ-aW-3vP" firstAttribute="top" secondItem="EVa-rF-UN1" secondAttribute="bottom" constant="2" id="rMn-x6-JqX"/>
                 <constraint firstItem="EVa-rF-UN1" firstAttribute="leading" secondItem="cGH-A0-eI4" secondAttribute="trailing" constant="25" id="tw0-Z2-WSr">
                     <variation key="heightClass=regular-widthClass=compact" constant="21"/>
                 </constraint>
@@ -254,23 +255,24 @@
                     <exclude reference="9bW-Or-UII"/>
                     <exclude reference="QgR-7r-20g"/>
                     <exclude reference="dw2-XS-faf"/>
+                    <exclude reference="OXj-Ql-WDB"/>
+                    <exclude reference="Qji-Aw-Enm"/>
+                    <exclude reference="ada-ed-pz1"/>
                     <exclude reference="AHJ-cy-Epy"/>
                     <exclude reference="Qt7-ee-2ZK"/>
                     <exclude reference="Y5v-jH-Nni"/>
                     <exclude reference="d6H-LA-nsr"/>
                     <exclude reference="gHZ-qJ-pe9"/>
                     <exclude reference="nGj-eg-wXL"/>
+                    <exclude reference="u8e-pt-Ikf"/>
+                    <exclude reference="zPV-69-gSV"/>
                     <exclude reference="5Pz-y2-dSv"/>
                     <exclude reference="cpk-cH-cGI"/>
                     <exclude reference="lp0-RQ-3O5"/>
                     <exclude reference="EA8-RN-wQq"/>
                     <exclude reference="fmm-sH-a2J"/>
+                    <exclude reference="rMn-x6-JqX"/>
                     <exclude reference="uLK-WD-SEA"/>
-                    <exclude reference="OXj-Ql-WDB"/>
-                    <exclude reference="Qji-Aw-Enm"/>
-                    <exclude reference="ada-ed-pz1"/>
-                    <exclude reference="u8e-pt-Ikf"/>
-                    <exclude reference="zPV-69-gSV"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -284,23 +286,24 @@
                     <include reference="9bW-Or-UII"/>
                     <include reference="QgR-7r-20g"/>
                     <include reference="dw2-XS-faf"/>
+                    <include reference="OXj-Ql-WDB"/>
+                    <include reference="Qji-Aw-Enm"/>
+                    <include reference="ada-ed-pz1"/>
                     <include reference="AHJ-cy-Epy"/>
                     <include reference="Qt7-ee-2ZK"/>
                     <include reference="Y5v-jH-Nni"/>
                     <include reference="d6H-LA-nsr"/>
                     <include reference="gHZ-qJ-pe9"/>
                     <include reference="nGj-eg-wXL"/>
+                    <include reference="u8e-pt-Ikf"/>
+                    <include reference="zPV-69-gSV"/>
                     <include reference="5Pz-y2-dSv"/>
                     <include reference="cpk-cH-cGI"/>
                     <include reference="lp0-RQ-3O5"/>
                     <include reference="EA8-RN-wQq"/>
                     <include reference="fmm-sH-a2J"/>
+                    <include reference="rMn-x6-JqX"/>
                     <include reference="uLK-WD-SEA"/>
-                    <include reference="OXj-Ql-WDB"/>
-                    <include reference="Qji-Aw-Enm"/>
-                    <include reference="ada-ed-pz1"/>
-                    <include reference="u8e-pt-Ikf"/>
-                    <include reference="zPV-69-gSV"/>
                 </mask>
             </variation>
             <connections>
