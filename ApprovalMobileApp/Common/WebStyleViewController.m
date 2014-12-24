@@ -33,7 +33,7 @@
 	
     //	_path							= nil;Jsonlib
     //	_originalParams					= nil;
-	_isAppBackAction				= YES;
+	_isAppBackAction				= NO;
 	_isImageOpen					= NO;
 	_isTrSend                       = NO;
 	_currentImagePage				= 1;
@@ -854,7 +854,7 @@
     [AppUtils closeWaitingSplash];
     self.view.userInteractionEnabled = YES;
     
-	_isAppBackAction = YES;
+	_isAppBackAction = NO;
 	_isLoading = NO;
 }
 
@@ -898,6 +898,20 @@
     }
     
 	_isLoading = NO;
+    
+    // Navigation "Back" 버튼 기능 설정
+    NSString *sFirstScreen = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById(\"_IS_FIRST_SCREEN\").innerText"];
+    
+    _isAppBackAction = NO;
+    
+#if _DEBUG_
+    NSLog(@"-------------------------------------------------------------------- >>>>>> _IS_FIRST_SCREEN - [%@]", sFirstScreen);
+#endif
+    
+    if ([sFirstScreen isEqualToString:@"Y"])
+        _isAppBackAction = YES;
+    else
+        _isAppBackAction = NO;
 }
 
 
@@ -935,6 +949,11 @@
 }
 
 - (void)btnRunClicked:(id)sender {
+    // 결재처리/취소버튼 히든 처리.
+    UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
+    buttonView.hidden = YES;
+    
+    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsSave();"];
     
 //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
@@ -982,17 +1001,25 @@
 }
 
 - (void)leftButtonClicked:(UIButton *)sender {
-	//만일 분기 처리가 있을 경우 Back 이나 다른 부분을 처리 하자. Back만있을 경우 함수 자체를 삭제 해도 무방.
-    if ([_web canGoBack]) {
-        // 결재처리/결재정보 버튼 히든 처리.
-        self.navigationItem.rightBarButtonItems = nil;
-        UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
-        buttonView.hidden = YES;
+    
+    if (_isAppBackAction == YES) {
+        [self.navigationController popToRootViewControllerAnimated:NO];
         
-        [_web goBack];
-    }else{
-        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        //만일 분기 처리가 있을 경우 Back 이나 다른 부분을 처리 하자. Back만있을 경우 함수 자체를 삭제 해도 무방.
+        if ([_web canGoBack]) {
+            // 결재처리/결재정보 버튼 히든 처리.
+            self.navigationItem.rightBarButtonItems = nil;
+            UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
+            buttonView.hidden = YES;
+            
+            [_web goBack];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
     }
+	
 }
 
 

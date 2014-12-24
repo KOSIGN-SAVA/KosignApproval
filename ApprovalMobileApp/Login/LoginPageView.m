@@ -14,6 +14,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     if([[UIScreen mainScreen] bounds].size.height<500){
         _TopLogoBizplay.constant=30;
         _ButtomResister.constant=15;
@@ -48,20 +49,25 @@
 
 }
 
-//-(void)viewDidAppear:(BOOL)animated{
-//    [super viewDidAppear:animated];
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    _TxtId.text              = [defaults objectForKey:@"saveId"];
-//    _TxtPassword.text        = @"";
-//}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _TxtId.text              = [defaults objectForKey:@"saveId"];
+    
+    if ([[defaults objectForKey:@"isAutoLogin"] isEqualToString:@"N"]) {
+        _TxtPassword.text        = @"";
+    }
+    
+}
 
--(void)viewWillAppear:(BOOL)animated{
-  
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if([[SessionManager sharedSessionManager].latestVersion isEqualToString:@""]){
+    if ([[SessionManager sharedSessionManager].latestVersion isEqualToString:@""]){
         [self menuGate];
         return;
+        
     }else{
         
     }
@@ -70,13 +76,14 @@
 
 #pragma mark - AppInfo Request
 #pragma mark -----------------------------------------------------------
--(void)menuGate{
-    _TxtId.text=[[NSUserDefaults standardUserDefaults] stringForKey:@"saveId"];
-//    NSMutableDictionary *sendDictionary=[[NSMutableDictionary alloc]init];
+- (void)menuGate {
+    _TxtId.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"saveId"];
+    
+//    NSMutableDictionary *sendDictionary = [[NSMutableDictionary alloc] init];
 //    [sendDictionary setValue:@"I_BA_G_1" forKey:@"_master_id"];
-//    I_BC_G_1
     
     [super sendTransaction:@"APPR_MM0001" requestDictionary:nil];
+    
 }
 
 #pragma mark - Server return result
@@ -85,6 +92,7 @@
     [AppUtils closeWaitingSplash];
     self.view.userInteractionEnabled                        = YES;
     super.navigationController.view.userInteractionEnabled  = YES;
+    
     if (success) {
         NSLog(@"URL Name : %@",transCode);
         NSLog(@"Reponse  : %@",responseArray);
@@ -98,7 +106,7 @@
        
             
             [defaults setObject:_TxtId.text         forKey:@"saveId"];
-            [defaults setObject:_TxtPassword.text   forKey:@"savePassword"];
+            [defaults setObject:[_TxtPassword.text encryptAlgorithmFromKey:0 key:@"BizplayKey"] forKey:@"savePassword"];
             [defaults synchronize];
             
             
@@ -151,8 +159,8 @@
                 alert.title=@"";
                 alert.message=c_update_actString;
                 UIAlertAction* update = [UIAlertAction actionWithTitle:@"Update"
-                                                                 style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action){
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action){
                                              [[UIApplication sharedApplication] openURL: [NSURL URLWithString:[SessionManager sharedSessionManager].appUrl]];
                                              [alert dismissViewControllerAnimated:YES completion:nil];
                                          }];
@@ -173,7 +181,7 @@
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             NSString *autoLogin      = [defaults objectForKey:@"isAutoLogin"];
             _TxtId.text              = [defaults objectForKey:@"saveId"];
-            _TxtPassword.text        = [defaults objectForKey:@"savePassword"];
+            _TxtPassword.text        = [[defaults objectForKey:@"savePassword"] decryptAlgorithmFromKey:0 key:@"BizplayKey"];
             NSString *AutoTimer      = [defaults objectForKey:@"autoTimer"];
             
             if([AutoTimer intValue] < 30 ){
@@ -202,8 +210,10 @@
             }
         }
     }
+    
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView.tag==1010){
 //        exit(0);
     }else if(alertView.tag == 1020){
@@ -211,10 +221,12 @@
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString:[SessionManager sharedSessionManager].appUrl]];
         }
     }
+    
 }
+
 #pragma mark - TextField Delegate
 #pragma mark ---------------------------------------------------------
-- (void)setViewMoveUp:(BOOL)move withTextField:(UITextField *) txtField{
+- (void)setViewMoveUp:(BOOL)move withTextField:(UITextField *) txtField {
     if([[UIScreen mainScreen] bounds].size.width>320){
         return;
     }
@@ -236,33 +248,43 @@
     }
     self.view.frame = rect;
     [UIView commitAnimations];
+    
 }
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
     if(textField == _TxtId ){
         [self setViewMoveUp:YES withTextField:_TxtId];
     }else if(textField == _TxtPassword ){
         [self setViewMoveUp:YES withTextField:_TxtPassword];
     }
+    
 }
-- (void)textFieldDidEndEditing:(UITextField *)textField{
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     if(textField == _TxtId){
         [self setViewMoveUp:NO withTextField:_TxtId];
     }else if(textField == _TxtPassword ){
         [self setViewMoveUp:NO withTextField:_TxtPassword];
     }
+    
 }
+
 #pragma mark - Action Button
 #pragma mark -----------------------------------------------------------
 //==========Dismiss Action when click on view=============//
--(void)dismissKeyboardAction:(id)sender{
+- (void)dismissKeyboardAction:(id)sender {
     [_TxtId resignFirstResponder];
     [_TxtPassword resignFirstResponder];
+    
 }
--(void)DimissLoginAction:(NSNotification *)note {
+
+- (void)DimissLoginAction:(NSNotification *)note {
     if ([[[note userInfo] objectForKey:@"tagValue"] integerValue] == 100) {
         [self.navigationController dismissViewControllerAnimated:NO completion:nil];
     }
+    
 }
+
 //==========Login Button Event ================//
 - (IBAction)LoginAction:(id)sender {
     [self.view endEditing:YES];
@@ -297,7 +319,9 @@
     [defaults synchronize];
     
     [super sendTransaction:@"APPR_LOGIN_R001" requestDictionary:reqData];
+    
 }
+
 //==========AutoLogin Button Click =============//
 - (IBAction)AutoLoginAction:(id)sender {
      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -310,8 +334,10 @@
         CheckAutoLogin=(int)nil;
         [_AutoLoginBtProperty setBackgroundImage:[UIImage imageNamed:@"login_checkbox_default.png"] forState:UIControlStateNormal];
     }
+    
 }
-//==========Resgister Button       - 가입하기==============//
+
+//==========Resgister Button - 가입하기==============//
 - (IBAction)ResgisterAction:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:@"" forKey:@"savePassword"];
@@ -326,9 +352,10 @@
     WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
     WebC.menuURL                    = URL_Resgister;
     [self.navigationController pushViewController:WebC animated:YES];
-
+    
 }
-//==========ID And Password Button - 아이디 찾기 ==============//
+
+//==========ID Button - 아이디 찾기 ==============//
 - (IBAction)IdAndPasswordAction:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:@"" forKey:@"savePassword"];
@@ -343,7 +370,10 @@
     WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
     WebC.menuURL                    = URL_Id_Forget;
     [self.navigationController pushViewController:WebC animated:YES];
+    
 }
+
+//==========Password Button - 비밀번호 찾기 ==============//
 - (IBAction)PasswordFindAction:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:@"" forKey:@"savePassword"];
