@@ -12,6 +12,7 @@
 #import "SessionManager.h"
 #import "GateViewCtrl.h"
 #import "WebStyleViewController.h"
+#import "JSON.h"
 
 @interface HomeViewController ()
 
@@ -186,7 +187,8 @@
     [AppUtils settingRightButton:self action:@selector(btnMoreMenuClicked:) normalImageCode:@"top_more_btn.png" highlightImageCode:@"top_more_btn_p.png"];
     
     
-    mainWebView.scrollView.bounces = NO;
+    mainWebView.delegate            = self;
+    mainWebView.scrollView.bounces  = NO;
     
 }
 
@@ -217,6 +219,62 @@
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
+}
+
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)aNavigationType {
+    if ([SysUtils isNull:aRequest] == YES || [SysUtils isNull:[aRequest URL]] == YES)
+        return NO;
+    
+    NSString *URLString = [[aRequest URL] absoluteString];
+    NSString *decoded = [URLString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+#if _DEBUG_
+    NSLog(@"decoded : %@", decoded);
+#endif
+    
+    
+    NSString *URLScheme = [[aRequest URL] scheme];
+    
+    if ([URLScheme isEqualToString:@"iwebactionba"] == YES || [URLScheme isEqualToString:@"iWebActionBA"] == YES) {
+        
+        NSRange range;
+        NSString *action;
+        if ([URLScheme isEqualToString:@"iWebActionBA"]) {
+            range = [decoded rangeOfString:@"iWebActionBA:"];
+            action = [decoded substringFromIndex:range.location + 11];
+            
+        } else {
+            range = [decoded rangeOfString:@"iwebactionba:"];
+            action = [decoded substringFromIndex:range.location + 13];
+            
+            
+        }
+        
+        if ([SysUtils isNull:action] == NO) {
+            NSDictionary *actionDic = [action JSONValue];
+            NSString *actionCode = [actionDic objectForKey:@"_action_code"];
+            
+            //safari
+            if ([actionCode isEqualToString:@"5109"]) {
+                
+                if ([SysUtils canExecuteApplication:[actionDic objectForKey:@"_move_url"]] == YES) {
+                    [SysUtils applicationExecute:[actionDic objectForKey:@"_move_url"]]; // 웹 페이지(사파리)로 연결
+                    
+                } else {
+                    [SysUtils showMessage:@"해당 URL에 연결할 수 없습니다."];
+                    
+                }
+                
+            }
+        }
+        
+    } else {
+        
+    }
+    
+    return YES;
 }
 
 @end

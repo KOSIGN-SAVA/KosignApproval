@@ -316,13 +316,13 @@
     //    self.view.backgroundColor = [UIColor greenColor];
     //	CGRect selfViewBounds = self.view.bounds;
     //			const CGFloat TabBarSize = 76.0;
-    _web = [[UIWebView alloc] init];
+    _web                        = [[UIWebView alloc] init];
 	_web.backgroundColor		= [UIColor viewFlipsideBackgroundColor];
 	_web.scalesPageToFit		= YES;
 	_web.dataDetectorTypes		= UIDataDetectorTypeLink;
 	_web.delegate				= self;
-    _web.scrollView.bounces = NO;
-    //	_web.autoresizingMask		= (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
+    _web.scrollView.bounces     = NO;
+    //_web.autoresizingMask		= (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
 	[self.view addSubview:_web];
     
     //
