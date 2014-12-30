@@ -43,13 +43,11 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    if ([self.responsePushDictionary[@"PUSH_ALAM_USE_YN"]isEqualToString:@"Y"]) {
-        [userDefaults setObject:@"Y" forKey:SOUND_NOTIFI];
-        [userDefaults setObject:@"Y" forKey:VIBRATION_NOTIFI];
-    }else{
+    if ([self.responsePushDictionary[@"PUSH_ALAM_USE_YN"]isEqualToString:@"N"]) {
         [userDefaults setObject:@"N" forKey:SOUND_NOTIFI];
         [userDefaults setObject:@"N" forKey:VIBRATION_NOTIFI];
     }
+    
     
     [userDefaults synchronize];
 }
@@ -124,9 +122,14 @@ static NSString *API_KEY      = @"APPR_SET_C101";
         case 1900:
             button.selected = value;
             break;
+        case 1901:
+            NSLog(@"cell confi %@ ---> value %@",[userDefaults objectForKey:SOUND_NOTIFI], value ? @"Y" : @"N");
+            button.selected = [[userDefaults objectForKey:SOUND_NOTIFI] isEqualToString:@"Y"] ? YES : NO;
+            button.enabled  = value;
+            break;
         default:{
-            button.selected = value;
-            button.enabled  = [[userDefaults objectForKey:SOUND_NOTIFI] isEqualToString:@"Y"] ? YES : NO;
+            button.selected = [[userDefaults objectForKey:VIBRATION_NOTIFI] isEqualToString:@"Y"] ? YES : NO;
+            button.enabled  = value;
         }
             break;
     }
@@ -168,6 +171,9 @@ static NSString *API_KEY      = @"APPR_SET_C101";
             vibrationButton.selected = sender.selected;
             break;
     }
+    
+
+    
 }
 
 - (void)handleNavigationBarAction:(UIButton *) sender{
@@ -175,6 +181,8 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     UIButton *soundButton = (UIButton *) [self.view viewWithTag:1901];
     UIButton *vibrationBtn= (UIButton *) [self.view viewWithTag:1902];
     
+    NSLog(@"sound button %@", soundButton.selected ? @"Y" : @"N");
+    NSLog(@"vib button %@", vibrationBtn.selected ? @"Y" : @"N");
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:soundButton.selected ? @"Y" : @"N" forKey:SOUND_NOTIFI];
@@ -189,13 +197,11 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     NSLog(@"udid --> %@",[[[UIDevice currentDevice] identifierForVendor] UUIDString]);
 #endif
     
-    NSString *tokenID = [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken];
-    
     NSDictionary *subChildDic = @{@"USER_ID"            : [SessionManager sharedSessionManager].userID,
                                   @"PUSH_ALAM_USE_YN"   : pushButton.selected ? @"Y" : @"N",
                                   @"PUSHSERVER_KIND"    : @"APNS",
                                   @"APP_ID"             : [[NSBundle mainBundle]bundleIdentifier],
-                                  @"PUSH_ID"            : [tokenID isEqualToString:@""] ? @"" : tokenID,
+                                  @"PUSH_ID"            : [SysUtils isNull:[[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken]] ? @"" : [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken],
                                   @"MODEL_NAME"         : @"iPhone",
                                   @"OS"                 : [NSString stringWithFormat:@"%ld",(long)[SysUtils getOSVersion]],
                                   @"DEVICE_ID"          : [[[UIDevice currentDevice] identifierForVendor] UUIDString]
