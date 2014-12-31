@@ -673,8 +673,15 @@
                 
                 //logout
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"5005"]) {
-                    [self.navigationController popToRootViewControllerAnimated:NO];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:ksesstionLogout object:self userInfo:nil];
+                    //[self.navigationController popToRootViewControllerAnimated:NO];
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:ksesstionLogout object:self userInfo:nil];
+                    
+                    [SessionManager sharedSessionManager].userID = @"";
+                    [SessionManager sharedSessionManager].sessionOutString = @"Y";
+                    
+                    UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                    GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+                    [self presentViewController:navigation animated:NO completion:nil];
                     
                 }
                 
