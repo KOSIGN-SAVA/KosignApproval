@@ -91,7 +91,7 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
             break;
         default:{
             //            [self performSegueWithIdentifier:@"customerCenterSegueForward" sender:nil];
-            NSString *urlString = @"https://docs.google.com/forms/d/1Ggn4coy5Hsfb56fl60NWFf2U1Op2YnZoBiL_Uid30UI/viewform?usp=send_form";
+            NSString *urlString = @"https://docs.google.com/forms/d/1rvL2Hr7BHc_1P-zcVbPhf34wYZMWhiBsFmO0Jw5Sy8Q/viewform";
             [SysUtils applicationExecute:urlString];
         }
             break;
@@ -412,11 +412,11 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     int index = 0;
     NSArray *colorImageName    = @[@"more_schedule_icon_color.png",
                                    @"more_gm_icon_color.png",
-                                   @"more_ob_icon_color.png",
+                                   @"more_collabo_icon_color.png",
                                    @"more_memo_icon_colory.png"];
     NSArray *bulrImageName     = @[@"more_schedule_icon_grey.png",
                                    @"more_gm_icon_grey.png",
-                                   @"more_ob_icon_grey.png",
+                                   @"more_collabo_icon_grey.png",
                                    @"more_memo_icon_grey.png"];
     
     UIImageView *iconImage     = nil;
