@@ -384,32 +384,28 @@
     //	}
     
     
-    
-    
     // 결재처리 페이지로 이동 버튼 뷰.
-    UIView *goRunPageButtonView         = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 307.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 307.0f, 43.0f)];
+    UIView *goRunPageButtonView         = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 145.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 145.0f, 43.0f)];
     goRunPageButtonView.backgroundColor = [UIColor clearColor];
     goRunPageButtonView.tag             = 10001;
     [self.view addSubview:goRunPageButtonView];
     
     
     UIButton *goRunPageButton                   = [UIButton buttonWithType:UIButtonTypeCustom];
-    goRunPageButton.frame                       = CGRectMake(0.0f, 0.0f, 307.0f, 43.0f);
+    goRunPageButton.frame                       = CGRectMake(0.0f, 0.0f, 145.0f, 43.0f);
     goRunPageButton.backgroundColor             = [UIColor clearColor];
-    [goRunPageButton setBackgroundImage:[UIImage imageNamed:@"common_btn_3.png"] forState:UIControlStateNormal];
+    [goRunPageButton setBackgroundImage:[UIImage imageNamed:@"common_btn_2.png"] forState:UIControlStateNormal];
     [goRunPageButton setTitle:@"결재처리" forState:UIControlStateNormal];
     [goRunPageButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
-    goRunPageButton.titleLabel.font             = [UIFont systemFontOfSize:13.0f];
+    goRunPageButton.titleLabel.font             = [UIFont systemFontOfSize:15.0f];
     goRunPageButton.contentHorizontalAlignment  = UIControlContentHorizontalAlignmentCenter;
-    goRunPageButton.contentVerticalAlignment    = UIControlContentVerticalAlignmentFill;
+    goRunPageButton.contentVerticalAlignment    = UIControlContentVerticalAlignmentCenter;
     //[goRunPageButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
     [goRunPageButton addTarget:self action:@selector(btnGoRunPageClicked:) forControlEvents:UIControlEventTouchUpInside];
     [goRunPageButtonView addSubview:goRunPageButton];
     
     
     goRunPageButtonView.hidden = YES;
-    
-    
     
     
     // 결재취소/결재처리 버튼 뷰.
@@ -425,9 +421,9 @@
     [cancelButton setBackgroundImage:[UIImage imageNamed:@"common_btn_1.png"] forState:UIControlStateNormal];
     [cancelButton setTitle:@"취소" forState:UIControlStateNormal];
     [cancelButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
-    cancelButton.titleLabel.font            = [UIFont systemFontOfSize:13.0f];
+    cancelButton.titleLabel.font            = [UIFont systemFontOfSize:15.0f];
     cancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    cancelButton.contentVerticalAlignment   = UIControlContentVerticalAlignmentFill;
+    cancelButton.contentVerticalAlignment   = UIControlContentVerticalAlignmentCenter;
     //[cancelButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
     [cancelButton addTarget:self action:@selector(btnCancelClicked:) forControlEvents:UIControlEventTouchUpInside];
     [runButtonView addSubview:cancelButton];
@@ -439,9 +435,9 @@
     [runButton setBackgroundImage:[UIImage imageNamed:@"common_btn_2.png"] forState:UIControlStateNormal];
     [runButton setTitle:@"처리" forState:UIControlStateNormal];
     [runButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
-    runButton.titleLabel.font               = [UIFont systemFontOfSize:13.0f];
+    runButton.titleLabel.font               = [UIFont systemFontOfSize:15.0f];
     runButton.contentHorizontalAlignment    = UIControlContentHorizontalAlignmentCenter;
-    runButton.contentVerticalAlignment      = UIControlContentVerticalAlignmentFill;
+    runButton.contentVerticalAlignment      = UIControlContentVerticalAlignmentCenter;
     //[runButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
     [runButton addTarget:self action:@selector(btnRunClicked:) forControlEvents:UIControlEventTouchUpInside];
     [runButtonView addSubview:runButton];
@@ -625,6 +621,7 @@
 }
 
 
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)aNavigationType {
 	if ([SysUtils isNull:aRequest] == YES || [SysUtils isNull:[aRequest URL]] == YES)
 		return NO;
@@ -755,17 +752,17 @@
                     
                 }
                 
-                //화면 확대가능
-                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2005"]) {
-                    _web.scalesPageToFit = YES;
-                    
-                }
-                
-                //화면 확대불가
-                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2006"]) {
-                    _web.scalesPageToFit = NO;
-                    
-                }
+//                //화면 확대가능
+//                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2005"]) {
+//                    _web.scalesPageToFit = YES;
+//                    
+//                }
+//                
+//                //화면 확대불가
+//                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2006"]) {
+//                    _web.scalesPageToFit = NO;
+//                    
+//                }
                 
                 //결재처리버튼 display
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2101"]) {
@@ -892,12 +889,26 @@
         
 	}
     
-    if ([self.title isEqualToString:@""]) {
+    if ([self.title isEqualToString:@""] || [self.title hasPrefix:@"fileDownload"]) {
         self.title = @"결재함";
         
     }
     
-	_isLoading = NO;
+    _isLoading = NO;
+    
+    // 결재처리/결재정보/결재취소&결재처리 버튼 처리.
+    UIView *buttonView1 = (UIView *)[self.view viewWithTag:10001];
+    UIView *buttonView2 = (UIView *)[self.view viewWithTag:10002];
+    
+    if ([self.title isEqualToString:@"결재상세"] == NO) {
+        self.navigationItem.rightBarButtonItems = nil;
+        buttonView1.hidden = YES;
+        
+    }
+    if ([self.title isEqualToString:@"결재처리"] == NO) {
+        buttonView2.hidden = YES;
+        
+    }
     
     // Navigation "Back" 버튼 기능 설정
     NSString *sFirstScreen = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById(\"_IS_FIRST_SCREEN\").value"];
@@ -926,11 +937,6 @@
 #pragma mark - custom Button Event
 #pragma mark -
 - (void)btnGoRunPageClicked:(id)sender {
-    // 결재처리/결재정보 버튼 히든 처리.
-    self.navigationItem.rightBarButtonItems = nil;
-    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
-    buttonView.hidden = YES;
-    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval201();"];
     
 }
@@ -986,11 +992,6 @@
 }
 
 - (void)goInfoPageAction:(id)sender {
-    // 결재처리/결재정보 버튼 히든 처리.
-    self.navigationItem.rightBarButtonItems = nil;
-    UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
-    buttonView.hidden = YES;
-    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval202();"];
     
 }
@@ -1003,11 +1004,6 @@
     } else {
         //만일 분기 처리가 있을 경우 Back 이나 다른 부분을 처리 하자. Back만있을 경우 함수 자체를 삭제 해도 무방.
         if ([_web canGoBack]) {
-            // 결재처리/결재정보 버튼 히든 처리.
-            self.navigationItem.rightBarButtonItems = nil;
-            UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
-            buttonView.hidden = YES;
-            
             [_web goBack];
         } else {
             [self.navigationController popViewControllerAnimated:YES];
