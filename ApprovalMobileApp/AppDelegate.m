@@ -51,7 +51,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
-    if ([SysUtils isNull:[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"]] == NO) {
+    if ([SysUtils isNull:[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"]] == NO && [[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"] isEqualToString:@""] == NO) {
         NSDate *todayDate = [[NSDate date] copy];
         if ([[todayDate dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] integerValue] > [[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"] integerValue]) {
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
