@@ -162,7 +162,9 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     switch (sender.tag) {
         case 1900:
             soundButton.selected    = sender.selected;
+            soundButton.enabled     = sender.selected;
             vibrationButton.selected= sender.selected;
+            vibrationButton.enabled = sender.selected;
             break;
         case 1901:
             soundButton.selected    = sender.selected;
