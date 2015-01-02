@@ -673,32 +673,14 @@
                 
                 //logout
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"5005"]) {
-                    //[self.navigationController popToRootViewControllerAnimated:NO];
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:ksesstionLogout object:self userInfo:nil];
-                    
-                    [SessionManager sharedSessionManager].userID = @"";
-                    [SessionManager sharedSessionManager].sessionOutString = @"Y";
-                    
-                    UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-                    GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
-                    [self presentViewController:navigation animated:NO completion:nil];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ksesstionLogout object:self userInfo:nil];
                     
                 }
                 
                 //back
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"5001"]) {
                     [self leftButtonClicked:nil];
-                    
-                }
-                
-                //safari
-                if ([[actionCodes objectAtIndex:i] isEqualToString:@"5109"]) {
-                    
-                    if ([SysUtils canExecuteApplication:[actionDic objectForKey:@"_move_url"]] == YES) {
-                        [SysUtils applicationExecute:[actionDic objectForKey:@"_move_url"]]; // 웹 페이지(사파리)로 연결
-                    } else {
-                        [SysUtils showMessage:@"해당 URL에 연결할 수 없습니다."];
-                    }
                     
                 }
                 
@@ -731,6 +713,28 @@
                     
                 }
                 
+                //로그인 페이지로 이동(세션타임아웃)
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"1004"]) {
+                    [SessionManager sharedSessionManager].userID = @"";
+                    [SessionManager sharedSessionManager].sessionOutString = @"Y";
+                    
+                    UIViewController *rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                    GateViewCtrl *navigation = [[GateViewCtrl alloc] initWithRootViewController:rootController];
+                    [self presentViewController:navigation animated:NO completion:nil];
+                    
+                }
+                
+                //safari
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"5109"]) {
+                    
+                    if ([SysUtils canExecuteApplication:[actionDic objectForKey:@"_move_url"]] == YES) {
+                        [SysUtils applicationExecute:[actionDic objectForKey:@"_move_url"]]; // 웹 페이지(사파리)로 연결
+                    } else {
+                        [SysUtils showMessage:@"해당 URL에 연결할 수 없습니다."];
+                    }
+                    
+                }
+                
                 //프로그래스바 시작
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2001"]) {
                     [AppUtils showWaitingSplash];
@@ -759,17 +763,17 @@
                     
                 }
                 
-//                //화면 확대가능
-//                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2005"]) {
-//                    _web.scalesPageToFit = YES;
-//                    
-//                }
-//                
-//                //화면 확대불가
-//                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2006"]) {
-//                    _web.scalesPageToFit = NO;
-//                    
-//                }
+                //화면 확대가능
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2005"]) {
+                    _web.scalesPageToFit = YES;
+                    
+                }
+                
+                //화면 확대불가
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2006"]) {
+                    _web.scalesPageToFit = NO;
+                    
+                }
                 
                 //결재처리버튼 display
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2101"]) {

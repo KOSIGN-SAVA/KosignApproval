@@ -18,8 +18,6 @@
 
 
 @interface LoginPageView : WCViewController<UITextFieldDelegate,UIAlertViewDelegate>{
-    int CheckAutoLogin;
-    
     NSString *URL_Resgister;
     NSString *URL_Id_Forget;
     NSString *URL_PW_Forget;
