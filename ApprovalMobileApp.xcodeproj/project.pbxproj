@@ -121,6 +121,8 @@
 		2AC6FFFB1A2704DD00154253 /* UIMonthYearPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC6FF171A2704DD00154253 /* UIMonthYearPicker.m */; };
 		2AC6FFFD1A2704DD00154253 /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC6FF1A1A2704DD00154253 /* DataCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2AC6FFFF1A2704DD00154253 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC6FF1D1A2704DD00154253 /* CustomPageControl.m */; };
+		3905422B1A53C6FB00504EF1 /* more_collabo_icon_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 390542291A53C6FB00504EF1 /* more_collabo_icon_color.png */; };
+		3905422C1A53C6FB00504EF1 /* more_collabo_icon_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3905422A1A53C6FB00504EF1 /* more_collabo_icon_grey.png */; };
 		395531A71A3AD83000692D6B /* common_btn_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 395531A51A3AD83000692D6B /* common_btn_3.png */; };
 		395531A81A3AD83000692D6B /* main_bottom_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 395531A61A3AD83000692D6B /* main_bottom_bar.png */; };
 		39AA872F1A3AFCCB0091E657 /* newnumber_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 39AA872E1A3AFCCB0091E657 /* newnumber_icon.png */; };
@@ -431,6 +433,8 @@
 		2AC6FF601A2704DD00154253 /* WaitingSplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitingSplashView.m; path = Common/WaitingSplashView.m; sourceTree = "<group>"; };
 		2AC6FF611A2704DD00154253 /* WebStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebStyleViewController.h; path = Common/WebStyleViewController.h; sourceTree = "<group>"; };
 		2AC6FF621A2704DD00154253 /* WebStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebStyleViewController.m; path = Common/WebStyleViewController.m; sourceTree = "<group>"; };
+		390542291A53C6FB00504EF1 /* more_collabo_icon_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_collabo_icon_color.png; sourceTree = "<group>"; };
+		3905422A1A53C6FB00504EF1 /* more_collabo_icon_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_collabo_icon_grey.png; sourceTree = "<group>"; };
 		395531A51A3AD83000692D6B /* common_btn_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = common_btn_3.png; sourceTree = "<group>"; };
 		395531A61A3AD83000692D6B /* main_bottom_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_bottom_bar.png; sourceTree = "<group>"; };
 		39AA872E1A3AFCCB0091E657 /* newnumber_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newnumber_icon.png; sourceTree = "<group>"; };
@@ -1204,6 +1208,8 @@
 				A09985AC1A2D754F00BF8955 /* login_logo.png */,
 				395531A61A3AD83000692D6B /* main_bottom_bar.png */,
 				39AEA0DF1A385558003D9F00 /* main_btn.png */,
+				390542291A53C6FB00504EF1 /* more_collabo_icon_color.png */,
+				3905422A1A53C6FB00504EF1 /* more_collabo_icon_grey.png */,
 				39AEA0E01A385558003D9F00 /* more_cscenter_icon.png */,
 				39AEA0E11A385558003D9F00 /* more_dr_icon.png */,
 				39AEA0E21A385558003D9F00 /* more_gm_icon_color.png */,
@@ -1362,6 +1368,7 @@
 				39AEA1031A385558003D9F00 /* more_list_next.png in Resources */,
 				39AEA1121A385558003D9F00 /* taskbar_contact_3_on.png in Resources */,
 				39AEA10E1A385558003D9F00 /* taskbar_contact_1_on.png in Resources */,
+				3905422C1A53C6FB00504EF1 /* more_collabo_icon_grey.png in Resources */,
 				2AC6FE481A26B30000154253 /* LaunchScreen.xib in Resources */,
 				39F600041A4AC6BE000A63AF /* load_01.png in Resources */,
 				2AC6FE451A26B30000154253 /* Images.xcassets in Resources */,
@@ -1385,6 +1392,7 @@
 				39F600051A4AC6BE000A63AF /* load_02.png in Resources */,
 				39AEA0C91A385515003D9F00 /* approval_app_icon_ios_120.png in Resources */,
 				39AEA1101A385558003D9F00 /* taskbar_contact_2_on.png in Resources */,
+				3905422B1A53C6FB00504EF1 /* more_collabo_icon_color.png in Resources */,
 				39AEA10A1A385558003D9F00 /* person_icon.png in Resources */,
 				A09985AF1A2D754F00BF8955 /* login_checkbox_select.png in Resources */,
 				39AA872F1A3AFCCB0091E657 /* newnumber_icon.png in Resources */,

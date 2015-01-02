@@ -123,7 +123,9 @@ static NSString *API_KEY      = @"APPR_SET_C101";
             button.selected = value;
             break;
         case 1901:
+#if _DEBUG_
             NSLog(@"cell confi %@ ---> value %@",[userDefaults objectForKey:SOUND_NOTIFI], value ? @"Y" : @"N");
+#endif
             button.selected = [[userDefaults objectForKey:SOUND_NOTIFI] isEqualToString:@"Y"] ? YES : NO;
             button.enabled  = value;
             break;
@@ -182,9 +184,11 @@ static NSString *API_KEY      = @"APPR_SET_C101";
     UIButton *pushButton  = (UIButton *) [self.view viewWithTag:1900];
     UIButton *soundButton = (UIButton *) [self.view viewWithTag:1901];
     UIButton *vibrationBtn= (UIButton *) [self.view viewWithTag:1902];
-    
+
+#if _DEBUG_
     NSLog(@"sound button %@", soundButton.selected ? @"Y" : @"N");
     NSLog(@"vib button %@", vibrationBtn.selected ? @"Y" : @"N");
+#endif
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:soundButton.selected ? @"Y" : @"N" forKey:SOUND_NOTIFI];

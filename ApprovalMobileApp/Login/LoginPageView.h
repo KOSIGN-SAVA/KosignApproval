@@ -17,9 +17,7 @@
 #import "JSON.h"
 
 
-@interface LoginPageView : WCViewController<UITextFieldDelegate,UIAlertViewDelegate>{
-    int CheckAutoLogin;
-    
+@interface LoginPageView : WCViewController<UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate>{
     NSString *URL_Resgister;
     NSString *URL_Id_Forget;
     NSString *URL_PW_Forget;
