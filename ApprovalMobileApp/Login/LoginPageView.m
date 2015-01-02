@@ -118,7 +118,7 @@
             
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            // push register
+            //push register
             [[NSNotificationCenter defaultCenter] postNotificationName:kPushStartNotification object:self userInfo:nil];
             
             //go main page

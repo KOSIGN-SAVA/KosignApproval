@@ -1789,8 +1789,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_RELEASE_,
 					_PUSH_,
@@ -1804,7 +1804,7 @@
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/GoogleAnalytics/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8891f46a-afb8-47e0-b1b7-2e1ca45aa2b2";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = ReleaseDistribute;
