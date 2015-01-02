@@ -15,7 +15,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if([[UIScreen mainScreen] bounds].size.height<500){
+    if([[UIScreen mainScreen] bounds].size.height < 500){
         _TopLogoBizplay.constant = 30;
         _ButtomResister.constant = 15;
     }
@@ -43,9 +43,6 @@
         TutorialsPageView *PageTutor    = [[TutorialsPageView alloc]initWithNibName:@"TutorialsPageView" bundle:nil];
         [self.navigationController presentViewController:PageTutor animated:NO completion:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DimissLoginAction:) name:@"TutorialsPageView" object:nil];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:@"Y" forKey:@"isFirstLogin"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     UITapGestureRecognizer *tap         = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardAction:)];
@@ -61,7 +58,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self menuGate];
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:@"isFirstLogin"] isEqualToString:@"Y"]){
+        [self menuGate];
+    }
     
     _TxtId.text              = [[NSUserDefaults standardUserDefaults] objectForKey:@"saveId"];
     
@@ -109,11 +108,11 @@
             if([isAutoLogin isEqualToString:@"Y"]) {
                 [[NSUserDefaults standardUserDefaults] setObject:[_TxtPassword.text encryptAlgorithmFromKey:0 key:@"BizplayKey"] forKey:@"savePassword"];
                 
-                //30day logout
+                //30days
                 NSDate *nextDate;
                 NSString *autoTimer = [[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"];
                 if(([autoTimer isEqualToString:@""] || [SysUtils isNull:autoTimer]) && [isAutoLogin isEqualToString:@"Y"]){
-                    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",[[[nextDate addDay:30] dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] intValue]] forKey:@"autoTimer"];
+                    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", [[[nextDate addDay:30] dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] intValue]] forKey:@"autoTimer"];
                 }
             }
             
@@ -159,16 +158,28 @@
             
             //force to update
             if([SysUtils versionToInteger:minimum_verString] < [SysUtils versionToInteger:appVersionString]){
-                UIAlertController *alert = [[UIAlertController alloc]init];
-                alert.title = @"";
-                alert.message = c_update_actString;
-                UIAlertAction* update = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
-                                             [[UIApplication sharedApplication] openURL: [NSURL URLWithString:[SessionManager sharedSessionManager].appUrl]];
-                                             [alert dismissViewControllerAnimated:YES completion:nil];
-                                         }];
-                [alert addAction:update];
-                [self presentViewController:alert animated:YES completion:nil];
                 
+                //action sheet
+                if([SysUtils getOSVersion] >= 80000){
+                    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:c_update_actString preferredStyle:UIAlertControllerStyleActionSheet];
+                    
+                    UIAlertAction *update = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction *action){
+                                                                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[SessionManager sharedSessionManager].appUrl]];
+                                                                     [actionSheet dismissViewControllerAnimated:YES completion:nil];
+                                                                 }];
+                    
+                    [actionSheet addAction:update];
+                    
+                    [self presentViewController:actionSheet animated:YES completion:nil];
+                    
+                }else{
+                    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:c_update_actString delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Update", nil];
+                    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                    
+                    [actionSheet showInView:self.view];
+                    
+                }
             }
             
             //alert to update
@@ -177,7 +188,6 @@
                 Alert.tag      = 1020;
                 Alert.delegate = self;
                 [Alert show];
-                
             }
             
             //자동 로그인
@@ -209,19 +219,29 @@
     
 }
 
+#pragma mark - UIActionSheet Delegate
+#pragma mark -----------------------------------------------------------
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    switch(buttonIndex){
+        case 0:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[SessionManager sharedSessionManager].appUrl]];
+            break;
+    }
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView.tag == 1010){
         exit(0);
     }else if(alertView.tag == 1020){
         if(buttonIndex == 0){
-            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:[SessionManager sharedSessionManager].appUrl]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[SessionManager sharedSessionManager].appUrl]];
         }
     }
     
 }
 
 #pragma mark - TextField Delegate
-#pragma mark ---------------------------------------------------------
+#pragma mark -----------------------------------------------------------
 - (void)setViewMoveUp:(BOOL)move withTextField:(UITextField *) txtField {
     if([[UIScreen mainScreen] bounds].size.width>320){
         return;
@@ -277,6 +297,9 @@
 - (void)DimissLoginAction:(NSNotification *)note {
     if ([[[note userInfo] objectForKey:@"tagValue"] integerValue] == 100) {
         [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"Y" forKey:@"isFirstLogin"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
 }
@@ -285,13 +308,13 @@
 - (IBAction)LoginAction:(id)sender {
     [self.view endEditing:YES];
     
-    if(_TxtId.text.length<=0){
-        UIAlertView *Alert = [[UIAlertView alloc]initWithTitle:@"" message:@"아이디를 입력해 주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+    if(_TxtId.text.length <= 0){
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"" message:@"아이디를 입력해 주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
         [Alert show];
         return;
     }
-    if(_TxtPassword.text.length<=0){
-        UIAlertView *Alert = [[UIAlertView alloc]initWithTitle:@"" message:@"비밀번호를 입력해 주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+    if(_TxtPassword.text.length <= 0){
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"" message:@"비밀번호를 입력해 주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
         [Alert show];
         return;
     }
@@ -332,12 +355,12 @@
 //==========Resgister Button - 가입하기==============//
 - (IBAction)ResgisterAction:(id)sender {
     if([URL_Resgister isEqualToString:@""] || [SysUtils isNull:URL_Resgister]){
-        UIAlertView *Alert = [[UIAlertView alloc]initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
         [Alert show];
         return;
     }
     
-    WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
+    WebStyleViewController *WebC    = [[WebStyleViewController alloc] init];
     WebC.menuURL                    = URL_Resgister;
     [self.navigationController pushViewController:WebC animated:YES];
     
@@ -346,12 +369,12 @@
 //==========ID Button - 아이디 찾기 ==============//
 - (IBAction)IdAndPasswordAction:(id)sender {
     if([URL_Id_Forget isEqualToString:@""] || [SysUtils isNull:URL_Id_Forget]){
-        UIAlertView *Alert = [[UIAlertView alloc]initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
         [Alert show];
         return;
     }
 
-    WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
+    WebStyleViewController *WebC    = [[WebStyleViewController alloc] init];
     WebC.menuURL                    = URL_Id_Forget;
     [self.navigationController pushViewController:WebC animated:YES];
     
@@ -360,12 +383,12 @@
 //==========Password Button - 비밀번호 찾기 ==============//
 - (IBAction)PasswordFindAction:(id)sender {
     if([URL_PW_Forget isEqualToString:@""] || [SysUtils isNull:URL_PW_Forget]){
-        UIAlertView *Alert = [[UIAlertView alloc]initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"" message:@"모바일 회원가입이 준비중입니다.\n 모바일 회원가입 오픈 전 까지 웹사이트에서 회원가입을 하실 수 있습니다.\n www.bizplay.co.kr" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
         [Alert show];
         return;
     }
     
-    WebStyleViewController *WebC    = [[WebStyleViewController alloc]init];
+    WebStyleViewController *WebC    = [[WebStyleViewController alloc] init];
     WebC.menuURL                    = URL_PW_Forget;
     [self.navigationController pushViewController:WebC animated:YES];
     
