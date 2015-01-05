@@ -111,8 +111,8 @@
                 //30days
                 NSDate *nextDate;
                 NSString *autoTimer = [[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimer"];
-                if(([autoTimer isEqualToString:@""] || [SysUtils isNull:autoTimer]) && [isAutoLogin isEqualToString:@"Y"]){
-                    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", [[[nextDate addDay:30] dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] intValue]] forKey:@"autoTimer"];
+                if([autoTimer isEqualToString:@""] || [SysUtils isNull:autoTimer]){
+                    [[NSUserDefaults standardUserDefaults] setObject:[[nextDate addDay:30] dateToString:@"yyyyMMdd" localeIdentifier:@"ko_kr"] forKey:@"autoTimer"];
                 }
             }
             
@@ -141,7 +141,7 @@
             URL_PW_Forget   = [[responseArray valueForKey:@"_menu_info"] valueForKey:@"c_forget_pw_url"][0][0];
             
             //서비스 가능 여부
-            if([[responseArray valueForKey:@"c_available_service"][0] boolValue] != true){ // || responseArray == nil
+            if([[responseArray valueForKey:@"c_available_service"][0] boolValue] != true){
                 UIAlertView *Alert = [[UIAlertView alloc]initWithTitle:@"" message:[responseArray valueForKey:@"c_act"][0] delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
                 Alert.tag       = 1010;
                 Alert.delegate  = self;
@@ -184,7 +184,7 @@
             
             //alert to update
             if([SysUtils versionToInteger:[SessionManager sharedSessionManager].latestVersion] > [SysUtils versionToInteger:appVersionString]){
-                UIAlertView *Alert=[[UIAlertView alloc]initWithTitle:@"" message:c_update_actString delegate:self cancelButtonTitle:@"확인" otherButtonTitles:@"취소",nil];
+                UIAlertView *Alert=[[UIAlertView alloc]initWithTitle:@"" message:c_update_actString delegate:self cancelButtonTitle:@"확인" otherButtonTitles:@"취소", nil];
                 Alert.tag      = 1020;
                 Alert.delegate = self;
                 [Alert show];

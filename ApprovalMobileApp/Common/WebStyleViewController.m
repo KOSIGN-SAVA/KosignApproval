@@ -394,13 +394,13 @@
     UIButton *goRunPageButton                   = [UIButton buttonWithType:UIButtonTypeCustom];
     goRunPageButton.frame                       = CGRectMake(0.0f, 0.0f, 145.0f, 43.0f);
     goRunPageButton.backgroundColor             = [UIColor clearColor];
-    [goRunPageButton setBackgroundImage:[UIImage imageNamed:@"common_btn_2.png"] forState:UIControlStateNormal];
+    [goRunPageButton setBackgroundImage:[UIImage imageNamed:@"common_btn_4.png"] forState:UIControlStateNormal];
     [goRunPageButton setTitle:@"결재처리" forState:UIControlStateNormal];
     [goRunPageButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
     goRunPageButton.titleLabel.font             = [UIFont systemFontOfSize:15.0f];
     goRunPageButton.contentHorizontalAlignment  = UIControlContentHorizontalAlignmentCenter;
     goRunPageButton.contentVerticalAlignment    = UIControlContentVerticalAlignmentCenter;
-    //[goRunPageButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    [goRunPageButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 0.0f)];
     [goRunPageButton addTarget:self action:@selector(btnGoRunPageClicked:) forControlEvents:UIControlEventTouchUpInside];
     [goRunPageButtonView addSubview:goRunPageButton];
     
@@ -827,7 +827,7 @@
             
 		}
         
-	}else{
+    }else{
         
 //        NSRange nRange;
 //        nRange = [decoded rangeOfString:@"paction=create"];
