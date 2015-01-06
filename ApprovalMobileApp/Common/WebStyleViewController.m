@@ -680,7 +680,8 @@
                 
                 //back
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"5001"]) {
-                    [self leftButtonClicked:nil];
+                    //[self leftButtonClicked:nil];
+                    [_web goBack];
                     
                 }
                 
@@ -994,12 +995,12 @@
 
 - (void)saveAction:(id)sender {
     [_web stringByEvaluatingJavaScriptFromString:@"fn_save();"];
-
+    
 }
 
 - (void)writeNoticeAction:(id)sender {
     [_web stringByEvaluatingJavaScriptFromString:@"fn_movePage();"];
-
+    
 }
 
 - (void)goInfoPageAction:(id)sender {
@@ -1008,6 +1009,12 @@
 }
 
 - (void)leftButtonClicked:(UIButton *)sender {
+    
+    UIView *buttonView2 = (UIView *)[self.view viewWithTag:10002];
+    if ([self.title isEqualToString:@"결재처리"] && buttonView2.hidden == NO) {
+        [self btnCancelClicked:nil];
+        return;
+    }
     
     if (_isAppBackAction == YES) {
         [self.navigationController popToRootViewControllerAnimated:NO];

@@ -382,15 +382,15 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     [super sendTransaction:apiKey requestDictionary:reqDic];
 }
 
-- (void)executedAppAtIndex:(NSInteger)index forURLString:(NSString *)url{
+- (void)executedAppAtIndex:(NSInteger)index{
     NSArray *appArr = [SessionManager sharedSessionManager].appInfoDataArr;
     
     if (index < 0) return;
     
     BOOL isAvailable = [appArr[index][@"c_available"]isEqualToString:@"true"];
     if (isAvailable) {
-        NSString *urlString = [NSString stringWithFormat:@"%@%@",
-                               [appArr[index][@"c_app_id"]substringWithRange:NSMakeRange(12, [appArr[index][@"c_app_id"]length] - 12)],@"://"];
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", appArr[index][@"c_app_id"], @"://"];
+        NSString *url = appArr[index][@"c_app_url"];
         BOOL isExecuted = [SysUtils canExecuteApplication:urlString];
         
         [SysUtils applicationExecute: isExecuted ? urlString : url ];
@@ -451,20 +451,7 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
 #pragma mark - handle events
 
 - (void)handleButtonActions:(UIButton *)sender{
-    switch (sender.tag) {
-        case 0:
-            [self executedAppAtIndex:sender.tag forURLString:@""];
-            break;
-        case 1:
-            [self executedAppAtIndex:sender.tag forURLString:@"https://itunes.apple.com/us/app/geulinmesiji/id903283980?mt=8"];
-            break;
-        case 2:
-            [self executedAppAtIndex:sender.tag forURLString:@""];
-            break;
-        case 3:
-            [self executedAppAtIndex:sender.tag forURLString:@""];
-            break;
-    }
+    [self executedAppAtIndex:sender.tag];
 }
 
 - (void)handleNavigationBarAction:(UIButton *) sender{
