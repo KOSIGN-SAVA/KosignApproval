@@ -1663,8 +1663,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PREPROCESSOR_DEFINITIONS = _RELEASE_;
 				INFOPLIST_FILE = ApprovalMobileApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -1728,8 +1728,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_DEBUG_,
 					_PUSH_,
@@ -1743,7 +1743,7 @@
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/GoogleAnalytics/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8891f46a-afb8-47e0-b1b7-2e1ca45aa2b2";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = DebugDistribute;
@@ -1793,8 +1793,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_RELEASE_,
 					_PUSH_,
@@ -1808,7 +1808,7 @@
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/GoogleAnalytics/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8891f46a-afb8-47e0-b1b7-2e1ca45aa2b2";
+				PROVISIONING_PROFILE = "ad0d754b-4a90-47e0-bf2b-c1f487a88946";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = ReleaseDistribute;

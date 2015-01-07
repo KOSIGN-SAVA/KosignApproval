@@ -567,9 +567,6 @@
         
         // action code 또는 return error code에 값이 있다면 오류이다.
         if (((actionCode != nil) && ([actionCode isEqualToString:@""] == NO)) || ((recvErrorCode != nil) && ([recvErrorCode isEqualToString:@""] == NO))) {
-//            [SessionManager sharedSessionManager].userID = @"";
-//            [SessionManager sharedSessionManager].sessionOutString = @"Y";
-            
             // delegate를 통해 전달할 오류 메시지를 생성한다.
             if ([recvErrorCode isEqualToString:@"100"])
                 retErrorMessage = recvErrorMessage;
@@ -585,7 +582,7 @@
             return;
         }
         
-        if ([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"]) // && [[SessionManager sharedSessionManager].userID isEqualToString:@""] == NO)
+        if ([recvErrorCode isEqualToString:@"0001"] || [recvErrorCode isEqualToString:@"1004"])
         {
             [AppUtils closeWaitingSplash];
             self.view.userInteractionEnabled = YES;
