@@ -182,7 +182,7 @@
     }
     
     
-    self.title = @"결재함";
+    self.title = @"비플 결재함";
     
     [AppUtils settingRightButton:self action:@selector(btnMoreMenuClicked:) normalImageCode:@"top_more_btn.png" highlightImageCode:@"top_more_btn_p.png"];
     
