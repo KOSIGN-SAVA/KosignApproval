@@ -101,7 +101,7 @@
             break;
             
         case WCPUSH_STATUS_ERROR: // Push 설정 및 관련 오류가 넘어온다.
-            [SysUtils showMessage:@"PUSH 서버와의 통신이 원할하지 않습니다. 원할한 서비스 이용을 위하여 재 로그인하여 주시기 바랍니다."];
+//            [SysUtils showMessage:@"PUSH 서버와의 통신이 원할하지 않습니다. 원할한 서비스 이용을 위하여 재 로그인하여 주시기 바랍니다."];
             
             switch (errorCode) {
                 case WCPUSH_ERROR_NONE:

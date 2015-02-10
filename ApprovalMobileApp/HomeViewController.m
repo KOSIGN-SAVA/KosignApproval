@@ -31,7 +31,7 @@
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] init];
     
     
-    // 콜라보 알림 건수 조회
+    // 결재함 알림 건수 조회
     if ([trCode isEqualToString:@"APPR_ALAM_R101"]) {
         
         [reqData setObject:[SessionManager sharedSessionManager].userID forKey:@"USER_ID"]; //사용자ID
