@@ -51,7 +51,7 @@ import UIKit
     
     func deviceOrientationDidChange(sender: AnyObject?) {
         if _queue.operations.count > 0 {
-            let lastToast: JLToast = _queue.operations[0] as JLToast
+            let lastToast: JLToast = _queue.operations[0] as! JLToast
             lastToast._view!.updateView()
         }
     }

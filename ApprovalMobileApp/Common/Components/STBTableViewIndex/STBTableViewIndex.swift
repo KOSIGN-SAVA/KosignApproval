@@ -92,7 +92,7 @@ class STBTableViewIndex: UIControl {
 	}
 	
 	
-	convenience override init() {
+	convenience init() {
 		self.init(frame: CGRectZero)
 	}
 	
@@ -196,17 +196,30 @@ class STBTableViewIndex: UIControl {
 		view.alpha = 1.0
 		NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideIndex", userInfo: nil, repeats: false)
 	}
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        
+        let touchesArr = Array(touches)
+        let touch = touchesArr[0] as! UITouch
+        let location = touch.locationInView(self)
+        setNewIndex(point: location)
+        visible = true
+    }
+    
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        visible = false
+    }
 	
-	override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-		let touch = touches.anyObject() as UITouch
-		let location = touch.locationInView(self)
-		setNewIndex(point: location)
-		visible = true
-	}
-	
-	override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-		visible = false
-	}
+//	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+//		let touch = touches.anyObject() as! UITouch
+//		let location = touch.locationInView(self)
+//		setNewIndex(point: location)
+//		visible = true
+//	}
+//	
+//	override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+//		visible = false
+//	}
 	
 	func handleGesture(gesture: UIGestureRecognizer) {
 		let location = gesture.locationInView(self)

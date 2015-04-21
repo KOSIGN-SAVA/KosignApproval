@@ -25,7 +25,7 @@ import UIKit
     var _textLabel: UILabel?
     var _textInsets: UIEdgeInsets?
     
-    override init() {
+    init() {
         super.init(frame: CGRectMake(0, 0, 64, 64))
         _backgroundView = UIView(frame: self.bounds)
         _backgroundView!.backgroundColor = UIColor(white: 0, alpha: 0.6)
