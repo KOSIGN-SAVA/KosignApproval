@@ -24,7 +24,7 @@
 
 @implementation WebStyleViewController
 
-@synthesize menuURL				= _menuURL;
+//@synthesize menuURL				= _menuURL;
 
 
 - (void)internalInit {
@@ -59,7 +59,8 @@
 		[self internalInit];
 		
         _isImageOpen = YES;
-		_menuURL = aURL;
+//		_menuURL = aURL;
+        self.menuURL = [NSString stringWithString:aURL];
 	}
 	
 	return self;

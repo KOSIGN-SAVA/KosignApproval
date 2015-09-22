@@ -15,7 +15,7 @@
 @interface WebStyleViewController : WCViewController<SecurityManagerDelegate, UITabBarDelegate, UIWebViewDelegate> {
 //	NSString*		_path;
 //	NSString*		_originalParams;
-	NSString*		_menuURL;
+//	NSString*		_menuURL;
 	NSString*		_imageURL;
 	NSString*       _docID;
 

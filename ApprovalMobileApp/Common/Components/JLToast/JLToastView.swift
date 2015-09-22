@@ -44,7 +44,7 @@ import UIKit
         _textInsets = UIEdgeInsetsMake(6, 10, 6, 10)
     }
     
-    required convenience public init(coder aDecoder: NSCoder) {
+    required convenience public init?(coder aDecoder: NSCoder) {
         self.init()
     }
     
@@ -52,7 +52,7 @@ import UIKit
         let deviceWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         let font = self._textLabel!.font
         let constraintSize = CGSizeMake(deviceWidth * (280.0 / 320.0), CGFloat.max)
-        var textLabelSize = self._textLabel!.sizeThatFits(constraintSize)
+        let textLabelSize = self._textLabel!.sizeThatFits(constraintSize)
         self._textLabel!.frame = CGRect(
             x: self._textInsets!.left,
             y: self._textInsets!.top,

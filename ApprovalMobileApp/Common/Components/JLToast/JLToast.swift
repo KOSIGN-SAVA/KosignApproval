@@ -79,7 +79,7 @@ public struct JLToastViewValue {
     }
     
     public class func makeText(text: String, delay: NSTimeInterval, duration: NSTimeInterval) -> JLToast {
-        var toast = JLToast()
+        let toast = JLToast()
         toast.text = text
         toast.delay = delay
         toast.duration = duration
