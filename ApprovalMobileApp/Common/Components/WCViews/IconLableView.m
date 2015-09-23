@@ -62,7 +62,8 @@
 }
 
 
-- (void)setTextAlignment:(UITextAlignment)aAlign {
+//- (void)setTextAlignment:(UITextAlignment)aAlign {
+- (void)setTextAlignment:(NSTextAlignment)aAlign {
 	UILabel *labelText = (UILabel *)[self viewWithTag:2000];
 	labelText.textAlignment = aAlign;
 }

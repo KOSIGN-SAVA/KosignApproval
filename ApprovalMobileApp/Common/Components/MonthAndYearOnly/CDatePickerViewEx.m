@@ -170,7 +170,8 @@ const NSInteger numberOfComponents = 2;
     CGRect frame = CGRectMake(0, 0, [self componentWidth],rowHeight);
     
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    label.textAlignment = UITextAlignmentCenter;
+//    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment   = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = selected ? [UIColor blueColor] : [UIColor blackColor];
     label.font = [UIFont boldSystemFontOfSize:18];

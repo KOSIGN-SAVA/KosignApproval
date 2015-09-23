@@ -318,7 +318,11 @@
     //	CGRect selfViewBounds = self.view.bounds;
     //			const CGFloat TabBarSize = 76.0;
     _web                        = [[UIWebView alloc] init];
-	_web.backgroundColor		= [UIColor viewFlipsideBackgroundColor];
+#ifdef IS_IOS_7_OR_LATER
+    
+#else
+    _web.backgroundColor		= [UIColor viewFlipsideBackgroundColor];
+#endif
 	_web.scalesPageToFit		= YES;
 	_web.dataDetectorTypes		= UIDataDetectorTypeLink;
 	_web.delegate				= self;

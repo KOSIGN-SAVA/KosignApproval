@@ -157,8 +157,9 @@
             NSString *c_update_actString    = [responseArray valueForKey:@"c_update_act"][0];
             
             //force to update
-            if([SysUtils versionToInteger:minimum_verString] < [SysUtils versionToInteger:appVersionString]){
-                
+//            if([SysUtils versionToInteger:minimum_verString] < [SysUtils versionToInteger:appVersionString]){
+              if([SysUtils versionToInteger:minimum_verString] > [SysUtils versionToInteger:appVersionString]){
+            
                 //action sheet
                 if([SysUtils getOSVersion] >= 80000){
                     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:c_update_actString preferredStyle:UIAlertControllerStyleActionSheet];

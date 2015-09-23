@@ -65,7 +65,8 @@
 		UILabel *subTitle = [[UILabel alloc] initWithFrame:CGRectMake(38.0f, 12.0f, 270.0f, 20.0f)];
 		subTitle.font = [UIFont fontWithName:kDefaultFontName size:18];
 		subTitle.textColor = RGB(0, 0, 0);
-		subTitle.textAlignment = UITextAlignmentLeft;
+//		subTitle.textAlignment = UITextAlignmentLeft;
+        subTitle.textAlignment = NSTextAlignmentLeft;
 		subTitle.text = title;
 		subTitle.tag = 99999;
 		subTitle.backgroundColor = [UIColor clearColor];

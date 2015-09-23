@@ -454,7 +454,9 @@ static NSInteger kIndicatorSize = 32;
     _navigationHidden		= NO;
     _defaultLeftButton		= YES;
     _defaultRightButton     = YES;
-    _titleAlignment			= UITextAlignmentLeft;
+//    _titleAlignment			= UITextAlignmentLeft;
+    _titleAlignment			= AlignmentLeft;
+    
     _numberPadDoneEnabled	= NO;
     _btnKeyboardDone		= nil;
     _waitSplashEnabled		= NO;

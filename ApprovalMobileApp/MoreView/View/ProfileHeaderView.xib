@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -255,17 +255,12 @@
                     <exclude reference="9bW-Or-UII"/>
                     <exclude reference="QgR-7r-20g"/>
                     <exclude reference="dw2-XS-faf"/>
-                    <exclude reference="OXj-Ql-WDB"/>
-                    <exclude reference="Qji-Aw-Enm"/>
-                    <exclude reference="ada-ed-pz1"/>
                     <exclude reference="AHJ-cy-Epy"/>
                     <exclude reference="Qt7-ee-2ZK"/>
                     <exclude reference="Y5v-jH-Nni"/>
                     <exclude reference="d6H-LA-nsr"/>
                     <exclude reference="gHZ-qJ-pe9"/>
                     <exclude reference="nGj-eg-wXL"/>
-                    <exclude reference="u8e-pt-Ikf"/>
-                    <exclude reference="zPV-69-gSV"/>
                     <exclude reference="5Pz-y2-dSv"/>
                     <exclude reference="cpk-cH-cGI"/>
                     <exclude reference="lp0-RQ-3O5"/>
@@ -273,6 +268,11 @@
                     <exclude reference="fmm-sH-a2J"/>
                     <exclude reference="rMn-x6-JqX"/>
                     <exclude reference="uLK-WD-SEA"/>
+                    <exclude reference="OXj-Ql-WDB"/>
+                    <exclude reference="Qji-Aw-Enm"/>
+                    <exclude reference="ada-ed-pz1"/>
+                    <exclude reference="u8e-pt-Ikf"/>
+                    <exclude reference="zPV-69-gSV"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -286,17 +286,12 @@
                     <include reference="9bW-Or-UII"/>
                     <include reference="QgR-7r-20g"/>
                     <include reference="dw2-XS-faf"/>
-                    <include reference="OXj-Ql-WDB"/>
-                    <include reference="Qji-Aw-Enm"/>
-                    <include reference="ada-ed-pz1"/>
                     <include reference="AHJ-cy-Epy"/>
                     <include reference="Qt7-ee-2ZK"/>
                     <include reference="Y5v-jH-Nni"/>
                     <include reference="d6H-LA-nsr"/>
                     <include reference="gHZ-qJ-pe9"/>
                     <include reference="nGj-eg-wXL"/>
-                    <include reference="u8e-pt-Ikf"/>
-                    <include reference="zPV-69-gSV"/>
                     <include reference="5Pz-y2-dSv"/>
                     <include reference="cpk-cH-cGI"/>
                     <include reference="lp0-RQ-3O5"/>
@@ -304,6 +299,11 @@
                     <include reference="fmm-sH-a2J"/>
                     <include reference="rMn-x6-JqX"/>
                     <include reference="uLK-WD-SEA"/>
+                    <include reference="OXj-Ql-WDB"/>
+                    <include reference="Qji-Aw-Enm"/>
+                    <include reference="ada-ed-pz1"/>
+                    <include reference="u8e-pt-Ikf"/>
+                    <include reference="zPV-69-gSV"/>
                 </mask>
             </variation>
             <connections>

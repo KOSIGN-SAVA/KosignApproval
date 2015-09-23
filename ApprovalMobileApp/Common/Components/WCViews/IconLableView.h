@@ -19,7 +19,8 @@
 @property (nonatomic, assign) UIFont* font;
 @property (nonatomic, assign) UIColor* textColor;
 @property (nonatomic, assign) NSString* text;
-@property (nonatomic) UITextAlignment textAlignment;
+//@property (nonatomic) UITextAlignment textAlignment;
+@property (nonatomic) NSTextAlignment textAlignment;
 @property (nonatomic) NSInteger numberOfLines;
 
 

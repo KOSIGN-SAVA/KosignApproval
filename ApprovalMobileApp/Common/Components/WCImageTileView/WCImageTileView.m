@@ -101,7 +101,8 @@
                 if ([appBudleNm isEqualToString:@"Bizwere"] == YES)
                 {
                     label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 19.0f)];
-                    label.textAlignment = UITextAlignmentCenter;
+//                    label.textAlignment = UITextAlignmentCenter;
+                    label.textAlignment = AlignmentCenter;
                     label.backgroundColor = [UIColor clearColor];
                     label.textColor = RGB(200,7,3);
                     label.tag = KBadgeLabel;
@@ -118,7 +119,8 @@
 //                    [backgroundView addSubview:label];
 //                    [label release];
                     label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 19.0f)];
-                    label.textAlignment = UITextAlignmentCenter;
+//                    label.textAlignment = UITextAlignmentCenter;
+                    label.textAlignment = AlignmentCenter;
                     label.backgroundColor = [UIColor clearColor];
                     label.textColor = RGB(200,7,3);
                     label.tag = KBadgeLabel;
@@ -486,10 +488,12 @@ static const NSInteger BackgroundViewTag	= 987;
 			[btnImageTile setTitle:sTitle forState:UIControlStateNormal];
 			[btnImageTile setTitleColor:RGB(35, 35, 35) forState:UIControlStateNormal];
 			[btnImageTile setTitleEdgeInsets:UIEdgeInsetsMake(80.0f, 0.0f, 10.0f, 0.0f)];
-			[btnImageTile.titleLabel setTextAlignment:UITextAlignmentCenter];
+//			[btnImageTile.titleLabel setTextAlignment:UITextAlignmentCenter];
+            [btnImageTile.titleLabel setTextAlignment:NSTextAlignmentCenter];
             //[btnImageTile setContentVerticalAlignment:UIControlContentVerticalAlignmentTop];
             btnImageTile.titleLabel.contentMode = UIControlContentVerticalAlignmentTop;
-			btnImageTile.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+//			btnImageTile.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+   			btnImageTile.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             btnImageTile.titleLabel.numberOfLines = 2;
 			btnImageTile.titleLabel.font = [UIFont systemFontOfSize:11];
 		}

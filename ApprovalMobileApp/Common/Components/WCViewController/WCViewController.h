@@ -7,6 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SecurityManager.h"
+#import "Constants.h"
+
+
 typedef enum {
     UINavigationCustomBG	= 0,
     UINavigationLeftBG		= 1,
@@ -36,7 +39,9 @@ typedef enum {
 	BOOL						_isShowKeypad;
 	BOOL						_isPortrait;
     BOOL                        _swipeEnabled;
-	UITextAlignment				_titleAlignment;
+//	UITextAlignment				_titleAlignment;
+    Alignment                _titleAlignment;
+    
 	UIButton*					_btnKeyboardDone;
 }
 
@@ -104,7 +109,8 @@ typedef enum {
 /** Sets or returns the @c BOOL waitSplashEnabled
 	타이틀 영역의 Alignment
  */
-@property (nonatomic) UITextAlignment titleAlignment;
+//@property (nonatomic) UITextAlignment titleAlignment;
+@property (nonatomic) Alignment titleAlignment;
 
 
 

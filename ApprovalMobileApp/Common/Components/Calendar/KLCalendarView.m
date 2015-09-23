@@ -126,7 +126,19 @@
         CGFloat xOffset = columnIndex * columnWidth;
         CGFloat yOffset = (2.94f * [self headerHeight]) - fontSize+10;
         
-        [header drawInRect:CGRectMake(xOffset, yOffset, columnWidth, fontSize) withFont: [UIFont boldSystemFontOfSize:11] lineBreakMode: UILineBreakModeClip alignment: UITextAlignmentCenter];
+//        [header drawInRect:CGRectMake(xOffset, yOffset, columnWidth, fontSize) withFont: [UIFont boldSystemFontOfSize:11] lineBreakMode: UILineBreakModeClip alignment: UITextAlignmentCenter];
+#ifdef IS_IOS_7_OR_LATER 
+        NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        paragraphStyle.lineBreakMode            = NSLineBreakByClipping;
+        paragraphStyle.alignment                = NSTextAlignmentCenter;
+        
+        NSDictionary *attributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:11], NSParagraphStyleAttributeName: paragraphStyle};
+        
+        [header drawInRect:CGRectMake(xOffset, yOffset, columnWidth, fontSize) withAttributes:attributes];
+#else
+        [header drawInRect:CGRectMake(xOffset, yOffset, columnWidth, fontSize) withFont: [UIFont boldSystemFontOfSize:11] lineBreakMode: NSLineBreakByClipping alignment: AlignmentCenter];
+#endif
+        
 		columnIndex++;
 	}
     

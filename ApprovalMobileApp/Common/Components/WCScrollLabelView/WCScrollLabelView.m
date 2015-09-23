@@ -8,6 +8,7 @@
 
 #import "WCScrollLabelView.h"
 #import "JSON.h"
+#import "Constants.h"
 
 @interface WCScrollLabelView()
 - (NSInteger)getLabelCount;
@@ -51,7 +52,12 @@
 		
 		UILabel* mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height)];
 		mainLabel.tag = 1001;
-		mainLabel.lineBreakMode = UILineBreakModeClip;
+#ifdef IS_IOS_6_OR_LATER
+        mainLabel.lineBreakMode = NSLineBreakByClipping;
+#else
+        mainLabel.lineBreakMode = UILineBreakModeClip;
+#endif
+		
 		mainLabel.font = _font;
 		mainLabel.backgroundColor = [UIColor clearColor];
 		[mainScroll addSubview:mainLabel];
@@ -205,7 +211,13 @@
 	tempLabel.text		= @"";
 	tempLabel.font		= _font;
 	tempLabel.textColor = _textColor;
-	tempPaddingWidth = [@" " sizeWithFont:_font].width;
+
+#ifdef IS_IOS_7_OR_LATER
+    tempPaddingWidth = [@" " sizeWithAttributes:@{NSFontAttributeName: _font}].width;
+#else
+    tempPaddingWidth = [@" " sizeWithFont:_font].width;
+#endif
+	
 	
 	[_pointList removeAllObjects];
 	
@@ -222,14 +234,23 @@
 				tempString = [self getStringLabel:i];
 			}
 			
-			tempWidth = [[NSString stringWithFormat:@"%@ ", tempString] sizeWithFont:_font].width;
+#ifdef IS_IOS_7_OR_LATER
+            tempWidth = [[NSString stringWithFormat:@"%@ ", tempString] sizeWithAttributes:@{NSFontAttributeName: _font}].width;
+#else
+            tempWidth = [[NSString stringWithFormat:@"%@ ", tempString] sizeWithFont:_font].width;
+#endif
 			
 			//현재 사이즈가 전체 frame보다 작으면 String에 현 프레임의 길이 만큼 String에 Padding처리 하고 사이즈를 재계산하자.
 			if (tempWidth < self.frame.size.width) {
 				paddingCount =	(floor(self.frame.size.width - tempWidth) / tempPaddingWidth) + 1;
 				tempString = [tempString stringByPaddingToLength:[tempString length] + paddingCount withString:@" " startingAtIndex:0];
 				
-				tempWidth = [[NSString stringWithFormat:@"%@ ", tempString] sizeWithFont:_font].width;
+#ifdef IS_IOS_7_OR_LATER
+                tempWidth = [[NSString stringWithFormat:@"%@ ", tempString] sizeWithAttributes:@{NSFontAttributeName: _font}].width;
+#else
+                tempWidth = [[NSString stringWithFormat:@"%@ ", tempString] sizeWithFont:_font].width;
+#endif
+				
 			}
 			
 			pointAsObject = [NSValue valueWithCGPoint:CGPointMake(tempTotalWidth, tempWidth/50)];

@@ -380,3 +380,20 @@
 #define kDocNameRequestSecurityCard			@"P01040"			// 보안카드 채번(비로그인)
 #define kDocNameResultSecurityCard			@"P01050"			// 보안카드 검증(비로그인)
 #define kDocNameRequestSecurityValidation	@"P01030"			// 보안카드 / OTP 검증 (로그인)
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Deprecated 된 클래스 처리
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define IS_IOS_6_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0)
+#define IS_IOS_7_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+
+#ifdef IS_IOS_6_OR_LATER
+# define Alignment NSTextAlignment
+# define AlignmentLeft NSTextAlignmentLeft
+# define AlignmentCenter NSTextAlignmentCenter
+# define AlignmentRight NSTextAlignmentRight
+#else
+# define Alignment UITextAlignment
+# define AlignmentLeft UITextAlignmentLeft
+# define AlignmentCenter UITextAlignmentCenter
+# define AlignmentRight UITextAlignmentRight
+#endif

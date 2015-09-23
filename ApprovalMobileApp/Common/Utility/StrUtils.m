@@ -10,6 +10,7 @@
 #import "StrUtils.h"
 #import "SysUtils.h"
 #import "NSData+AES256.h"
+#import "Constants.h"
 
 
 @implementation NSString (StrUtils)
@@ -559,8 +560,19 @@ static const NSString *KEY_PREFIX_VALUE	= @"BizplayKey"; //우리은행 키로 �
 }
 
 - (CGFloat)measureTextHeight:(NSString*)text fontName:(NSString*)fontName fontSize:(CGFloat)fontSize constrainedToSize:(CGSize)constrainedToSize {
-    CGSize mTempSize = [text sizeWithFont:[UIFont fontWithName:fontName size:fontSize] constrainedToSize:constrainedToSize lineBreakMode:UILineBreakModeWordWrap];
-    return mTempSize.height; 
+//    CGSize mTempSize = [text sizeWithFont:[UIFont fontWithName:fontName size:fontSize] constrainedToSize:constrainedToSize lineBreakMode:UILineBreakModeWordWrap];
+    CGSize mTempSize;
+#ifdef IS_IOS_7_OR_LATER
+    CGRect textRect = [text boundingRectWithSize:mTempSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:fontName size:fontSize]} context:nil];
+    
+    mTempSize = textRect.size;
+#else
+    mTempSize = [text sizeWithFont:[UIFont fontWithName:fontName size:fontSize] constrainedToSize:constrainedToSize lineBreakMode:NSLineBreakByWordWrapping];
+#endif
+//    mTempSize = [text sizeWithFont:[UIFont fontWithName:fontName size:fontSize] constrainedToSize:constrainedToSize lineBreakMode:NSLineBreakByWordWrapping];
+    
+    
+    return mTempSize.height;
     //    return mTempSize.width;
     
 }

@@ -268,10 +268,17 @@ static const NSInteger kTagActivityAlert                = 4444;
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
     
+#ifdef IS_IOS_7_OR_LATER
     [[UINavigationBar appearance] setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
-      RGB(255, 255, 255),UITextAttributeTextColor,
-      [UIFont fontWithName:kBoldStyleFontName size:18.0], UITextAttributeFont,nil]];
+      RGB(255, 255, 255), NSForegroundColorAttributeName,
+      [UIFont fontWithName:kBoldStyleFontName size:18.0], NSFontAttributeName,nil]];
+#else
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+            RGB(255, 255, 255),UITextAttributeTextColor,
+            [UIFont fontWithName:kBoldStyleFontName size:18.0], UITextAttributeFont,nil]];
+#endif
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     

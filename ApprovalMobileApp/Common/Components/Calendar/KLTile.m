@@ -208,10 +208,23 @@ static void InitKLTile(){
 	
     for (NSInteger i = 0; i < [_dateLabel.text length]; i++) {
         NSString *letter = [_dateLabel.text substringWithRange:NSMakeRange(i, 1)];
-        CGSize letterSize = [letter sizeWithFont:[UIFont boldSystemFontOfSize:numberFontSize]];
+//        CGSize letterSize = [letter sizeWithFont:[UIFont boldSystemFontOfSize:numberFontSize]];
+        CGSize letterSize;
+        
+#ifdef IS_IOS_7_OR_LATER
+        letterSize = [letter sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f]}];
+#else
+        letterSize = [letter sizeWithFont:[UIFont boldSystemFontOfSize:numberFontSize]];
+#endif
 		
         CGContextSaveGState(ctx);  // I will need to undo this clip after the letter's gradient has been drawn
+
+#ifdef IS_IOS_7_OR_LATER
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:numberFontSize], NSFontAttributeName, nil];
+        [letter drawAtPoint:CGPointMake(4.0f+(letterSize.width*i), 0.0f) withAttributes:attributes];
+#else
         [letter drawAtPoint:CGPointMake(4.0f+(letterSize.width*i), 0.0f) withFont:[UIFont boldSystemFontOfSize:numberFontSize]];
+#endif
 		
         if ([[self.date dateToString:@"yyyyMMdd"] isEqualToString:[[NSDate date]dateToString:@"yyyyMMdd"]]) {
             CGContextSetFillColorWithColor(ctx, kWhiteColor);

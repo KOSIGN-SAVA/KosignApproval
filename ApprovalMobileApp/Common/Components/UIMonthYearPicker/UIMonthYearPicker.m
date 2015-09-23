@@ -235,12 +235,13 @@ const NSInteger numberOfComponentss = 2;
     return [self.years objectAtIndex:(row % yearCount)];
 }
 
+
 -(UILabel *)labelForComponent:(NSInteger)component selected:(BOOL)selected
 {
     CGRect frame = CGRectMake(0.f, 0.f, [self componentWidth],rowHeights);
     
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = AlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:18.f];
     label.userInteractionEnabled = NO;
