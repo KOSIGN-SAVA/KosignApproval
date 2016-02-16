@@ -68,44 +68,47 @@
             UIButton *aNewCount = (UIButton *)[self.view viewWithTag:2003];
             
             
-            if ([[[responseArray objectAtIndex:0] objectForKey:@"PERS_ALAM_CNT"] integerValue] > 0) {
-                
+            NSDictionary *_valueDic     = [responseArray objectAtIndex:0];
+            
+            NSString *_persnalAlamCnt   = [_valueDic objectForKey:@"PERS_ALAM_CNT"];    // 개인결재함 새로운 메시지 카운트
+            NSString *_deptAlamCnt      = [_valueDic objectForKey:@"DEPT_ALAM_CNT"];    // 부서결재함 새로운 메시지 카운트
+            NSString *_acptAlamCnt      = [_valueDic objectForKey:@"ACPT_ALAM_CNT"];    // 접수결재함 새로운 메시지 카운트
+            
+            // 새로운 메시지 전체 카운트
+            int _badgeTotalCount = 0;
+            
+            // 버튼 초기화(새로운 메시지가 없을때는 뱃지를 안보여준다.)
+            pNewCount.hidden = YES;
+            aNewCount.hidden = YES;
+            dNewCount.hidden = YES;
+            
+            if ([SysUtils isNull:_persnalAlamCnt] == NO && [_persnalAlamCnt intValue] > 0) {
+                // 개인결재함에 새로운 메시지가 있을때
                 pNewCount.hidden = NO;
-                [pNewCount setTitle:[[responseArray objectAtIndex:0] objectForKey:@"PERS_ALAM_CNT"] forState:UIControlStateNormal];
+                [pNewCount setTitle:_persnalAlamCnt forState:UIControlStateNormal];
                 
-            } else {
-                
-                pNewCount.hidden = YES;
-                [pNewCount setTitle:@"" forState:UIControlStateNormal];
-                
-            }
-            if ([[[responseArray objectAtIndex:0] objectForKey:@"DEPT_ALAM_CNT"] integerValue] > 0) {
-                
-                dNewCount.hidden = NO;
-                [dNewCount setTitle:[[responseArray objectAtIndex:0] objectForKey:@"DEPT_ALAM_CNT"] forState:UIControlStateNormal];
-                
-            } else {
-                
-                dNewCount.hidden = YES;
-                [dNewCount setTitle:@"" forState:UIControlStateNormal];
-                
-            }
-            if ([[[responseArray objectAtIndex:0] objectForKey:@"ACPT_ALAM_CNT"] integerValue] > 0) {
-                
-                aNewCount.hidden = NO;
-                [aNewCount setTitle:[[responseArray objectAtIndex:0] objectForKey:@"ACPT_ALAM_CNT"] forState:UIControlStateNormal];
-                
-            } else {
-                
-                aNewCount.hidden = YES;
-                [aNewCount setTitle:@"" forState:UIControlStateNormal];
-                
+                _badgeTotalCount += [_persnalAlamCnt intValue];
             }
             
+            if ([SysUtils isNull:_deptAlamCnt] == NO && [_deptAlamCnt intValue] > 0) {
+                // 부서결재함에 새로운 메시지가 있을때
+                dNewCount.hidden = NO;
+                [dNewCount setTitle:_deptAlamCnt forState:UIControlStateNormal];
+                
+                _badgeTotalCount += [_deptAlamCnt intValue];
+            }
+            
+            if ([SysUtils isNull:_acptAlamCnt] == NO && [_acptAlamCnt intValue] > 0) {
+                // 접수결재함에 새로운 메시지가 있을때
+                aNewCount.hidden = NO;
+                [aNewCount setTitle:_acptAlamCnt forState:UIControlStateNormal];
+                
+                _badgeTotalCount += [_acptAlamCnt intValue];
+            }
+            
+            [UIApplication sharedApplication].applicationIconBadgeNumber = _badgeTotalCount;
         }
-        
     }
-    
 }
 
 

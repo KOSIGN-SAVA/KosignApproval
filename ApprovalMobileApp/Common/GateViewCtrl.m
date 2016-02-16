@@ -20,39 +20,47 @@
 @synthesize waitingSplash = _waitingSplash;
 
 static const NSInteger kTagWaitingView					= 5001;
-static const NSInteger kTagActivityAlert                = 4444;
+//static const NSInteger kTagActivityAlert                = 4444;
 
 
 #pragma mark -
 #pragma mark Notificaiton Method
 #pragma mark -
 - (void)showWaitingSplash:(NSNotification *)note {
-	if ([SysUtils isNull:_waitingSplash] == YES) {
-		_waitingSplash		= [[WaitingSplashView alloc] init];
-		_waitingSplash.tag	= kTagWaitingView;
-	}
-
-	[self.view addSubview:_waitingSplash];
-
-	[_waitingSplash show];
     
-	self.view.userInteractionEnabled = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([SysUtils isNull:_waitingSplash] == YES) {
+            _waitingSplash		= [[WaitingSplashView alloc] init];
+            _waitingSplash.tag	= kTagWaitingView;
+        }
+        
+        [self.view addSubview:_waitingSplash];
+        
+        [_waitingSplash show];
+        
+        self.view.userInteractionEnabled = NO;
+    });
 }
 
 
 - (void)closeWaitingSplash:(NSNotification *)note {
-	if ([SysUtils isNull:_waitingSplash] == YES)
-		return;
-	
-	[_waitingSplash close];
-
-	
-	UIView *viewCurrentSplash = [self.view viewWithTag:kTagWaitingView];
-	
-	if ([SysUtils isNull:viewCurrentSplash] == NO)
-		[viewCurrentSplash removeFromSuperview];
-	
-	self.view.userInteractionEnabled = YES;
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if ([SysUtils isNull:_waitingSplash] == YES)
+            return;
+        
+        [_waitingSplash close];
+        
+        
+        UIView *viewCurrentSplash = [self.view viewWithTag:kTagWaitingView];
+        
+        if ([SysUtils isNull:viewCurrentSplash] == NO)
+            [viewCurrentSplash removeFromSuperview];
+        
+        self.view.userInteractionEnabled = YES;
+    });
 }
 
 
@@ -280,7 +288,7 @@ static const NSInteger kTagActivityAlert                = 4444;
             [UIFont fontWithName:kBoldStyleFontName size:18.0], UITextAttributeFont,nil]];
 #endif
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
     if ([[ver objectAtIndex:0] intValue] >= 7) {

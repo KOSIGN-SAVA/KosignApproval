@@ -20,4 +20,6 @@
     __weak IBOutlet NSLayoutConstraint *tabViewRightConstraint;
 }
 
+- (void)sendTranData:(NSString *)trCode;
+
 @end

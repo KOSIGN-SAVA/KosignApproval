@@ -15,6 +15,7 @@
 #import "JSON.h"
 #import "UserSettings.h"
 #import "GateViewCtrl.h"
+#import "HomeViewController.h"
 
 
 @interface WebStyleViewController()
@@ -855,6 +856,19 @@
 //            ((UIButton *)[self.view viewWithTag:2002]).hidden = NO;
 //        }
         
+        
+//        if ([decoded hasSuffix:@"APPROVAL_101.act"] ||
+//            [decoded hasSuffix:@"APPROVAL_102.act"] ||
+//            [decoded hasSuffix:@"APPROVAL_103.act"]) {
+//            
+//            
+//            for (id subViewCtrl in self.navigationController.viewControllers) {
+//                if ([[subViewCtrl debugDescription] hasPrefix:@"<HomeViewController"]) {
+//                    [(HomeViewController *)subViewCtrl sendTranData:@"APPR_ALAM_R101"];
+//                    return YES;
+//                }
+//            }
+//        }
     }
     
 	return YES;
@@ -910,20 +924,6 @@
     
     _isLoading = NO;
     
-    // 결재처리/결재정보/결재취소&결재처리 버튼 처리.
-    UIView *buttonView1 = (UIView *)[self.view viewWithTag:10001];
-    UIView *buttonView2 = (UIView *)[self.view viewWithTag:10002];
-    
-    if ([self.title isEqualToString:@"결재상세"] == NO) {
-        self.navigationItem.rightBarButtonItems = nil;
-        buttonView1.hidden = YES;
-        
-    }
-    if ([self.title isEqualToString:@"결재처리"] == NO) {
-        buttonView2.hidden = YES;
-        
-    }
-    
     // Navigation "Back" 버튼 기능 설정
     NSString *sFirstScreen = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById(\"_IS_FIRST_SCREEN\").value"];
     
@@ -944,6 +944,16 @@
     [AppUtils showWaitingSplash];
     
 	_isLoading = YES;
+    
+    // 결재처리/결재정보/결재취소&결재처리 버튼 처리.
+    UIView *buttonView1 = (UIView *)[self.view viewWithTag:10001];
+    UIView *buttonView2 = (UIView *)[self.view viewWithTag:10002];
+    
+    buttonView1.hidden = YES;
+    buttonView2.hidden = YES;
+    
+    self.navigationItem.rightBarButtonItems = nil;
+    
 }
 
 
@@ -958,6 +968,7 @@
 - (void)btnCancelClicked:(id)sender {
     [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsCancel();"];
     
+//    [AppUtils showWaitingSplash];
 //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
 //                                                        message:@"결재를 취소하시겠습니까?"
 //                                                       delegate:self
@@ -969,7 +980,12 @@
 }
 
 - (void)btnRunClicked:(id)sender {
+    
     [_web stringByEvaluatingJavaScriptFromString:@"fn_setApprovalStsSave();"];
+    
+//    [AppUtils showWaitingSplash];
+    
+    
     
 //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
 //                                                        message:@"결재처리를 진행하시겠습니까?"

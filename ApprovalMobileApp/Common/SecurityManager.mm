@@ -11,6 +11,7 @@
 #import "SecurityManager.h"
 #import "SessionManager.h"
 #import "AllUtils.h"
+#import "Constants.h"
 
 @interface SecurityHandler:NSObject <SecurityManagerDelegate>{
 	id					delegate;
@@ -490,7 +491,7 @@ static NSTimer						*_sessionTimer		= nil;
     if (url == nil) {
         
         handler.url			= [NSString stringWithFormat:@"%@%@?", _SM_GATEWAY_URL, _SM_GATEWAY_PATH];
-        query = [NSString stringWithFormat:@"master_id=%@", @"I_BA_G_1"];
+        query = [NSString stringWithFormat:@"master_id=%@", MasterID];
     } else {
         
         handler.url			= [SessionManager sharedSessionManager].gateWayUrl;
