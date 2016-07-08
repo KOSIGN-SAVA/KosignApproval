@@ -360,6 +360,7 @@
         NSURL *pdfURL = [NSURL fileURLWithPath:_menuURL];
         NSURLRequest *request = [NSURLRequest requestWithURL:pdfURL];
         [_web loadRequest:request];
+      NSLog(@"___________________%@",request);
         
     } else {
         
@@ -412,45 +413,71 @@
     
     
     goRunPageButtonView.hidden = YES;
-    
-    
-    // 결재취소/결재처리 버튼 뷰.
-    UIView *runButtonView           = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 296.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 296.0f, 43.0f)];
-    runButtonView.backgroundColor   = [UIColor clearColor];
-    runButtonView.tag         = 10002;
-    [self.view addSubview:runButtonView];
-    
-    
-    UIButton *cancelButton                  = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancelButton.frame                      = CGRectMake(0.0f, 0.0f, 145.0f, 43.0f);
-    cancelButton.backgroundColor            = [UIColor clearColor];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"common_btn_1.png"] forState:UIControlStateNormal];
-    [cancelButton setTitle:@"취소" forState:UIControlStateNormal];
-    [cancelButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
-    cancelButton.titleLabel.font            = [UIFont systemFontOfSize:15.0f];
-    cancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    cancelButton.contentVerticalAlignment   = UIControlContentVerticalAlignmentCenter;
-    //[cancelButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-    [cancelButton addTarget:self action:@selector(btnCancelClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [runButtonView addSubview:cancelButton];
-    
-    
-    UIButton *runButton                     = [UIButton buttonWithType:UIButtonTypeCustom];
-    runButton.frame                         = CGRectMake(151.0f, 0.0f, 145.0f, 43.0f);
-    runButton.backgroundColor               = [UIColor clearColor];
-    [runButton setBackgroundImage:[UIImage imageNamed:@"common_btn_2.png"] forState:UIControlStateNormal];
-    [runButton setTitle:@"처리" forState:UIControlStateNormal];
-    [runButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
-    runButton.titleLabel.font               = [UIFont systemFontOfSize:15.0f];
-    runButton.contentHorizontalAlignment    = UIControlContentHorizontalAlignmentCenter;
-    runButton.contentVerticalAlignment      = UIControlContentVerticalAlignmentCenter;
-    //[runButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-    [runButton addTarget:self action:@selector(btnRunClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [runButtonView addSubview:runButton];
-    
-    
-    runButtonView.hidden = YES;
-    
+  
+  UIView *goDraftPageButtonView         = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 145.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 145.0f, 43.0f)];
+  goDraftPageButtonView.backgroundColor = [UIColor clearColor];
+  goDraftPageButtonView.tag             = 10003;
+  [self.view addSubview:goDraftPageButtonView];
+  
+  
+  UIButton *goDraftPageButton                   = [UIButton buttonWithType:UIButtonTypeCustom];
+  goDraftPageButton.frame                       = CGRectMake(0.0f, 0.0f, 145.0f, 43.0f);
+  goDraftPageButton.backgroundColor             = [UIColor clearColor];
+  [goDraftPageButton setBackgroundImage:[UIImage imageNamed:@"common_btn_4.png"] forState:UIControlStateNormal];
+  [goDraftPageButton setTitle:@"기안취소" forState:UIControlStateNormal];
+  [goDraftPageButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
+  goDraftPageButton.titleLabel.font             = [UIFont systemFontOfSize:15.0f];
+  goDraftPageButton.contentHorizontalAlignment  = UIControlContentHorizontalAlignmentCenter;
+  goDraftPageButton.contentVerticalAlignment    = UIControlContentVerticalAlignmentCenter;
+  [goDraftPageButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 0.0f)];
+  [goDraftPageButton addTarget:self action:@selector(cancelDraftDocumentClicked:) forControlEvents:UIControlEventTouchUpInside];
+  [goDraftPageButtonView addSubview:goDraftPageButton];
+  
+  
+  goDraftPageButtonView.hidden = YES;
+  
+  
+  
+  // 결재취소/결재처리 버튼 뷰.
+//  UIView *runButtonView           = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 296.0f) / 2, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 296.0f, 43.0f)];
+//  runButtonView.backgroundColor   = [UIColor clearColor];
+//  [self.view addSubview:runButtonView];
+//  runButtonView.tag = 10005;
+  
+  UIButton *cancelButton                  = [UIButton buttonWithType:UIButtonTypeCustom];
+  cancelButton.tag                        = 10004;
+  cancelButton.frame                      = CGRectMake(20.0f, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 135.0f, 43.0f);
+  cancelButton.backgroundColor            = [UIColor clearColor];
+  [cancelButton setBackgroundImage:[UIImage imageNamed:@"common_btn_1.png"] forState:UIControlStateNormal];
+  [cancelButton setTitle:@"취소" forState:UIControlStateNormal];
+  [cancelButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
+  cancelButton.titleLabel.font            = [UIFont systemFontOfSize:15.0f];
+  cancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+  cancelButton.contentVerticalAlignment   = UIControlContentVerticalAlignmentCenter;
+  //[cancelButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+  [cancelButton addTarget:self action:@selector(btnCancelClicked:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:cancelButton];
+  cancelButton.hidden = YES;
+  
+  UIButton *runButton                     = [UIButton buttonWithType:UIButtonTypeCustom];
+  runButton.tag                           = 10002;
+  runButton.frame                         = CGRectMake(([[UIScreen mainScreen] bounds].size.width - 20.0f) - 135.0f, [[UIScreen mainScreen] bounds].size.height - 20.0f - 49.0f - 43.0f - 11.0f, 135.0f, 43.0f);
+  runButton.backgroundColor               = [UIColor clearColor];
+  [runButton setBackgroundImage:[UIImage imageNamed:@"common_btn_2.png"] forState:UIControlStateNormal];
+  [runButton setTitle:@"처리" forState:UIControlStateNormal];
+  [runButton setTitleColor:RGB(255, 255, 255) forState:UIControlStateNormal];
+  runButton.titleLabel.font               = [UIFont systemFontOfSize:15.0f];
+  runButton.contentHorizontalAlignment    = UIControlContentHorizontalAlignmentCenter;
+  runButton.contentVerticalAlignment      = UIControlContentVerticalAlignmentCenter;
+  //[runButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+  [runButton addTarget:self action:@selector(btnRunClicked:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:runButton];
+  
+  
+  runButton.hidden = YES;
+//  runButtonView.hidden = YES;
+ 
+  
 }
 
 
@@ -628,7 +655,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)aNavigationType {
 	if ([SysUtils isNull:aRequest] == YES || [SysUtils isNull:[aRequest URL]] == YES)
 		return NO;
-    
+  NSLog(@"Always print when web view load ");
 	NSString *URLString = [[aRequest URL] absoluteString];
 	NSString *decoded = [URLString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
@@ -636,12 +663,11 @@
 #if _DEBUG_
 	NSLog(@"decoded : %@", decoded);
 #endif
-	
-    
+  
 	NSString *URLScheme = [[aRequest URL] scheme];
     
     if ([URLScheme isEqualToString:@"iwebactionba"] == YES || [URLScheme isEqualToString:@"iWebActionBA"] == YES){
-        
+  
         NSRange range;
         NSString *action;
         if ([URLScheme isEqualToString:@"iWebActionBA"]) {
@@ -659,14 +685,13 @@
 			NSDictionary *actionDic =  [action JSONValue];
 			NSString *actionCode = [actionDic objectForKey:@"_action_code"];
             
-            
+      
             // 다중 액션.
             NSArray *actionCodes = [actionCode componentsSeparatedByString:@"|"];
 #if _DEBUG_
             NSLog(@"actionCodes : %@", actionCodes);
 #endif
-            
-            
+      
             for (int i = 0; i < [actionCodes count]; i++) {
                 //go Home
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"1002"]) {
@@ -783,7 +808,7 @@
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2101"]) {
                     UIView *buttonView = (UIView *)[self.view viewWithTag:10001];
                     buttonView.hidden = NO;
-                    
+                  
                 }
                 
                 //결재처리버튼 Hidden
@@ -814,21 +839,46 @@
                     
                 }
                 
-                //결재처리/취소버튼 display
+                //처리버튼 display
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2105"]) {
-                    UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
-                    buttonView.hidden = NO;
-                    
+                  UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
+                  buttonView.hidden = NO;
+                  
+                  
                 }
                 
-                //결재처리/취소버튼 Hidden
+                //처리버튼 Hidden
                 if ([[actionCodes objectAtIndex:i] isEqualToString:@"2106"]) {
                     UIView *buttonView = (UIView *)[self.view viewWithTag:10002];
                     buttonView.hidden = YES;
                     
                 }
+              //취소버튼 display
+              if ([[actionCodes objectAtIndex:i] isEqualToString:@"2107"]) {
+                UIView *buttonView = (UIView *)[self.view viewWithTag:10004];
+                buttonView.hidden = NO;
+              }
+              
+              //취소버튼 Hidden
+              if ([[actionCodes objectAtIndex:i] isEqualToString:@"2108"]) {
+                UIView *buttonView = (UIView *)[self.view viewWithTag:10004];
+                buttonView.hidden = YES;
+                
+              }
+              //기안취소버튼 display
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2109"]) {
+                  UIView *buttonView = (UIView *)[self.view viewWithTag:10003];
+                  buttonView.hidden = NO;
+                
+                }
+              //기안취소버튼 Hidden
+                if ([[actionCodes objectAtIndex:i] isEqualToString:@"2110"]) {
+                  UIView *buttonView = (UIView *)[self.view viewWithTag:10003];
+                  buttonView.hidden = YES;
+                
+              }
             }
-            
+      
 		}
         
     }else{
@@ -948,10 +998,13 @@
     // 결재처리/결재정보/결재취소&결재처리 버튼 처리.
     UIView *buttonView1 = (UIView *)[self.view viewWithTag:10001];
     UIView *buttonView2 = (UIView *)[self.view viewWithTag:10002];
-    
+    UIView *buttonView3 = (UIView *)[self.view viewWithTag:10003];
+    UIView *buttonView4 = (UIView *)[self.view viewWithTag:10004];
+//
     buttonView1.hidden = YES;
     buttonView2.hidden = YES;
-    
+    buttonView3.hidden = YES;
+    buttonView4.hidden = YES;
     self.navigationItem.rightBarButtonItems = nil;
     
 }
@@ -977,6 +1030,9 @@
 //    alertView.tag = 9995;
 //    
 //    [alertView show];
+}
+-(void)cancelDraftDocumentClicked:(id)sender{
+  [_web stringByEvaluatingJavaScriptFromString:@"fn_goMoveApproval203();"];
 }
 
 - (void)btnRunClicked:(id)sender {
@@ -1028,18 +1084,21 @@
 
 - (void)leftButtonClicked:(UIButton *)sender {
     
-    UIView *buttonView2 = (UIView *)[self.view viewWithTag:10002];
-    if ([self.title isEqualToString:@"결재처리"] && buttonView2.hidden == NO) {
-        [self btnCancelClicked:nil];
-        return;
-    }
-    
+//    UIView *buttonView2 = (UIView *)[self.view viewWithTag:10002];
+//    if ([self.title isEqualToString:@"결재처리"] && buttonView2.hidden == NO) {
+//        [self btnCancelClicked:nil];
+//        return;
+//    }
+  
+  
     if (_isAppBackAction == YES) {
         [self.navigationController popToRootViewControllerAnimated:NO];
-        
+     
+      
     } else {
         //만일 분기 처리가 있을 경우 Back 이나 다른 부분을 처리 하자. Back만있을 경우 함수 자체를 삭제 해도 무방.
         if ([_web canGoBack]) {
+          
             [_web goBack];
         } else {
             [self.navigationController popViewControllerAnimated:YES];

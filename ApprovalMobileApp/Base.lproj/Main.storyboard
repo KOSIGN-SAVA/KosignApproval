@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3eh-3g-NXH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A2301" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3eh-3g-NXH">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Gate View Ctrl-->
@@ -214,126 +215,210 @@
                         <viewControllerLayoutGuide type="bottom" id="EH5-8e-sWX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="93O-sS-QgG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cb-WN-vNJ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="422"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="521"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZaK-kK-Xl0" userLabel="Tab View">
-                                <rect key="frame" x="0.0" y="486" width="320" height="82"/>
+                                <rect key="frame" x="0.0" y="585" width="375" height="82"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_bottom_bar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pj9-LU-bfc">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footer_shadow_01_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pj9-LU-bfc">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="5" id="2W1-hC-j9o"/>
+                                        </constraints>
                                     </imageView>
-                                    <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YK8-bA-8Jp">
-                                        <rect key="frame" x="50" y="21" width="40" height="40"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUH-cF-Ey4">
+                                        <rect key="frame" x="0.0" y="5" width="94" height="77"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YK8-bA-8Jp">
+                                                <rect key="frame" x="23" y="8" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="48" id="LLT-0b-9ib"/>
+                                                    <constraint firstAttribute="height" constant="48" id="jFn-Kw-7bW"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="personal_01_icon.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="personal_01_on_icon.png"/>
+                                                <connections>
+                                                    <action selector="btnTabClicked:" destination="77K-RS-cgZ" eventType="touchUpInside" id="ckX-7i-AfA"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" tag="2001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XP4-eV-Ixc">
+                                                <rect key="frame" x="23" y="8" width="19" height="19"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="19" id="BSS-4M-MN3"/>
+                                                    <constraint firstAttribute="height" constant="19" id="PgY-kO-uSe"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" backgroundImage="newnumber_icon.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="newnumber_icon.png"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="1as-wC-XxS"/>
-                                            <constraint firstAttribute="height" constant="40" id="Arh-9n-l9y"/>
+                                            <constraint firstItem="YK8-bA-8Jp" firstAttribute="leading" secondItem="XP4-eV-Ixc" secondAttribute="trailing" constant="-19" id="1Rv-sa-shP"/>
+                                            <constraint firstItem="YK8-bA-8Jp" firstAttribute="top" secondItem="XP4-eV-Ixc" secondAttribute="bottom" constant="-19" id="5XZ-dr-sBF"/>
+                                            <constraint firstItem="YK8-bA-8Jp" firstAttribute="centerX" secondItem="BUH-cF-Ey4" secondAttribute="centerX" id="FWW-ue-meH"/>
+                                            <constraint firstItem="YK8-bA-8Jp" firstAttribute="top" secondItem="BUH-cF-Ey4" secondAttribute="top" constant="8" id="Qg5-9u-CJR"/>
+                                            <constraint firstAttribute="height" constant="77" id="ggo-jj-DoN"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="taskbar_contact_1_off.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" backgroundImage="taskbar_contact_1_on.png"/>
-                                        <connections>
-                                            <action selector="btnTabClicked:" destination="77K-RS-cgZ" eventType="touchUpInside" id="ckX-7i-AfA"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0U-pS-xUF">
-                                        <rect key="frame" x="140" y="21" width="40" height="40"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOr-Q3-h0E">
+                                        <rect key="frame" x="94" y="5" width="94" height="77"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0U-pS-xUF">
+                                                <rect key="frame" x="23" y="8" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="48" id="29i-OW-yon"/>
+                                                    <constraint firstAttribute="height" constant="48" id="psi-pg-6w9"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="dpm_01_icon.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="dpm_01_on_icon.png"/>
+                                                <connections>
+                                                    <action selector="btnTabClicked:" destination="77K-RS-cgZ" eventType="touchUpInside" id="G7C-yH-oml"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" tag="2002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9V-Mh-bLz">
+                                                <rect key="frame" x="23" y="8" width="19" height="19"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="19" id="BEz-Ga-aJM"/>
+                                                    <constraint firstAttribute="width" constant="19" id="Vr1-te-VXN"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <state key="normal" backgroundImage="newnumber_icon.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="newnumber_icon.png"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="6vz-fq-WFI"/>
-                                            <constraint firstAttribute="height" constant="40" id="iAO-Vf-NdD"/>
+                                            <constraint firstItem="i0U-pS-xUF" firstAttribute="top" secondItem="J9V-Mh-bLz" secondAttribute="bottom" constant="-19" id="4ZH-ae-UCY"/>
+                                            <constraint firstItem="i0U-pS-xUF" firstAttribute="leading" secondItem="J9V-Mh-bLz" secondAttribute="trailing" constant="-19" id="NUC-Et-MpK"/>
+                                            <constraint firstItem="i0U-pS-xUF" firstAttribute="centerX" secondItem="ZOr-Q3-h0E" secondAttribute="centerX" id="S1w-Tn-7H1"/>
+                                            <constraint firstAttribute="height" constant="77" id="TLx-XY-cna"/>
+                                            <constraint firstItem="i0U-pS-xUF" firstAttribute="top" secondItem="ZOr-Q3-h0E" secondAttribute="top" constant="8" id="cQI-SB-ibQ"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="taskbar_contact_2_off.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" backgroundImage="taskbar_contact_2_on.png"/>
-                                        <connections>
-                                            <action selector="btnTabClicked:" destination="77K-RS-cgZ" eventType="touchUpInside" id="G7C-yH-oml"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siD-3b-lyp">
-                                        <rect key="frame" x="230" y="21" width="40" height="40"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L5A-ud-sFb">
+                                        <rect key="frame" x="281" y="5" width="94" height="77"/>
+                                        <subviews>
+                                            <button hidden="YES" opaque="NO" tag="2001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vd7-7f-Sxw">
+                                                <rect key="frame" x="23" y="8" width="19" height="19"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="19" id="RR1-gJ-QRW"/>
+                                                    <constraint firstAttribute="width" constant="19" id="s9a-Dq-m6d"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" backgroundImage="newnumber_icon.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="newnumber_icon.png"/>
+                                            </button>
+                                            <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eI7-vz-EBe">
+                                                <rect key="frame" x="23" y="8" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="48" id="EFd-cy-WNt"/>
+                                                    <constraint firstAttribute="height" constant="48" id="pID-30-JDo"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="draft_01_icon.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="draft_01_on_icon.png"/>
+                                                <connections>
+                                                    <action selector="btnTabClicked:" destination="77K-RS-cgZ" eventType="touchUpInside" id="Q0i-2e-EFd"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="dPY-oK-pYs"/>
-                                            <constraint firstAttribute="height" constant="40" id="fQd-6H-OCQ"/>
+                                            <constraint firstItem="eI7-vz-EBe" firstAttribute="centerX" secondItem="L5A-ud-sFb" secondAttribute="centerX" id="70s-G2-gxT"/>
+                                            <constraint firstItem="eI7-vz-EBe" firstAttribute="top" secondItem="L5A-ud-sFb" secondAttribute="top" constant="8" id="Egj-4w-hMa"/>
+                                            <constraint firstAttribute="height" constant="77" id="H4z-WA-5wE"/>
+                                            <constraint firstItem="eI7-vz-EBe" firstAttribute="top" secondItem="vd7-7f-Sxw" secondAttribute="bottom" constant="-19" id="Vmh-Zw-fU0"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="77" id="kyZ-83-s0W"/>
+                                            <constraint firstItem="eI7-vz-EBe" firstAttribute="leading" secondItem="vd7-7f-Sxw" secondAttribute="trailing" constant="-19" id="nOX-lL-bYh"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="taskbar_contact_3_off.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" backgroundImage="taskbar_contact_3_on.png"/>
-                                        <connections>
-                                            <action selector="btnTabClicked:" destination="77K-RS-cgZ" eventType="touchUpInside" id="noR-ZG-ThQ"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" tag="2001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XP4-eV-Ixc">
-                                        <rect key="frame" x="50" y="21" width="19" height="19"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRd-D1-a0p">
+                                        <rect key="frame" x="188" y="5" width="94" height="77"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siD-3b-lyp">
+                                                <rect key="frame" x="23" y="8" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="48" id="IDd-QS-pmA"/>
+                                                    <constraint firstAttribute="height" constant="48" id="ZnV-Vl-cB1"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="receipt_01_icon.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="receipt_01_on_icon.png"/>
+                                                <connections>
+                                                    <action selector="btnTabClicked:" destination="77K-RS-cgZ" eventType="touchUpInside" id="noR-ZG-ThQ"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" tag="2003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZJ-EY-7CE">
+                                                <rect key="frame" x="23" y="8" width="19" height="19"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="19" id="2Jt-7g-P4M"/>
+                                                    <constraint firstAttribute="height" constant="19" id="A15-TO-5Ww"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" backgroundImage="newnumber_icon.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="newnumber_icon.png"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="19" id="4rf-3K-Sji"/>
-                                            <constraint firstAttribute="width" constant="19" id="NNW-09-kEw"/>
+                                            <constraint firstItem="siD-3b-lyp" firstAttribute="centerX" secondItem="uRd-D1-a0p" secondAttribute="centerX" id="0n8-tF-9Vl"/>
+                                            <constraint firstItem="siD-3b-lyp" firstAttribute="top" secondItem="uRd-D1-a0p" secondAttribute="top" constant="8" id="FMQ-Q1-5uY"/>
+                                            <constraint firstItem="siD-3b-lyp" firstAttribute="top" secondItem="oZJ-EY-7CE" secondAttribute="bottom" constant="-19" id="SAC-p5-ETp"/>
+                                            <constraint firstAttribute="height" constant="77" id="TMl-Nt-1eL"/>
+                                            <constraint firstItem="siD-3b-lyp" firstAttribute="leading" secondItem="oZJ-EY-7CE" secondAttribute="trailing" constant="-19" id="gwE-uW-Yl5"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <state key="normal" backgroundImage="newnumber_icon.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" backgroundImage="newnumber_icon.png"/>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" tag="2002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9V-Mh-bLz">
-                                        <rect key="frame" x="140" y="21" width="19" height="19"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="19" id="kfD-2G-DSR"/>
-                                            <constraint firstAttribute="width" constant="19" id="pgH-I7-SGp"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <state key="normal" backgroundImage="newnumber_icon.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" backgroundImage="newnumber_icon.png"/>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" tag="2003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZJ-EY-7CE">
-                                        <rect key="frame" x="230" y="21" width="19" height="19"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="19" id="A9Y-C2-P4q"/>
-                                            <constraint firstAttribute="height" constant="19" id="UsW-Hn-q13"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <state key="normal" backgroundImage="newnumber_icon.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" backgroundImage="newnumber_icon.png"/>
-                                    </button>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Pj9-LU-bfc" secondAttribute="bottom" id="1Q7-i7-Ssh"/>
-                                    <constraint firstItem="YK8-bA-8Jp" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" constant="21" id="2Ci-Xz-HAa"/>
-                                    <constraint firstAttribute="centerX" secondItem="i0U-pS-xUF" secondAttribute="centerX" id="8dg-UA-peP"/>
-                                    <constraint firstAttribute="bottom" secondItem="siD-3b-lyp" secondAttribute="bottom" constant="21" id="9eQ-Fl-WSd"/>
-                                    <constraint firstItem="J9V-Mh-bLz" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" constant="21" id="9jV-xr-sc0"/>
+                                    <constraint firstAttribute="bottom" secondItem="Pj9-LU-bfc" secondAttribute="bottom" constant="77" id="1Q7-i7-Ssh"/>
+                                    <constraint firstItem="ZOr-Q3-h0E" firstAttribute="width" secondItem="BUH-cF-Ey4" secondAttribute="width" id="3wN-8o-8BQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="L5A-ud-sFb" secondAttribute="bottom" id="97J-0U-vfk"/>
+                                    <constraint firstItem="BUH-cF-Ey4" firstAttribute="top" secondItem="Pj9-LU-bfc" secondAttribute="bottom" id="9QI-qU-eyO"/>
                                     <constraint firstAttribute="trailing" secondItem="Pj9-LU-bfc" secondAttribute="trailing" id="9qN-8G-NK2"/>
-                                    <constraint firstItem="i0U-pS-xUF" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" constant="21" id="C7H-xT-4lK"/>
-                                    <constraint firstItem="siD-3b-lyp" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" constant="21" id="D6X-Eg-UNk"/>
-                                    <constraint firstAttribute="bottom" secondItem="i0U-pS-xUF" secondAttribute="bottom" constant="21" id="FGj-o5-Xmb"/>
+                                    <constraint firstItem="ZOr-Q3-h0E" firstAttribute="top" secondItem="Pj9-LU-bfc" secondAttribute="bottom" id="CXZ-04-Ka4"/>
+                                    <constraint firstAttribute="trailing" secondItem="L5A-ud-sFb" secondAttribute="trailing" id="D3B-pe-xOh"/>
+                                    <constraint firstItem="BUH-cF-Ey4" firstAttribute="leading" secondItem="ZaK-kK-Xl0" secondAttribute="leading" id="EDS-zK-7qP"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZOr-Q3-h0E" secondAttribute="bottom" id="HJm-Py-fUm"/>
                                     <constraint firstItem="Pj9-LU-bfc" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" id="Iuu-yk-i5x"/>
-                                    <constraint firstItem="XP4-eV-Ixc" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" constant="21" id="KAh-gg-aI2"/>
-                                    <constraint firstItem="oZJ-EY-7CE" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" constant="21" id="OhR-pU-Gqt"/>
-                                    <constraint firstAttribute="centerX" secondItem="J9V-Mh-bLz" secondAttribute="centerX" constant="10" id="RMp-ZS-DQL"/>
-                                    <constraint firstAttribute="trailing" secondItem="oZJ-EY-7CE" secondAttribute="trailing" constant="71" id="RuV-aB-oFD"/>
-                                    <constraint firstAttribute="centerY" secondItem="siD-3b-lyp" secondAttribute="centerY" id="czD-le-504"/>
-                                    <constraint firstAttribute="bottom" secondItem="YK8-bA-8Jp" secondAttribute="bottom" constant="21" id="dgi-Nw-NXe"/>
-                                    <constraint firstItem="YK8-bA-8Jp" firstAttribute="leading" secondItem="ZaK-kK-Xl0" secondAttribute="leading" constant="50" id="eGn-aO-ryZ"/>
-                                    <constraint firstItem="XP4-eV-Ixc" firstAttribute="leading" secondItem="ZaK-kK-Xl0" secondAttribute="leading" constant="50" id="hAk-PS-vCY"/>
-                                    <constraint firstAttribute="trailing" secondItem="siD-3b-lyp" secondAttribute="trailing" constant="50" id="kMd-2W-yZ8"/>
+                                    <constraint firstItem="uRd-D1-a0p" firstAttribute="leading" secondItem="ZOr-Q3-h0E" secondAttribute="trailing" id="Mge-jv-czY"/>
+                                    <constraint firstItem="L5A-ud-sFb" firstAttribute="width" secondItem="uRd-D1-a0p" secondAttribute="width" id="OOn-p2-adP"/>
+                                    <constraint firstAttribute="bottom" secondItem="uRd-D1-a0p" secondAttribute="bottom" id="Vy1-gM-ejb"/>
+                                    <constraint firstItem="Pj9-LU-bfc" firstAttribute="top" secondItem="ZaK-kK-Xl0" secondAttribute="top" id="X3v-lp-VlQ"/>
+                                    <constraint firstItem="ZOr-Q3-h0E" firstAttribute="leading" secondItem="BUH-cF-Ey4" secondAttribute="trailing" id="bev-iC-jUK"/>
+                                    <constraint firstItem="uRd-D1-a0p" firstAttribute="width" secondItem="ZOr-Q3-h0E" secondAttribute="width" id="exr-hg-cuY"/>
+                                    <constraint firstItem="uRd-D1-a0p" firstAttribute="top" secondItem="Pj9-LU-bfc" secondAttribute="bottom" id="iAM-ZX-nKT"/>
+                                    <constraint firstItem="Pj9-LU-bfc" firstAttribute="leading" secondItem="ZaK-kK-Xl0" secondAttribute="leading" id="kKf-K9-0uQ"/>
                                     <constraint firstItem="Pj9-LU-bfc" firstAttribute="leading" secondItem="ZaK-kK-Xl0" secondAttribute="leading" id="pAd-lS-VpP"/>
-                                    <constraint firstAttribute="centerY" secondItem="i0U-pS-xUF" secondAttribute="centerY" id="rwy-7a-iMv"/>
-                                    <constraint firstAttribute="centerY" secondItem="YK8-bA-8Jp" secondAttribute="centerY" id="zqg-Jn-rDk"/>
+                                    <constraint firstAttribute="bottom" secondItem="BUH-cF-Ey4" secondAttribute="bottom" id="qpd-zE-Qeq"/>
+                                    <constraint firstItem="BUH-cF-Ey4" firstAttribute="width" secondItem="ZaK-kK-Xl0" secondAttribute="width" multiplier="1/4" id="xOM-aY-rtd"/>
+                                    <constraint firstItem="L5A-ud-sFb" firstAttribute="top" secondItem="Pj9-LU-bfc" secondAttribute="bottom" id="yBj-Ni-VIe"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pj9-LU-bfc" secondAttribute="trailing" id="zhf-zy-wGl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -349,7 +434,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XfB-n1-EUN"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="mainWebView" destination="2cb-WN-vNJ" id="fxi-gP-Ohi"/>
                         <outlet property="tabViewLeftConstraint" destination="Qxm-ea-78U" id="g6W-DW-aqQ"/>
@@ -361,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCx-ol-978" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="163" y="258"/>
+            <point key="canvasLocation" x="162.5" y="257.5"/>
         </scene>
         <!--로그인-->
         <scene sceneID="CWW-9z-Gp6">
@@ -549,19 +634,21 @@
     </scenes>
     <resources>
         <image name="approval_ios_intro_640x1136.png" width="640" height="1136"/>
+        <image name="dpm_01_icon.png" width="96" height="96"/>
+        <image name="dpm_01_on_icon.png" width="96" height="96"/>
+        <image name="draft_01_icon.png" width="96" height="96"/>
+        <image name="draft_01_on_icon.png" width="96" height="96"/>
+        <image name="footer_shadow_01_bg.png" width="750" height="10"/>
         <image name="login_btn.png" width="500" height="97"/>
         <image name="login_checkbox_default.png" width="48" height="48"/>
         <image name="login_checkbox_select.png" width="48" height="48"/>
         <image name="login_input.png" width="500" height="92"/>
         <image name="login_line.png" width="2" height="26"/>
         <image name="login_logo.png" width="302" height="96"/>
-        <image name="main_bottom_bar.png" width="640" height="164"/>
         <image name="newnumber_icon.png" width="39" height="39"/>
-        <image name="taskbar_contact_1_off.png" width="81" height="81"/>
-        <image name="taskbar_contact_1_on.png" width="81" height="81"/>
-        <image name="taskbar_contact_2_off.png" width="81" height="81"/>
-        <image name="taskbar_contact_2_on.png" width="81" height="81"/>
-        <image name="taskbar_contact_3_off.png" width="81" height="81"/>
-        <image name="taskbar_contact_3_on.png" width="81" height="81"/>
+        <image name="personal_01_icon.png" width="96" height="96"/>
+        <image name="personal_01_on_icon.png" width="96" height="96"/>
+        <image name="receipt_01_icon.png" width="96" height="96"/>
+        <image name="receipt_01_on_icon.png" width="96" height="96"/>
     </resources>
 </document>
