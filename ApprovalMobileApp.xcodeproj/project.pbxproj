@@ -1307,7 +1307,7 @@
 				TargetAttributes = {
 					2AC6FE331A26B30000154253 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = NSWJNWC9FS;
+						DevelopmentTeam = 5J29J9R6YW;
 					};
 				};
 			};
@@ -1675,7 +1675,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1699,7 +1699,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1769,7 +1769,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = DebugDistribute;
@@ -1836,7 +1836,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = ReleaseDistribute;
