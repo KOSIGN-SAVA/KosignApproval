@@ -66,6 +66,7 @@
             UIButton *pNewCount = (UIButton *)[self.view viewWithTag:2001];
             UIButton *dNewCount = (UIButton *)[self.view viewWithTag:2002];
             UIButton *aNewCount = (UIButton *)[self.view viewWithTag:2003];
+            UIButton *docNewCount = (UIButton *)[self.view viewWithTag:2004];
             
             
             NSDictionary *_valueDic     = [responseArray objectAtIndex:0];
@@ -81,7 +82,8 @@
             pNewCount.hidden = YES;
             aNewCount.hidden = YES;
             dNewCount.hidden = YES;
-            
+            docNewCount.hidden = YES;
+          
             if ([SysUtils isNull:_persnalAlamCnt] == NO && [_persnalAlamCnt intValue] > 0) {
                 // 개인결재함에 새로운 메시지가 있을때
                 pNewCount.hidden = NO;
@@ -131,7 +133,8 @@
             strUrl = @"APPROVAL_103.act";
             
             break;
-            
+        case 1004: //My기안문서
+            strUrl = @"APPROVAL_104.act";
     }
     
     

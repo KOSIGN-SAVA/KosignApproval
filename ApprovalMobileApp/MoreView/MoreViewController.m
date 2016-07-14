@@ -390,6 +390,7 @@ static NSString * APPR_SET_R101 = @"APPR_SET_R101";
     BOOL isAvailable = [appArr[index][@"c_available"]isEqualToString:@"true"];
     if (isAvailable) {
         NSString *urlString = [NSString stringWithFormat:@"%@%@", appArr[index][@"c_app_id"], @"://"];
+        NSLog(@"------============%@",urlString);
         NSString *url = appArr[index][@"c_app_url"];
         BOOL isExecuted = [SysUtils canExecuteApplication:urlString];
         
