@@ -1673,7 +1673,7 @@
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/Components/WCPushLibrary",
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/GoogleAnalytics/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1685,8 +1685,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = _RELEASE_;
 				INFOPLIST_FILE = ApprovalMobileApp/Info.plist;
@@ -1697,9 +1697,9 @@
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/Components/WCPushLibrary",
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/GoogleAnalytics/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
+				PROVISIONING_PROFILE = "1906da4e-a170-4006-bdd7-e1d70442f1fc";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1767,7 +1767,7 @@
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/Components/WCPushLibrary",
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/GoogleAnalytics/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1834,7 +1834,7 @@
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/Components/WCPushLibrary",
 					"$(PROJECT_DIR)/ApprovalMobileApp/Common/GoogleAnalytics/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileAppEnt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
 				TARGETED_DEVICE_FAMILY = 1;
