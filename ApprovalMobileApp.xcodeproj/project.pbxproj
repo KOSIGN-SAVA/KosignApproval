@@ -182,6 +182,7 @@
 		39F600071A4AC6BE000A63AF /* load_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 39F600011A4AC6BE000A63AF /* load_04.png */; };
 		39F600081A4AC6BE000A63AF /* load_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 39F600021A4AC6BE000A63AF /* load_05.png */; };
 		39F600091A4AC6BE000A63AF /* load_06.png in Resources */ = {isa = PBXBuildFile; fileRef = 39F600031A4AC6BE000A63AF /* load_06.png */; };
+		954502AB1DFFC6D500215FA2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954502AA1DFFC6D500215FA2 /* AudioToolbox.framework */; };
 		955B62651A4AAB440063CDBA /* version_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 955B62641A4AAB440063CDBA /* version_icon.png */; };
 		9595023D1A2BF04200802056 /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = 959502361A2BF04200802056 /* Circle.m */; };
 		9595023E1A2BF04200802056 /* FooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 959502381A2BF04200802056 /* FooterView.m */; };
@@ -500,7 +501,9 @@
 		39F600031A4AC6BE000A63AF /* load_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = load_06.png; path = Loading_Image/load_06.png; sourceTree = "<group>"; };
 		39F6FFFE1A4AC6BE000A63AF /* load_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = load_01.png; path = Loading_Image/load_01.png; sourceTree = "<group>"; };
 		39F6FFFF1A4AC6BE000A63AF /* load_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = load_02.png; path = Loading_Image/load_02.png; sourceTree = "<group>"; };
+		954502AA1DFFC6D500215FA2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		955B62641A4AAB440063CDBA /* version_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = version_icon.png; sourceTree = "<group>"; };
+		956CC8141DFEB57F003BBF0E /* ApprovalMobileApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ApprovalMobileApp.entitlements; sourceTree = "<group>"; };
 		959502351A2BF04200802056 /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
 		959502361A2BF04200802056 /* Circle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Circle.m; sourceTree = "<group>"; };
 		959502371A2BF04200802056 /* FooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterView.h; sourceTree = "<group>"; };
@@ -547,6 +550,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				954502AB1DFFC6D500215FA2 /* AudioToolbox.framework in Frameworks */,
 				2AC6003E1A27057400154253 /* UIKit.framework in Frameworks */,
 				2AC6003C1A27056800154253 /* QuartzCore.framework in Frameworks */,
 				2AC6003A1A27056200154253 /* SystemConfiguration.framework in Frameworks */,
@@ -562,6 +566,7 @@
 		2AC6003F1A27058100154253 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				954502AA1DFFC6D500215FA2 /* AudioToolbox.framework */,
 				2AC6003D1A27057400154253 /* UIKit.framework */,
 				2AC6003B1A27056800154253 /* QuartzCore.framework */,
 				2AC600391A27056200154253 /* SystemConfiguration.framework */,
@@ -591,6 +596,7 @@
 		2AC6FE361A26B30000154253 /* ApprovalMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				956CC8141DFEB57F003BBF0E /* ApprovalMobileApp.entitlements */,
 				A0D382201A4142C90005E7BD /* Login */,
 				959502321A2BF00400802056 /* MoreView */,
 				39AEA0BC1A37DB52003D9F00 /* HomeViewController.h */,
@@ -1308,6 +1314,13 @@
 					2AC6FE331A26B30000154253 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 5J29J9R6YW;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1661,8 +1674,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = ApprovalMobileApp/ApprovalMobileApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				DEVELOPMENT_TEAM = 5J29J9R6YW;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG_;
 				INFOPLIST_FILE = ApprovalMobileApp/Info.plist;
@@ -1675,7 +1690,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
+				PROVISIONING_PROFILE = "02f1167d-7a6c-40fe-9486-467525e8c2bc";
+				PROVISIONING_PROFILE_SPECIFIER = ApprovalMobileAppDistribution;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1685,8 +1702,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ApprovalMobileApp/ApprovalMobileApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				DEVELOPMENT_TEAM = 5J29J9R6YW;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = _RELEASE_;
 				INFOPLIST_FILE = ApprovalMobileApp/Info.plist;
@@ -1699,7 +1718,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1906da4e-a170-4006-bdd7-e1d70442f1fc";
+				PROVISIONING_PROFILE = "02f1167d-7a6c-40fe-9486-467525e8c2bc";
+				PROVISIONING_PROFILE_SPECIFIER = ApprovalMobileAppDistribution;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1752,8 +1773,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = ApprovalMobileApp/ApprovalMobileApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				DEVELOPMENT_TEAM = 5J29J9R6YW;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_DEBUG_,
@@ -1769,7 +1792,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
+				PROVISIONING_PROFILE = "02f1167d-7a6c-40fe-9486-467525e8c2bc";
+				PROVISIONING_PROFILE_SPECIFIER = ApprovalMobileAppDistribution;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = DebugDistribute;
@@ -1819,8 +1844,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = ApprovalMobileApp/ApprovalMobileApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Webcash CO.LTD (5J29J9R6YW)";
+				DEVELOPMENT_TEAM = 5J29J9R6YW;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_RELEASE_,
@@ -1836,7 +1863,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.ApprovalMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4c956214-b1dd-45e4-9342-68997d01d68e";
+				PROVISIONING_PROFILE = "02f1167d-7a6c-40fe-9486-467525e8c2bc";
+				PROVISIONING_PROFILE_SPECIFIER = ApprovalMobileAppDistribution;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = ReleaseDistribute;

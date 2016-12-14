@@ -116,10 +116,10 @@ class STBTableViewIndex: UIControl {
     }
     
 	func initialize() {
-		panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handleGesture:")
+		panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(STBTableViewIndex.handleGesture(_:)))
 		addGestureRecognizer(panGestureRecognizer)
 		
-		tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleGesture:")
+		tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(STBTableViewIndex.handleGesture(_:)))
 		addGestureRecognizer(tapGestureRecognizer)
 		
 		view.backgroundColor = UIColor.clearColor()
@@ -128,7 +128,7 @@ class STBTableViewIndex: UIControl {
 		view.layer.masksToBounds = true
 		addSubview(view)
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "setNeedsLayout", name: STBTableViewIndexLayoutDidChange, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIView.setNeedsLayout), name: STBTableViewIndexLayoutDidChange, object: nil)
 		setNeedsLayout()
 	}
 	
@@ -194,7 +194,7 @@ class STBTableViewIndex: UIControl {
 	
 	func flashIndex() {
 		view.alpha = 1.0
-		NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideIndex", userInfo: nil, repeats: false)
+		NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(STBTableViewIndex.hideIndex), userInfo: nil, repeats: false)
 	}
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

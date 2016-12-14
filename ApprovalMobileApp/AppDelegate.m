@@ -10,8 +10,11 @@
 #import "AllUtils.h"
 #import "Constants.h"
 #import "SessionManager.h"
+#import <AudioToolbox/AudioServices.h>
 
 @interface AppDelegate ()
+
+@property (strong, nonatomic) UIView *bannerView;
 
 @end
 
@@ -23,14 +26,12 @@
     
 #if _PUSH_
     // Delegate를 먼저 설정 해주자.
-    [WCPushService sharedPushService].delegate = self;
     [[WCPushService sharedPushService] startPushService:launchOptions serverAddress:kPushServerAddress types:(UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert)];
-    
+    [WCPushService sharedPushService].delegate = self;    
     
 #endif
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(PushStartNotification:) name:kPushStartNotification object:nil];
-    
     
     return YES;
 }
@@ -73,6 +74,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
 }
 
 
@@ -84,6 +86,100 @@
     
 }
 
+- (UIView *)bannerView{
+
+    if (!_bannerView) {
+        UIApplication *application = [UIApplication sharedApplication];
+        [application setStatusBarStyle:UIStatusBarStyleDefault animated:true];
+        CGFloat barHeight = CGRectGetHeight(application.statusBarFrame);
+
+        _bannerView = [[UIView alloc]initWithFrame:CGRectMake(0, -(barHeight + 46.0), CGRectGetWidth(self.window.frame), barHeight + 46.0)];
+        _bannerView.backgroundColor = RGB(51, 81, 160);
+
+
+        UIImageView *appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, barHeight + 6.0 , 32, 32)];
+        appImageView.image = [UIImage imageNamed:@"approval_app_icon_ios_87"];
+        [_bannerView addSubview:appImageView];
+
+
+        UILabel *appLabel = [[UILabel alloc]initWithFrame:CGRectMake(51, barHeight + 5.0 , 200 , 20)];
+        appLabel.tag = 20001;
+        appLabel.font = [UIFont systemFontOfSize:14.0];
+        appLabel.backgroundColor = [UIColor clearColor];
+        appLabel.textColor = [UIColor whiteColor];
+        NSString *appTitle = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
+        appLabel.text = appTitle;
+        [_bannerView addSubview:appLabel];
+
+
+        UILabel *alertLabel = [[UILabel alloc]initWithFrame:CGRectMake(51, barHeight + 20, CGRectGetWidth(self.window.frame) - 51, 20)];
+        alertLabel.font = [UIFont systemFontOfSize:12.0];
+        alertLabel.backgroundColor = [UIColor clearColor];
+        alertLabel.textColor = [UIColor whiteColor];
+        alertLabel.tag = 20002;
+        [_bannerView addSubview:alertLabel];
+    }
+    
+    return _bannerView;
+}
+
+- (void)banner:(NSDictionary *) userInfo {
+    
+    
+    if (self.bannerView.superview) {
+        [self deleteBanner];
+    }
+    
+    CGFloat bannerHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) + 46.0;
+//
+//    self.bannerView = [[UIView alloc]initWithFrame:CGRectMake(0, -barHeight, CGRectGetWidth(self.window.frame), bannerHeight)];
+    
+    NSString *message = userInfo[@"aps"][@"alert"];
+    UILabel *alertText = (UILabel *)[self.bannerView viewWithTag:20002];
+    alertText.text = message;
+    
+    
+    [self.window addSubview:self.bannerView];
+    [self.window bringSubviewToFront:self.bannerView];
+    
+    [UIView beginAnimations:@"bannerAnimating" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(stopAnimatingBanner:finished:)];
+    
+    CGRect newRect = CGRectMake(0, 0, CGRectGetWidth(self.window.frame), bannerHeight);
+    self.bannerView.frame = newRect;
+    [UIView commitAnimations];
+    
+}
+
+-(void)stopAnimatingBanner:(NSString *)animateID finished:(BOOL) finished {
+    if ([animateID  isEqualToString: @"bannerAnimating"]) {
+        [self performSelector:@selector(hideBanner) withObject:nil afterDelay:3.0];
+    }else if ([animateID isEqualToString:@"bannerAnimated"]) {
+        [self deleteBanner];
+    }
+}
+
+-(void)hideBanner{
+    
+    [UIView beginAnimations:@"bannerAnimated" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(stopAnimatingBanner:finished:)];
+    self.bannerView.alpha = 0.0;
+    [UIView commitAnimations];
+}
+
+-(void)deleteBanner {
+    if (self.bannerView.superview) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBanner) object:nil];
+        [self.bannerView removeFromSuperview];
+        self.bannerView = nil;
+    }
+}
 
 #if _PUSH_
 
@@ -95,6 +191,19 @@
             if (errorCode == WCPUSH_ERROR_NONE) {
                 // notificationAPN 는 해당 Push 메세지를 담고 있는  NSDictionary 이다.
                 NSLog(@"WCPush APN Message[%@]", returnAPN.notificationAPN);
+//                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"didReceiveRemoteNotification" message:[returnAPN.notificationAPN description] delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+//                [alertView show];
+//                
+////                [[[NSBundle mainBundle]localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"]
+//                UIAlertView *alertView1 = [[UIAlertView alloc]initWithTitle:@"didReceiveRemoteNotification" message:[NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"] delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+//                [alertView1 show];
+                if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+                    AudioServicesPlaySystemSound(1002);
+                    [self banner:returnAPN.notificationAPN];
+                }
+                
+                
+                
                 //                [self fireLocalNotification];
 //                [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
             }
